@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "phypytest"
+version = "0.1.0"
+description = ""
+authors = ["Simon Mutch <smutch@unimelb.edu.au>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^7.1.1"
+Jinja2 = "^3.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+skip_string_normalization = true
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.messages_control]
+disable = "C0330, C0326"
+
+[tool.pylint.format]
+max-line-length = "120"
