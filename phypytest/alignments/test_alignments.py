@@ -3,6 +3,8 @@ import re
 regex_invalid = re.compile(r"[^AGTCN-]")
 
 
-def test_invalid_base(sequence):
+def test_invalid_base(sequence, can_fix):
     seq_id, seq = sequence
     assert not regex_invalid.search(seq), f"Invalid base found in \'{seq_id.lstrip('>')}\'."
+    if can_fix:
+        print("No worries chief... I can fix that! 🛠 ")

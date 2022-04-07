@@ -1,9 +1,14 @@
 from itertools import zip_longest
 from pathlib import Path
 
+import pytest
+
 
 def pytest_addoption(parser):
     parser.addoption("--input", action="store", default=None, help="input fasta file")
+    parser.addoption(
+        "--apply-fixes", action="store_true", default=None, help="automatically apply fixes where possible"
+    )
 
 
 def load_sequences(fpth: Path):
@@ -15,11 +20,17 @@ def load_sequences(fpth: Path):
 def pytest_generate_tests(metafunc):
     if "sequence" in metafunc.fixturenames:
         fpth = Path(metafunc.config.getoption("input"))
-        print(fpth)
         if not fpth.exists():
             raise FileNotFoundError("Unable to locate requested input file! 😱")
         sequences = load_sequences(fpth)
         metafunc.parametrize("sequence", sequences, ids=lambda s: s[0].lstrip('>'))
+
+
+@pytest.fixture()
+def can_fix(request):
+    if request.session.testsfailed and request.config.getoption("--apply-fixes"):
+        return True
+    return False
 
 
 def pytest_html_report_title(report):
