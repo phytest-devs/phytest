@@ -14,10 +14,10 @@ The idea would be to take `./phypytest/alignments/*` as an example and then wrap
 poetry install
 ```
 
-## Current example (no custom CLI yet)
+## Directly via PyTest
 
 ```
-poetry run pytest --tb=line phypytest/alignments/test_alignments.py --input examples/data/invalid.fasta -s --apply-fixes
+poetry run pytest phypytest/alignments/test_alignments.py -A examples/data/invalid.fasta
 ```
 
 Generate a report by adding:
@@ -28,6 +28,13 @@ Generate a report by adding:
 
 this report can be customised in future (see the [pytest-html user guide](https://pytest-html.readthedocs.io/en/latest/user_guide.html)).
 
+## Using CLI wrapper
+
+```
+poetry run phpytest phypytest/alignments/test_alignments.py -a examples/data/invalid.fasta
+```
+
+Other flags (like report generation are still to be implemented in the wrapper).
 
 ## Still to do
 
