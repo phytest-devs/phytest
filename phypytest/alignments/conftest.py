@@ -5,7 +5,7 @@ import pytest
 
 
 def pytest_addoption(parser):
-    parser.addoption("--alignment", "-A", action="store", default=None, help="alignments fasta file")
+    parser.addoption("--alignments", "-A", action="store", default=None, help="alignments fasta file")
     parser.addoption("--tree", "-T", action="store", default=None, help="tree file")
     parser.addoption(
         "--apply-fixes", action="store_true", default=None, help="automatically apply fixes where possible"
@@ -20,7 +20,10 @@ def load_sequences(fpth: Path):
 
 def pytest_generate_tests(metafunc):
     if "sequence" in metafunc.fixturenames:
-        fpth = Path(metafunc.config.getoption("alignment"))
+        alignments_path = metafunc.config.getoption("alignments")
+        if alignments_path is None:
+            pytest.skip(f"{metafunc.function.__name__} requires alignments file")
+        fpth = Path(alignments_path)
         if not fpth.exists():
             raise FileNotFoundError("Unable to locate requested input file! 😱")
         sequences = load_sequences(fpth)
