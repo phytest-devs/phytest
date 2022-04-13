@@ -1,0 +1,6 @@
+[run]
+source = phytest
+
+[report]
+precision = 2
+
