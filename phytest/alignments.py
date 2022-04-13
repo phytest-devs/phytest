@@ -43,11 +43,11 @@ def assert_count(
     if count is not None:
         assert base_count == count
     if min is not None:
-        assert count > min
+        assert base_count > min
     if max is not None:
-        assert count < max
-    if warning is not None and count != warning:
-        warn(f"Count of '{base}' in {sequence.id} > {warning}")
+        assert base_count < max
+    if warning is not None and base_count != warning:
+        warn(f"Count of '{base}' in {sequence.id} != {warning}")
 
 
 def assert_alignment_width(
