@@ -3,15 +3,23 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to phytest's documentation!
+phytest
 ===================================
+
+.. include:: ../README.rst
+   :start-after: start-badges
+   :end-before: end-badges
+
+Quality control for phylogenetic pipelines using pytest
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   quickstart
    installation
    usage
+   development
 
 Indices and tables
 ==================
