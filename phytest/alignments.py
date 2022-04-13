@@ -8,7 +8,7 @@ from Bio.SeqRecord import SeqRecord
 
 def assert_valid_alphabet(sequence: SeqRecord, *, alphabet: str = "ATCGN-") -> None:
     regex_invalid = re.compile(f"[^{alphabet}]")
-    assert not regex_invalid.search(sequence.seq), f"Invalid base found in '{sequence.id}'."
+    assert not regex_invalid.search(str(sequence.seq)), f"Invalid base found in '{sequence.id}'."
 
 
 def assert_length(
