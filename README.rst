@@ -16,7 +16,7 @@ phytest
 .. |black badge| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
     
-.. |coverage badge| image:: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/smutch/506563cd9b49c8126284e34864c862d0/raw/coverage-badge.json
+.. |coverage badge| image:: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/smutch/e8160655e03d9015b1e93b97ed611f4f/raw/coverage-badge.json
     :target: https://smutch.github.io/phytest/coverage/
     
 .. end-badges
