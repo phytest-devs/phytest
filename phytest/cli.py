@@ -4,7 +4,9 @@ from typing import Optional
 import pytest
 import typer
 
+app = typer.Typer()
 
+@app.command()
 def cli(
     testfile: Path = typer.Argument(..., help="Path to test file"),
     alignments: Optional[Path] = typer.Option(
@@ -23,5 +25,3 @@ def cli(
 
     pytest.main(args)
 
-
-app = typer.run(cli)
