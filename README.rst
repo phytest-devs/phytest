@@ -12,13 +12,17 @@ phytest
 
 .. |docs badge| image:: https://github.com/smutch/phytest/actions/workflows/docs.yml/badge.svg
     :target: https://smutch.github.io/phytest/
-    
+
 .. |black badge| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
-    
+
 .. |coverage badge| image:: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/smutch/e8160655e03d9015b1e93b97ed611f4f/raw/coverage-badge.json
     :target: https://smutch.github.io/phytest/coverage/
-    
+
+.. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/smutch/phytest/main.svg
+   :target: https://results.pre-commit.ci/latest/github/smutch/phytest/main
+   :alt: pre-commit.ci status
+
 .. end-badges
 
 Quality control for phylogenetic pipelines using pytest
@@ -31,7 +35,7 @@ Installation
 Install phytest using pip:
 
 .. code-block:: bash
- 
+
     pip install git+https://github.com/smutch/phytest.git
 
 .. note ::
