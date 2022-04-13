@@ -11,12 +11,15 @@ def cli(
         None, "--alignments", "-a", dir_okay=False, exists=True, help="Path to sequence alignments in fasta format"
     ),
     tree: Optional[Path] = typer.Option(None, "--tree", "-t", dir_okay=False, exists=True, help="Path to tree file"),
+    report: Optional[bool] = typer.Option(False, "--report", "-r", help="Generate an html report"),
 ):
     args = [testfile]
     if alignments is not None:
         args.extend(["--alignments", alignments])
     if tree is not None:
         args.extend(["--tree", tree])
+    if report:
+        args.extend(["--html=report.html", "--self-contained-html"])
 
     pytest.main(args)
 
