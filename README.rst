@@ -20,8 +20,7 @@ phytest
     :target: https://smutch.github.io/phytest/coverage/
 
 .. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/smutch/phytest/main.svg
-   :target: https://results.pre-commit.ci/latest/github/smutch/phytest/main
-   :alt: pre-commit.ci status
+    :target: https://results.pre-commit.ci/latest/github/smutch/phytest/main
 
 .. end-badges
 
