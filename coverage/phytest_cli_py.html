@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for phytest/cli.py: 46.67%</title>
+    <title>Coverage for phytest/cli.py: 41.18%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,13 +18,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>phytest/cli.py</b> :
-            <span class="pc_cov">46.67%</span>
+            <span class="pc_cov">41.18%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            15 statements &nbsp;
+            17 statements &nbsp;
             <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">7 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">8 missing</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">10 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -68,23 +68,26 @@
     <p id="t14" class="pln"><span class="n"><a href="#t14">14</a></span><span class="t">    <span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t15" class="pln"><span class="n"><a href="#t15">15</a></span><span class="t">    <span class="nam">tree</span><span class="op">:</span> <span class="nam">Optional</span><span class="op">[</span><span class="nam">Path</span><span class="op">]</span> <span class="op">=</span> <span class="nam">typer</span><span class="op">.</span><span class="nam">Option</span><span class="op">(</span><span class="key">None</span><span class="op">,</span> <span class="str">"--tree"</span><span class="op">,</span> <span class="str">"-t"</span><span class="op">,</span> <span class="nam">dir_okay</span><span class="op">=</span><span class="key">False</span><span class="op">,</span> <span class="nam">exists</span><span class="op">=</span><span class="key">True</span><span class="op">,</span> <span class="nam">help</span><span class="op">=</span><span class="str">"Path to tree file"</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t16" class="pln"><span class="n"><a href="#t16">16</a></span><span class="t">    <span class="nam">report</span><span class="op">:</span> <span class="nam">Optional</span><span class="op">[</span><span class="nam">bool</span><span class="op">]</span> <span class="op">=</span> <span class="nam">typer</span><span class="op">.</span><span class="nam">Option</span><span class="op">(</span><span class="key">False</span><span class="op">,</span> <span class="str">"--report"</span><span class="op">,</span> <span class="str">"-r"</span><span class="op">,</span> <span class="nam">help</span><span class="op">=</span><span class="str">"Generate an html report"</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t17" class="pln"><span class="n"><a href="#t17">17</a></span><span class="t"><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t18" class="mis show_mis"><span class="n"><a href="#t18">18</a></span><span class="t">    <span class="nam">args</span> <span class="op">=</span> <span class="op">[</span><span class="nam">testfile</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t19" class="mis show_mis"><span class="n"><a href="#t19">19</a></span><span class="t">    <span class="key">if</span> <span class="nam">alignments</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t20" class="mis show_mis"><span class="n"><a href="#t20">20</a></span><span class="t">        <span class="nam">args</span><span class="op">.</span><span class="nam">extend</span><span class="op">(</span><span class="op">[</span><span class="str">"--alignments"</span><span class="op">,</span> <span class="nam">alignments</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t21" class="mis show_mis"><span class="n"><a href="#t21">21</a></span><span class="t">    <span class="key">if</span> <span class="nam">tree</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t22" class="mis show_mis"><span class="n"><a href="#t22">22</a></span><span class="t">        <span class="nam">args</span><span class="op">.</span><span class="nam">extend</span><span class="op">(</span><span class="op">[</span><span class="str">"--tree"</span><span class="op">,</span> <span class="nam">tree</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t23" class="mis show_mis"><span class="n"><a href="#t23">23</a></span><span class="t">    <span class="key">if</span> <span class="nam">report</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t24" class="mis show_mis"><span class="n"><a href="#t24">24</a></span><span class="t">        <span class="nam">args</span><span class="op">.</span><span class="nam">extend</span><span class="op">(</span><span class="op">[</span><span class="str">"--html=report.html"</span><span class="op">,</span> <span class="str">"--self-contained-html"</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t25" class="pln"><span class="n"><a href="#t25">25</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t26" class="mis show_mis"><span class="n"><a href="#t26">26</a></span><span class="t">    <span class="nam">pytest</span><span class="op">.</span><span class="nam">main</span><span class="op">(</span><span class="nam">args</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t27" class="pln"><span class="n"><a href="#t27">27</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t17" class="pln"><span class="n"><a href="#t17">17</a></span><span class="t">    <span class="nam">verbose</span><span class="op">:</span> <span class="nam">Optional</span><span class="op">[</span><span class="nam">bool</span><span class="op">]</span> <span class="op">=</span> <span class="nam">typer</span><span class="op">.</span><span class="nam">Option</span><span class="op">(</span><span class="key">False</span><span class="op">,</span> <span class="str">"--verbose"</span><span class="op">,</span> <span class="str">"-v"</span><span class="op">,</span> <span class="nam">help</span><span class="op">=</span><span class="str">"Verbose output"</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t18" class="pln"><span class="n"><a href="#t18">18</a></span><span class="t"><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t19" class="mis show_mis"><span class="n"><a href="#t19">19</a></span><span class="t">    <span class="nam">args</span> <span class="op">=</span> <span class="op">[</span><span class="nam">testfile</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t20" class="mis show_mis"><span class="n"><a href="#t20">20</a></span><span class="t">    <span class="key">if</span> <span class="key">not</span> <span class="nam">verbose</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t21" class="mis show_mis"><span class="n"><a href="#t21">21</a></span><span class="t">        <span class="nam">args</span><span class="op">.</span><span class="nam">extend</span><span class="op">(</span><span class="op">[</span><span class="str">"-ra"</span><span class="op">,</span> <span class="str">"--tb=no"</span><span class="op">,</span> <span class="str">"--no-header"</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t22" class="mis show_mis"><span class="n"><a href="#t22">22</a></span><span class="t">    <span class="key">if</span> <span class="nam">alignments</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t23" class="mis show_mis"><span class="n"><a href="#t23">23</a></span><span class="t">        <span class="nam">args</span><span class="op">.</span><span class="nam">extend</span><span class="op">(</span><span class="op">[</span><span class="str">"--alignments"</span><span class="op">,</span> <span class="nam">alignments</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t24" class="mis show_mis"><span class="n"><a href="#t24">24</a></span><span class="t">    <span class="key">if</span> <span class="nam">tree</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t25" class="mis show_mis"><span class="n"><a href="#t25">25</a></span><span class="t">        <span class="nam">args</span><span class="op">.</span><span class="nam">extend</span><span class="op">(</span><span class="op">[</span><span class="str">"--tree"</span><span class="op">,</span> <span class="nam">tree</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t26" class="mis show_mis"><span class="n"><a href="#t26">26</a></span><span class="t">    <span class="key">if</span> <span class="nam">report</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t27" class="mis show_mis"><span class="n"><a href="#t27">27</a></span><span class="t">        <span class="nam">args</span><span class="op">.</span><span class="nam">extend</span><span class="op">(</span><span class="op">[</span><span class="str">"--html=report.html"</span><span class="op">,</span> <span class="str">"--self-contained-html"</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t28" class="pln"><span class="n"><a href="#t28">28</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t29" class="mis show_mis"><span class="n"><a href="#t29">29</a></span><span class="t">    <span class="nam">pytest</span><span class="op">.</span><span class="nam">main</span><span class="op">(</span><span class="nam">args</span><span class="op">,</span> <span class="nam">plugins</span><span class="op">=</span><span class="op">[</span><span class="str">'phytest'</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t30" class="pln"><span class="n"><a href="#t30">30</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2022-04-13 06:24 +0000
+            created at 2022-04-13 06:26 +0000
         </p>
     </div>
 </div>
