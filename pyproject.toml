@@ -3,6 +3,7 @@ name = "phytest"
 version = "0.1.0"
 description = "Quality control for phylogenetic pipelines using pytest"
 authors = ["Simon Mutch <smutch@unimelb.edu.au>"]
+readme = "README.rst"
 
 [tool.poetry.scripts]
 phytest = "phytest.cli:app"
