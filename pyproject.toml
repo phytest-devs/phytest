@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "phytest"
 version = "0.1.0"
-description = ""
+description = "Quality control for phylogenetic pipelines using pytest"
 authors = ["Simon Mutch <smutch@unimelb.edu.au>"]
 
 [tool.poetry.scripts]
