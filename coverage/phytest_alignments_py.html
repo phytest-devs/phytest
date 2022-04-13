@@ -97,11 +97,11 @@
     <p id="t43" class="mis show_mis"><span class="n"><a href="#t43">43</a></span><span class="t">    <span class="key">if</span> <span class="nam">count</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t44" class="mis show_mis"><span class="n"><a href="#t44">44</a></span><span class="t">        <span class="key">assert</span> <span class="nam">base_count</span> <span class="op">==</span> <span class="nam">count</span>&nbsp;</span><span class="r"></span></p>
     <p id="t45" class="mis show_mis"><span class="n"><a href="#t45">45</a></span><span class="t">    <span class="key">if</span> <span class="nam">min</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t46" class="mis show_mis"><span class="n"><a href="#t46">46</a></span><span class="t">        <span class="key">assert</span> <span class="nam">count</span> <span class="op">></span> <span class="nam">min</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t46" class="mis show_mis"><span class="n"><a href="#t46">46</a></span><span class="t">        <span class="key">assert</span> <span class="nam">base_count</span> <span class="op">></span> <span class="nam">min</span>&nbsp;</span><span class="r"></span></p>
     <p id="t47" class="mis show_mis"><span class="n"><a href="#t47">47</a></span><span class="t">    <span class="key">if</span> <span class="nam">max</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t48" class="mis show_mis"><span class="n"><a href="#t48">48</a></span><span class="t">        <span class="key">assert</span> <span class="nam">count</span> <span class="op">&lt;</span> <span class="nam">max</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t49" class="mis show_mis"><span class="n"><a href="#t49">49</a></span><span class="t">    <span class="key">if</span> <span class="nam">warning</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span> <span class="key">and</span> <span class="nam">count</span> <span class="op">!=</span> <span class="nam">warning</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t50" class="mis show_mis"><span class="n"><a href="#t50">50</a></span><span class="t">        <span class="nam">warn</span><span class="op">(</span><span class="str">f"Count of '{base}' in {sequence.id} > {warning}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t48" class="mis show_mis"><span class="n"><a href="#t48">48</a></span><span class="t">        <span class="key">assert</span> <span class="nam">base_count</span> <span class="op">&lt;</span> <span class="nam">max</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t49" class="mis show_mis"><span class="n"><a href="#t49">49</a></span><span class="t">    <span class="key">if</span> <span class="nam">warning</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span> <span class="key">and</span> <span class="nam">base_count</span> <span class="op">!=</span> <span class="nam">warning</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t50" class="mis show_mis"><span class="n"><a href="#t50">50</a></span><span class="t">        <span class="nam">warn</span><span class="op">(</span><span class="str">f"Count of '{base}' in {sequence.id} != {warning}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t51" class="pln"><span class="n"><a href="#t51">51</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t52" class="pln"><span class="n"><a href="#t52">52</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t53" class="run"><span class="n"><a href="#t53">53</a></span><span class="t"><span class="key">def</span> <span class="nam">assert_alignment_width</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
@@ -145,7 +145,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2022-04-13 11:27 +0000
+            created at 2022-04-13 13:59 +0000
         </p>
     </div>
 </div>
