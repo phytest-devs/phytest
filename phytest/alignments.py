@@ -1,22 +1,57 @@
 import re
+from typing import Optional
 from warnings import warn
-
-regex_invalid = re.compile(r"[^AGTCN-]")
-
-
-def test_invalid_base(sequence, should_fix):
-    seq_id, seq = sequence
-    assert not regex_invalid.search(seq), f"Invalid base found in \'{seq_id.lstrip('>')}\'."
-    if should_fix:
-        print("No worries chief... I can fix that! 🛠 ")
+from Bio.SeqRecord import SeqRecord
+from Bio.Align import MultipleSeqAlignment
 
 
-def test_width(sequence, width=100):
-    assert len(sequence[1].strip()) == width
+def assert_valid_alphabet(sequence: SeqRecord, *, alphabet: str = "ATCGN-") -> None:
+    regex_invalid = re.compile(f"[^{alphabet}]")
+    assert not regex_invalid.search(sequence.seq), f"Invalid base found in '{sequence.id}'."
 
 
-def test_count_Ns(sequence, max=1, warning=0):
-    ns = sequence.count("N")
-    if ns > warning:
-        warn(f"Found {ns} N bases (> {warning})")
-    assert ns < max
+def assert_length(sequence: SeqRecord, *, length: Optional[int] = None, min: Optional[int] = None, max: Optional[int] = None, warning: Optional[int] = None) -> None:
+    sequence_length = len(sequence.seq)
+    if length is not None:
+        assert sequence_length == length
+    if min is not None:
+        assert sequence_length > min
+    if max is not None: 
+        assert sequence_length < max
+    if warning is not None and sequence_length != warning:
+        warn(f"Sequence length '{sequence_length}' != {warning}")
+
+
+def assert_count(sequence: SeqRecord, *, base: str, count: Optional[int] = None, min: Optional[int] = None, max: Optional[int] = None, warning: Optional[int] = None) -> None:
+    base_count = sequence.seq.count(base)
+    if count is not None:
+        assert base_count == count
+    if min is not None:
+        assert count > min
+    if max is not None: 
+        assert count < max
+    if warning is not None and count != warning:
+        warn(f"Count of '{base}' in {sequence.id} > {warning}")
+
+def assert_alignment_width(alignment: MultipleSeqAlignment, *, width: Optional[int] = None, min: Optional[int] = None, max: Optional[int] = None, warning: Optional[int] = None) -> None:
+    alignment_width = alignment.get_alignment_length() 
+    if width is not None:
+        assert alignment_width == width
+    if min is not None:
+        assert alignment_width > min
+    if max is not None: 
+        assert alignment_width < max
+    if warning is not None and alignment_width != warning:
+        warn(f"Alignment width '{alignment_width}' != {warning}")
+
+
+def assert_number_of_records(alignment: MultipleSeqAlignment, *, records: Optional[int] = None, min: Optional[int] = None, max: Optional[int] = None, warning: Optional[int] = None) -> None:
+    alignment_length = len(alignment)
+    if records is not None:
+        assert alignment_length == records
+    if min is not None:
+        assert alignment_length > min
+    if max is not None: 
+        assert alignment_length < max
+    if warning is not None and alignment_length != warning:
+        warn(f"Alignment length '{alignment_length}' != {warning}")
