@@ -1,12 +1,12 @@
 ![POC meme](https://memegenerator.net/img/instances/67223136.jpg)
 
-# PhyPyTest POC
+# phytest POC
 
 ## General info and questions
 
 This is an example of how we could use pytest for the quality control checks.
 
-The idea would be to take `./phypytest/alignments/*` as an example and then wrap some of that functionality up with utility functions to make it reusable. We could then wrap the whole thing in a CLI and provide a library of tests for sequences, alignments and trees etc.
+The idea would be to take `./phytest/alignments/*` as an example and then wrap some of that functionality up with utility functions to make it reusable. We could then wrap the whole thing in a CLI and provide a library of tests for sequences, alignments and trees etc.
 
 ## Install
 
@@ -17,7 +17,7 @@ poetry install
 ## Directly via PyTest
 
 ```
-poetry run pytest phypytest/alignments/test_alignments.py -A examples/data/invalid.fasta
+poetry run pytest phytest/alignments/test_alignments.py -A examples/data/invalid.fasta
 ```
 
 Generate a report by adding:
@@ -31,7 +31,7 @@ this report can be customised in future (see the [pytest-html user guide](https:
 ## Using CLI wrapper
 
 ```
-poetry run phpytest phypytest/alignments/test_alignments.py -a examples/data/invalid.fasta
+poetry run phpytest phytest/alignments/test_alignments.py -a examples/data/invalid.fasta
 ```
 
 Other flags (like report generation are still to be implemented in the wrapper).

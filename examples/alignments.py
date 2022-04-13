@@ -1,1 +1,1 @@
-from phypytest.alignments import *
+from phytest.alignments import *

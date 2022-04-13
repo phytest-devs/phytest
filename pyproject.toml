@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "phypytest"
+name = "phytest"
 version = "0.1.0"
 description = ""
 authors = ["Simon Mutch <smutch@unimelb.edu.au>"]
 
 [tool.poetry.scripts]
-phypytest = "phypytest.cli:app"
+phypytest = "phytest.cli:app"
 
 [tool.poetry.dependencies]
 python = "^3.10"
