@@ -1,8 +1,9 @@
 import re
 from typing import Optional
 from warnings import warn
-from Bio.SeqRecord import SeqRecord
+
 from Bio.Align import MultipleSeqAlignment
+from Bio.SeqRecord import SeqRecord
 
 
 def assert_valid_alphabet(sequence: SeqRecord, *, alphabet: str = "ATCGN-") -> None:

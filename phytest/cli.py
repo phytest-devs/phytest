@@ -6,6 +6,7 @@ import typer
 
 app = typer.Typer()
 
+
 @app.command()
 def cli(
     testfile: Path = typer.Argument(..., help="Path to test file"),
@@ -27,4 +28,3 @@ def cli(
         args.extend(["--html=report.html", "--self-contained-html"])
 
     pytest.main(args, plugins=['phytest'])
-
