@@ -7,6 +7,7 @@ from Bio import AlignIO, Phylo, SeqIO
 from .helpers import alignments as alignments
 from .helpers import sequences as sequences
 from .helpers import trees as trees
+from .main import main as main
 
 
 def pytest_addoption(parser):
