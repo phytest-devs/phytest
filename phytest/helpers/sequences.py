@@ -12,8 +12,8 @@ def assert_sequence_valid_alphabet(sequence: SeqRecord, *, alphabet: str = "ATCG
 
 def assert_sequence_length(
     sequence: SeqRecord,
-    *,
     length: Optional[int] = None,
+    *,
     min: Optional[int] = None,
     max: Optional[int] = None,
     warning: Optional[int] = None,
@@ -31,8 +31,8 @@ def assert_sequence_length(
 
 def assert_sequence_count(
     sequence: SeqRecord,
-    *,
     base: str,
+    *,
     count: Optional[int] = None,
     min: Optional[int] = None,
     max: Optional[int] = None,
@@ -51,8 +51,8 @@ def assert_sequence_count(
 
 def assert_sequence_count_Ns(
     sequence: SeqRecord,
-    *,
     count: Optional[int] = None,
+    *,
     min: Optional[int] = None,
     max: Optional[int] = None,
     warning: Optional[int] = None,
@@ -62,8 +62,8 @@ def assert_sequence_count_Ns(
 
 def assert_sequence_count_gaps(
     sequence: SeqRecord,
-    *,
     count: Optional[int] = None,
+    *,
     min: Optional[int] = None,
     max: Optional[int] = None,
     warning: Optional[int] = None,

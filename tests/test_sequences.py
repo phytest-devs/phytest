@@ -34,12 +34,12 @@ def test_assert_length():
         name="TEST",
         description="Test dna sequence",
     )
-    sequences.assert_sequence_length(dna, length=100)
-    sequences.assert_sequence_length(dna, min=99)
-    sequences.assert_sequence_length(dna, max=101)
+    sequences.assert_sequence_length(dna, length=100, min=99, max=101)
     with pytest.raises(AssertionError):
         sequences.assert_sequence_length(dna, length=1)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_length(dna, min=101)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_length(dna, max=99)
 
 
@@ -50,12 +50,12 @@ def test_assert_count():
         name="TEST",
         description="Test dna sequence",
     )
-    sequences.assert_sequence_count(dna, base='A', count=100)
-    sequences.assert_sequence_count(dna, base='A', min=99)
-    sequences.assert_sequence_count(dna, base='A', max=101)
+    sequences.assert_sequence_count(dna, base='A', count=100, min=99, max=101)
     with pytest.raises(AssertionError):
         sequences.assert_sequence_count(dna, base='A', count=1)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_count(dna, base='A', min=101)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_count(dna, base='A', max=99)
 
 
@@ -66,12 +66,12 @@ def test_assert_count_Ns():
         name="TEST",
         description="Test dna sequence",
     )
-    sequences.assert_sequence_count_Ns(dna, count=100)
-    sequences.assert_sequence_count_Ns(dna, min=99)
-    sequences.assert_sequence_count_Ns(dna, max=101)
+    sequences.assert_sequence_count_Ns(dna, count=100, min=99, max=101)
     with pytest.raises(AssertionError):
         sequences.assert_sequence_count_Ns(dna, count=1)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_count_Ns(dna, min=101)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_count_Ns(dna, max=99)
 
 
@@ -82,10 +82,10 @@ def test_assert_count_gaps():
         name="TEST",
         description="Test dna sequence",
     )
-    sequences.assert_sequence_count_gaps(dna, count=100)
-    sequences.assert_sequence_count_gaps(dna, min=99)
-    sequences.assert_sequence_count_gaps(dna, max=101)
+    sequences.assert_sequence_count_gaps(dna, count=100, min=99, max=101)
     with pytest.raises(AssertionError):
         sequences.assert_sequence_count_gaps(dna, count=1)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_count_gaps(dna, min=101)
+    with pytest.raises(AssertionError):
         sequences.assert_sequence_count_gaps(dna, max=99)

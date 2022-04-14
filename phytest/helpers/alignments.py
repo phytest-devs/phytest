@@ -6,8 +6,8 @@ from Bio.Align import MultipleSeqAlignment
 
 def assert_alignment_width(
     alignment: MultipleSeqAlignment,
-    *,
     width: Optional[int] = None,
+    *,
     min: Optional[int] = None,
     max: Optional[int] = None,
     warning: Optional[int] = None,
@@ -25,8 +25,8 @@ def assert_alignment_width(
 
 def assert_alignment_length(
     alignment: MultipleSeqAlignment,
-    *,
     length: Optional[int] = None,
+    *,
     min: Optional[int] = None,
     max: Optional[int] = None,
     warning: Optional[int] = None,
