@@ -49,14 +49,17 @@ def assert_count(
     if warning is not None and base_count != warning:
         warn(f"Count of '{base}' in {sequence.id} != {warning}")
 
+
 def assert_count_Ns(
     sequence: SeqRecord,
     *,
     count: Optional[int] = None,
     min: Optional[int] = None,
     max: Optional[int] = None,
-    warning: Optional[int] = None,) -> None:
+    warning: Optional[int] = None,
+) -> None:
     assert_count(sequence=sequence, base='N', count=count, min=min, max=max, warning=warning)
+
 
 def assert_count_gaps(
     sequence: SeqRecord,
@@ -64,8 +67,10 @@ def assert_count_gaps(
     count: Optional[int] = None,
     min: Optional[int] = None,
     max: Optional[int] = None,
-    warning: Optional[int] = None,) -> None:
+    warning: Optional[int] = None,
+) -> None:
     assert_count(sequence=sequence, base='-', count=count, min=min, max=max, warning=warning)
+
 
 def assert_alignment_width(
     alignment: MultipleSeqAlignment,
