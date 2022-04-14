@@ -2,32 +2,54 @@ from itertools import zip_longest
 from pathlib import Path
 
 import pytest
+from Bio import AlignIO, Phylo, SeqIO
 
 
 def pytest_addoption(parser):
-    parser.addoption("--alignments", "-A", action="store", default=None, help="alignments fasta file")
+    parser.addoption("--alignment", "-A", action="store", default=None, help="alignment fasta file")
     parser.addoption("--tree", "-T", action="store", default=None, help="tree file")
     parser.addoption(
         "--apply-fixes", action="store_true", default=None, help="automatically apply fixes where possible"
     )
 
 
-def load_sequences(fpth: Path):
-    with fpth.open("r") as fp:
-        for seq_id, seq in zip_longest(fp, fp):
-            yield seq_id.strip(), seq.strip()
-
-
 def pytest_generate_tests(metafunc):
+    alignment_path = metafunc.config.getoption("alignment")
+    if 'alignment' in metafunc.fixturenames:
+        if alignment_path is None:
+            raise ValueError(f"{metafunc.function.__name__} requires alignment file")
+    tree_path = metafunc.config.getoption("tree")
+    if 'tree' in metafunc.fixturenames:
+        if tree_path is None:
+            raise ValueError(f"{metafunc.function.__name__} requires tree file")
     if "sequence" in metafunc.fixturenames:
-        alignments_path = metafunc.config.getoption("alignments")
-        if alignments_path is None:
-            pytest.skip(f"{metafunc.function.__name__} requires alignments file")
-        fpth = Path(alignments_path)
+        if alignment_path is None:
+            raise ValueError(f"{metafunc.function.__name__} requires alignment file")
+        fpth = Path(alignment_path)
         if not fpth.exists():
             raise FileNotFoundError("Unable to locate requested input file! 😱")
-        sequences = load_sequences(fpth)
-        metafunc.parametrize("sequence", sequences, ids=lambda s: s[0].lstrip('>'))
+        sequences = SeqIO.parse(alignment_path, 'fasta')
+        metafunc.parametrize("sequence", sequences, ids=lambda s: s.id)
+
+
+@pytest.fixture(scope="session")
+def alignment(request):
+    alignment_path = request.config.getoption("alignment")
+    try:
+        alignment = AlignIO.read(alignment_path, 'fasta')
+    except TypeError:
+        pass
+    return alignment
+
+
+@pytest.fixture(scope="session")
+def tree(request):
+    tree_path = request.config.getoption("tree")
+    try:
+        tree = Phylo.read(tree_path, "newick")
+    except TypeError:
+        pass
+    return tree
 
 
 @pytest.fixture()

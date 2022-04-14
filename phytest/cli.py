@@ -10,8 +10,8 @@ app = typer.Typer()
 @app.command()
 def cli(
     testfile: Path = typer.Argument(..., help="Path to test file"),
-    alignments: Optional[Path] = typer.Option(
-        None, "--alignments", "-a", dir_okay=False, exists=True, help="Path to sequence alignments in fasta format"
+    alignment: Optional[Path] = typer.Option(
+        None, "--alignment", "-a", dir_okay=False, exists=True, help="Path to sequence alignment in fasta format"
     ),
     tree: Optional[Path] = typer.Option(None, "--tree", "-t", dir_okay=False, exists=True, help="Path to tree file"),
     report: Optional[bool] = typer.Option(False, "--report", "-r", help="Generate an html report"),
@@ -20,8 +20,8 @@ def cli(
     args = [testfile]
     if not verbose:
         args.extend(["-ra", "--tb=no", "--no-header"])
-    if alignments is not None:
-        args.extend(["--alignments", alignments])
+    if alignment is not None:
+        args.extend(["--alignment", alignment])
     if tree is not None:
         args.extend(["--tree", tree])
     if report:
