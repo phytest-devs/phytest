@@ -49,6 +49,23 @@ def assert_count(
     if warning is not None and base_count != warning:
         warn(f"Count of '{base}' in {sequence.id} != {warning}")
 
+def assert_count_Ns(
+    sequence: SeqRecord,
+    *,
+    count: Optional[int] = None,
+    min: Optional[int] = None,
+    max: Optional[int] = None,
+    warning: Optional[int] = None,) -> None:
+    assert_count(sequence=sequence, base='N', count=count, min=min, max=max, warning=warning)
+
+def assert_count_gaps(
+    sequence: SeqRecord,
+    *,
+    count: Optional[int] = None,
+    min: Optional[int] = None,
+    max: Optional[int] = None,
+    warning: Optional[int] = None,) -> None:
+    assert_count(sequence=sequence, base='-', count=count, min=min, max=max, warning=warning)
 
 def assert_alignment_width(
     alignment: MultipleSeqAlignment,
@@ -69,17 +86,17 @@ def assert_alignment_width(
         warn(f"Alignment width '{alignment_width}' != {warning}")
 
 
-def assert_number_of_records(
+def assert_alignment_length(
     alignment: MultipleSeqAlignment,
     *,
-    records: Optional[int] = None,
+    length: Optional[int] = None,
     min: Optional[int] = None,
     max: Optional[int] = None,
     warning: Optional[int] = None,
 ) -> None:
     alignment_length = len(alignment)
-    if records is not None:
-        assert alignment_length == records
+    if length is not None:
+        assert alignment_length == length
     if min is not None:
         assert alignment_length > min
     if max is not None:
