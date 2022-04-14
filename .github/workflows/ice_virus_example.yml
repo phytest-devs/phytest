@@ -20,6 +20,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install poetry
         poetry install
-    - name: Coverage
+    - name: Run phytest
       run: |
         poetry run phytest examples/ice_viruses.py -a examples/data/ice_viruses.fasta -t examples/data/ice_viruses.fasta.treefile

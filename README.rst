@@ -22,6 +22,9 @@ phytest
 .. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/smutch/phytest/main.svg
     :target: https://results.pre-commit.ci/latest/github/smutch/phytest/main
 
+.. |ice-virus-example badge| image:: https://github.com/smutch/phytest/actions/workflows/ice_virus_example.yml/badge.svg
+    :target: https://github.com/smutch/phytest/actions/workflows/ice_virus_example.yml
+
 .. end-badges
 
 Quality control for phylogenetic pipelines using pytest
