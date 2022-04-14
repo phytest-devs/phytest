@@ -5,7 +5,7 @@ phytest
 
 .. start-badges
 
-|pipeline badge| |coverage badge| |docs badge| |black badge| |pre-commit badge|
+|pipeline badge| |coverage badge| |docs badge| |black badge| |pre-commit badge| |ice-virus-example badge|
 
 .. |pipeline badge| image:: https://github.com/smutch/phytest/actions/workflows/coverage.yml/badge.svg
     :target: https://github.com/smutch/phytest/actions
