@@ -2,3 +2,4 @@
 .envrc
 *.pyc
 *.html
+.coverage
