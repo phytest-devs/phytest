@@ -4,6 +4,8 @@ from typing import Optional
 import pytest
 import typer
 
+from .main import main
+
 app = typer.Typer()
 
 
@@ -23,16 +25,12 @@ def cli(
     report: Optional[bool] = typer.Option(False, "--report", "-r", help="Generate an html report"),
     verbose: Optional[bool] = typer.Option(False, "--verbose", "-v", help="Verbose output"),
 ):
-    args = [testfile]
-    if not verbose:
-        args.extend(["-ra", "--tb=no", "--no-header"])
-    if alignment is not None:
-        args.extend(["--alignment", alignment])
-        args.extend(["--alignment-format", alignment_format])
-    if tree is not None:
-        args.extend(["--tree", tree])
-        args.extend(["--tree-format", tree_format])
-    if report:
-        args.extend(["--html=report.html", "--self-contained-html"])
-
-    pytest.main(args, plugins=['phytest'])
+    main(
+        testfile=testfile,
+        alignment=alignment,
+        alignment_format=alignment_format,
+        tree=tree,
+        tree_format=tree_format,
+        verbose=verbose,
+        report=report,
+    )
