@@ -26,6 +26,7 @@ myst-parser = "^0.15.2"
 pre-commit = "^2.15.0"
 sphinx-copybutton = "^0.4.0"
 typing-extensions = "^4.1.1"
+pytest-cov = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
