@@ -24,6 +24,9 @@ def cli(
     ),
     report: Optional[bool] = typer.Option(False, "--report", "-r", help="Generate an html report"),
     verbose: Optional[bool] = typer.Option(False, "--verbose", "-v", help="Verbose output"),
+    expression: Optional[str] = typer.Option(
+        None, "-k", help="Only run tests which match the given substring expression."
+    ),
 ):
     main(
         testfile=testfile,
@@ -33,4 +36,5 @@ def cli(
         tree_format=tree_format,
         verbose=verbose,
         report=report,
+        expression=expression,
     )

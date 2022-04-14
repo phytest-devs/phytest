@@ -2,7 +2,6 @@ import inspect
 import os
 from pathlib import Path
 from typing import Optional
-from xmlrpc.client import Boolean
 
 import pytest
 
@@ -15,6 +14,7 @@ def main(
     tree_format: Optional[str] = 'newick',
     verbose: bool = False,
     report: bool = False,
+    expression: str = None,
 ):
     if not testfile:
         testfile = Path(os.path.abspath((inspect.stack()[1])[1]))
@@ -29,4 +29,6 @@ def main(
         args.extend(["--tree-format", tree_format])
     if report:
         args.extend(["--html=report.html", "--self-contained-html"])
+    if expression:
+        args.extend(["-k", expression])
     pytest.main(args, plugins=['phytest'])
