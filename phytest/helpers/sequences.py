@@ -5,7 +5,7 @@ from warnings import warn
 from Bio.SeqRecord import SeqRecord
 
 
-def assert_sequence_valid_alphabet(sequence: SeqRecord, *, alphabet: str = "ATCGN-") -> None:
+def assert_sequence_valid_alphabet(sequence: SeqRecord, alphabet: str = "ATCGN-") -> None:
     regex_invalid = re.compile(f"[^{alphabet}]")
     assert not regex_invalid.search(str(sequence.seq)), f"Invalid base found in '{sequence.id}'."
 
