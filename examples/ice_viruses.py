@@ -1,5 +1,3 @@
-from re import L
-
 from phytest import alignments, sequences, trees
 
 
