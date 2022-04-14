@@ -47,13 +47,13 @@ Usage
 
 .. code-block:: bash
 
-    phytest phytest/alignments/test_alignments.py -A examples/data/invalid.fasta
+    phytest examples/basic.py -a examples/data/invalid.fasta
 
 Generate a report by adding:
 
 .. code-block:: bash
 
-    --html=report.html --self-contained-html
+    --report
 
 This report can be customised in future (see the `pytest-html user guide <https://pytest-html.readthedocs.io/en/latest/user_guide.html>`_.
 
