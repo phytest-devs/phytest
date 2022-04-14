@@ -6,6 +6,7 @@ from Bio import AlignIO, Phylo, SeqIO
 
 from .helpers import alignments as alignments
 from .helpers import sequences as sequences
+from .helpers import trees as trees
 
 
 def pytest_addoption(parser):
@@ -21,16 +22,22 @@ def pytest_generate_tests(metafunc):
     if 'alignment' in metafunc.fixturenames:
         if alignment_path is None:
             raise ValueError(f"{metafunc.function.__name__} requires alignment file")
+        fpth = Path(alignment_path)
+        if not fpth.exists():
+            raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
     tree_path = metafunc.config.getoption("tree")
     if 'tree' in metafunc.fixturenames:
         if tree_path is None:
             raise ValueError(f"{metafunc.function.__name__} requires tree file")
+        fpth = Path(tree_path)
+        if not fpth.exists():
+            raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
     if "sequence" in metafunc.fixturenames:
         if alignment_path is None:
             raise ValueError(f"{metafunc.function.__name__} requires alignment file")
         fpth = Path(alignment_path)
         if not fpth.exists():
-            raise FileNotFoundError("Unable to locate requested input file! 😱")
+            raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
         sequences = SeqIO.parse(alignment_path, 'fasta')
         metafunc.parametrize("sequence", sequences, ids=lambda s: s.id)
 
@@ -38,20 +45,14 @@ def pytest_generate_tests(metafunc):
 @pytest.fixture(scope="session", name="alignment")
 def _alignment_fixture(request):
     alignment_path = request.config.getoption("alignment")
-    try:
-        alignment = AlignIO.read(alignment_path, 'fasta')
-    except TypeError:
-        pass
+    alignment = AlignIO.read(alignment_path, 'fasta')
     return alignment
 
 
 @pytest.fixture(scope="session", name="tree")
 def _tree_fixture(request):
     tree_path = request.config.getoption("tree")
-    try:
-        tree = Phylo.read(tree_path, "newick")
-    except TypeError:
-        pass
+    tree = Phylo.read(tree_path, "newick")
     return tree
 
 
