@@ -4,7 +4,8 @@ from pathlib import Path
 import pytest
 from Bio import AlignIO, Phylo, SeqIO
 
-from .helpers import alignments, sequences
+from .helpers import alignments as alignments
+from .helpers import sequences as sequences
 
 
 def pytest_addoption(parser):
@@ -34,8 +35,8 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize("sequence", sequences, ids=lambda s: s.id)
 
 
-@pytest.fixture(scope="session")
-def alignment(request):
+@pytest.fixture(scope="session", name="alignment")
+def _alignment_fixture(request):
     alignment_path = request.config.getoption("alignment")
     try:
         alignment = AlignIO.read(alignment_path, 'fasta')
@@ -44,8 +45,8 @@ def alignment(request):
     return alignment
 
 
-@pytest.fixture(scope="session")
-def tree(request):
+@pytest.fixture(scope="session", name="tree")
+def _tree_fixture(request):
     tree_path = request.config.getoption("tree")
     try:
         tree = Phylo.read(tree_path, "newick")
