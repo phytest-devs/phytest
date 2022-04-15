@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Optional
 
-import pytest
 import typer
 
 from .main import main
