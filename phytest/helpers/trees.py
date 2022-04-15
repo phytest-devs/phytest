@@ -16,9 +16,9 @@ def assert_tree_number_of_tips(
     if tips is not None:
         assert number_of_tips == tips
     if min is not None:
-        assert number_of_tips > min
+        assert number_of_tips >= min
     if max is not None:
-        assert number_of_tips < max
+        assert number_of_tips <= max
     if warning is not None and number_of_tips != warning:
         warn(f"Number of tips '{number_of_tips}' != {warning}")
 
@@ -39,8 +39,8 @@ def assert_tree_total_branch_length(
     if length is not None:
         assert total_branch_length == length
     if min is not None:
-        assert total_branch_length > min
+        assert total_branch_length >= min
     if max is not None:
-        assert total_branch_length < max
+        assert total_branch_length <= max
     if warning is not None and total_branch_length != warning:
         warn(f"Total branch length '{total_branch_length}' != {warning}")

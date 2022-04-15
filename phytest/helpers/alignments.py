@@ -16,9 +16,9 @@ def assert_alignment_width(
     if width is not None:
         assert alignment_width == width
     if min is not None:
-        assert alignment_width > min
+        assert alignment_width >= min
     if max is not None:
-        assert alignment_width < max
+        assert alignment_width <= max
     if warning is not None and alignment_width != warning:
         warn(f"Alignment width '{alignment_width}' != {warning}")
 
@@ -35,8 +35,8 @@ def assert_alignment_length(
     if length is not None:
         assert alignment_length == length
     if min is not None:
-        assert alignment_length > min
+        assert alignment_length >= min
     if max is not None:
-        assert alignment_length < max
+        assert alignment_length <= max
     if warning is not None and alignment_length != warning:
         warn(f"Alignment length '{alignment_length}' != {warning}")

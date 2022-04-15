@@ -50,13 +50,13 @@ def test_assert_count():
         name="TEST",
         description="Test dna sequence",
     )
-    sequences.assert_sequence_count(dna, base='A', count=100, min=99, max=101)
+    sequences.assert_sequence_count(dna, pattern='A', count=100, min=99, max=101)
     with pytest.raises(AssertionError):
-        sequences.assert_sequence_count(dna, base='A', count=1)
+        sequences.assert_sequence_count(dna, pattern='A', count=1)
     with pytest.raises(AssertionError):
-        sequences.assert_sequence_count(dna, base='A', min=101)
+        sequences.assert_sequence_count(dna, pattern='A', min=101)
     with pytest.raises(AssertionError):
-        sequences.assert_sequence_count(dna, base='A', max=99)
+        sequences.assert_sequence_count(dna, pattern='A', max=99)
 
 
 def test_assert_count_Ns():
@@ -89,3 +89,87 @@ def test_assert_count_gaps():
         sequences.assert_sequence_count_gaps(dna, min=101)
     with pytest.raises(AssertionError):
         sequences.assert_sequence_count_gaps(dna, max=99)
+
+
+def test_assert_sequence_longest_stretch():
+    dna = SeqRecord(
+        Seq("A" * 10 + "-" * 3 + "N" * 10),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequences.assert_sequence_longest_stretch(dna, pattern='A', count=10, min=9, max=11)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch(dna, pattern='A', count=1)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch(dna, pattern='A', min=11)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch(dna, pattern='A', max=9)
+
+
+def test_assert_sequence_longest_Ns():
+    dna = SeqRecord(
+        Seq("A" * 10 + "-" * 3 + "N" * 10),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequences.assert_sequence_longest_stretch_Ns(dna, count=10, min=9, max=11)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch_Ns(dna, count=1)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch_Ns(dna, min=11)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch_Ns(dna, max=9)
+
+
+def test_assert_sequence_longest_gaps():
+    dna = SeqRecord(
+        Seq("A" * 10 + "-" * 3 + "N" * 10),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequences.assert_sequence_longest_stretch_gaps(dna, count=3, min=2, max=4)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch_gaps(dna, count=1)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch_gaps(dna, min=4)
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_longest_stretch_gaps(dna, max=2)
+
+
+def test_assert_sequence_startswith():
+    dna = SeqRecord(
+        Seq("ATG" + "-" * 3 + "UGA"),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequences.assert_sequence_startswith(dna, pattern='ATG')
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_startswith(dna, pattern='UGA')
+
+
+def test_assert_sequence_endswith():
+    dna = SeqRecord(
+        Seq("ATG" + "-" * 3 + "UGA"),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequences.assert_sequence_endswith(dna, pattern='UGA')
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_endswith(dna, pattern='ATG')
+
+
+def test_assert_sequence_contains_motif():
+    dna = SeqRecord(
+        Seq("ATG" + "TGACGT" + "UGA"),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequences.assert_sequence_contains_motif(dna, motif='TGACGT')
+    with pytest.raises(AssertionError):
+        sequences.assert_sequence_contains_motif(dna, motif='CAGCTG')
