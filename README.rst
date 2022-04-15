@@ -7,10 +7,10 @@ phytest
 
 |pipeline badge| |coverage badge| |docs badge| |black badge| |pre-commit badge| |ice-virus-example badge|
 
-.. |pipeline badge| image:: https://github.com/smutch/phytest/actions/workflows/coverage.yml/badge.svg
+.. |pipeline badge| image:: https://github.com/smutch/phytest/workflows/pipeline/badge.svg
     :target: https://github.com/smutch/phytest/actions
 
-.. |docs badge| image:: https://github.com/smutch/phytest/actions/workflows/docs.yml/badge.svg
+.. |docs badge| image:: https://github.com/smutch/phytest/workflows/docs/badge.svg
     :target: https://smutch.github.io/phytest/
 
 .. |black badge| image:: https://img.shields.io/badge/code%20style-black-000000.svg
@@ -22,7 +22,7 @@ phytest
 .. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/smutch/phytest/main.svg
     :target: https://results.pre-commit.ci/latest/github/smutch/phytest/main
 
-.. |ice-virus-example badge| image:: https://github.com/smutch/phytest/actions/workflows/ice_virus_example.yml/badge.svg
+.. |ice-virus-example badge| image:: https://github.com/smutch/phytest/workflows/ice-virus-example/badge.svg
     :target: https://github.com/smutch/phytest/actions/workflows/ice_virus_example.yml
 
 .. end-badges
