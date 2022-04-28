@@ -1,6 +1,5 @@
 from pathlib import Path
 
-import Bio
 import pytest
 from Bio import AlignIO as _AlignIO
 from Bio import Phylo as _Phylo
