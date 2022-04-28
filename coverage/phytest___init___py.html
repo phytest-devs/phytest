@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for phytest/__init__.py: 48.28%</title>
+    <title>Coverage for phytest/__init__.py: 50.82%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,12 +18,12 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>phytest/__init__.py</b> :
-            <span class="pc_cov">48.28%</span>
+            <span class="pc_cov">50.82%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            58 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">28 run</button>
+            61 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">31 run</button>
             <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">30 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
@@ -105,7 +105,7 @@
     <p id="t51" class="pln"><span class="n"><a href="#t51">51</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t52" class="pln"><span class="n"><a href="#t52">52</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t53" class="run"><span class="n"><a href="#t53">53</a></span><span class="t"><span class="op">@</span><span class="nam">pytest</span><span class="op">.</span><span class="nam">fixture</span><span class="op">(</span><span class="nam">scope</span><span class="op">=</span><span class="str">"session"</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">"alignment"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t54" class="pln"><span class="n"><a href="#t54">54</a></span><span class="t"><span class="key">def</span> <span class="nam">_alignment_fixture</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t54" class="run"><span class="n"><a href="#t54">54</a></span><span class="t"><span class="key">def</span> <span class="nam">_alignment_fixture</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t55" class="mis show_mis"><span class="n"><a href="#t55">55</a></span><span class="t">    <span class="nam">alignment_path</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">getoption</span><span class="op">(</span><span class="str">"alignment"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t56" class="mis show_mis"><span class="n"><a href="#t56">56</a></span><span class="t">    <span class="nam">alignment_format</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">getoption</span><span class="op">(</span><span class="str">"--alignment-format"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t57" class="mis show_mis"><span class="n"><a href="#t57">57</a></span><span class="t">    <span class="nam">alignment</span> <span class="op">=</span> <span class="nam">_AlignIO</span><span class="op">.</span><span class="nam">read</span><span class="op">(</span><span class="nam">alignment_path</span><span class="op">,</span> <span class="nam">alignment_format</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -113,7 +113,7 @@
     <p id="t59" class="pln"><span class="n"><a href="#t59">59</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t60" class="pln"><span class="n"><a href="#t60">60</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t61" class="run"><span class="n"><a href="#t61">61</a></span><span class="t"><span class="op">@</span><span class="nam">pytest</span><span class="op">.</span><span class="nam">fixture</span><span class="op">(</span><span class="nam">scope</span><span class="op">=</span><span class="str">"session"</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">"tree"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t62" class="pln"><span class="n"><a href="#t62">62</a></span><span class="t"><span class="key">def</span> <span class="nam">_tree_fixture</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t62" class="run"><span class="n"><a href="#t62">62</a></span><span class="t"><span class="key">def</span> <span class="nam">_tree_fixture</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t63" class="mis show_mis"><span class="n"><a href="#t63">63</a></span><span class="t">    <span class="nam">tree_path</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">getoption</span><span class="op">(</span><span class="str">"tree"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t64" class="mis show_mis"><span class="n"><a href="#t64">64</a></span><span class="t">    <span class="nam">tree_format</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">getoption</span><span class="op">(</span><span class="str">"--tree-format"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t65" class="mis show_mis"><span class="n"><a href="#t65">65</a></span><span class="t">    <span class="nam">tree</span> <span class="op">=</span> <span class="nam">_Phylo</span><span class="op">.</span><span class="nam">read</span><span class="op">(</span><span class="nam">tree_path</span><span class="op">,</span> <span class="nam">tree_format</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -121,7 +121,7 @@
     <p id="t67" class="pln"><span class="n"><a href="#t67">67</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t68" class="pln"><span class="n"><a href="#t68">68</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t69" class="run"><span class="n"><a href="#t69">69</a></span><span class="t"><span class="op">@</span><span class="nam">pytest</span><span class="op">.</span><span class="nam">fixture</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t70" class="pln"><span class="n"><a href="#t70">70</a></span><span class="t"><span class="key">def</span> <span class="nam">should_fix</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t70" class="run"><span class="n"><a href="#t70">70</a></span><span class="t"><span class="key">def</span> <span class="nam">should_fix</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t71" class="mis show_mis"><span class="n"><a href="#t71">71</a></span><span class="t">    <span class="key">if</span> <span class="nam">request</span><span class="op">.</span><span class="nam">session</span><span class="op">.</span><span class="nam">testsfailed</span> <span class="key">and</span> <span class="nam">request</span><span class="op">.</span><span class="nam">config</span><span class="op">.</span><span class="nam">getoption</span><span class="op">(</span><span class="str">"--apply-fixes"</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t72" class="mis show_mis"><span class="n"><a href="#t72">72</a></span><span class="t">        <span class="key">return</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
     <p id="t73" class="mis show_mis"><span class="n"><a href="#t73">73</a></span><span class="t">    <span class="key">return</span> <span class="key">False</span>&nbsp;</span><span class="r"></span></p>
@@ -134,7 +134,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2022-04-28 04:55 +0000
+            created at 2022-04-28 04:57 +0000
         </p>
     </div>
 </div>
