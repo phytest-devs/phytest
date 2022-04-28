@@ -147,9 +147,9 @@ Generate a report by adding `--report`.
 .. image:: docs/images/report.png
   :alt: HTML Report
 
-This report can be customised in future (see the `pytest-html user guide <https://pytest-html.readthedocs.io/en/latest/user_guide.html>`_.
+This report can be customised in future (see the `pytest-html user guide <https://pytest-html.readthedocs.io/en/latest/user_guide.html>`_).
 
-From the output we can see serval tests failed:
+From the output we can see several tests failed:
 
 .. code-block:: bash
 
