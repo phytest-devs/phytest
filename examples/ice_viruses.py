@@ -1,15 +1,15 @@
-from phytest import alignments, sequences, trees
+from phytest import Alignment, Sequence, Tree, asserts
 
 
-def test_sequence(sequence):
-    sequences.assert_sequence_valid_alphabet(sequence)
+def test_sequence(sequence: Sequence):
+    asserts.sequences.assert_sequence_valid_alphabet(sequence)
 
 
-def test_alignment(alignment):
-    alignments.assert_alignment_length(alignment, 52)
-    alignments.assert_alignment_width(alignment, 462)
+def test_alignment(alignment: Alignment):
+    asserts.alignments.assert_alignment_length(alignment, 52)
+    asserts.alignments.assert_alignment_width(alignment, 462)
 
 
-def test_tree(tree):
-    trees.assert_tree_is_bifurcating(tree)
-    trees.assert_tree_number_of_tips(tree, 52)
+def test_tree(tree: Tree):
+    asserts.trees.assert_tree_is_bifurcating(tree)
+    asserts.trees.assert_tree_number_of_tips(tree, 52)

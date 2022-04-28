@@ -5,6 +5,7 @@ from Bio import AlignIO as _AlignIO
 from Bio import Phylo as _Phylo
 from Bio import SeqIO as _SeqIO
 from Bio.AlignIO import MultipleSeqAlignment as Alignment
+from Bio.Phylo.BaseTree import Tree
 from Bio.SeqRecord import SeqRecord as Sequence
 
 from .asserts import alignments as alignments
