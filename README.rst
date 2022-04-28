@@ -19,8 +19,8 @@ phytest
 .. |coverage badge| image:: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/smutch/e8160655e03d9015b1e93b97ed611f4f/raw/coverage-badge.json
     :target: https://smutch.github.io/phytest/coverage/
 
-.. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/smutch/phytest/main.svg
-    :target: https://results.pre-commit.ci/latest/github/smutch/phytest/main
+.. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/phytest-devs/phytest/main.svg
+    :target: https://results.pre-commit.ci/latest/github/phytest-devs/phytest/main
 
 .. |ice-virus-example badge| image:: https://github.com/smutch/phytest/workflows/ice-virus-example/badge.svg
     :target: https://github.com/smutch/phytest/actions/workflows/ice_virus_example.yml
