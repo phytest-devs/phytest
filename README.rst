@@ -88,8 +88,7 @@ We can write these tests in a python files `example.py`
 .. code-block:: python
 
     from phytest import Alignment, Sequence, Tree, asserts
-    from phytest.asserts import trees
-
+    
 
     def test_alignment_has_4_sequences(alignment: Alignment):
         asserts.alignments.assert_alignment_length(alignment, 4)
