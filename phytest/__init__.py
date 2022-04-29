@@ -1,12 +1,9 @@
 from pathlib import Path
 
 import pytest
-from Bio import SeqIO as _SeqIO
-from Bio.Phylo.BaseTree import Tree
-from Bio.SeqRecord import SeqRecord as Sequence
 
-from .bio import sequence as sequence
 from .bio.alignment import Alignment
+from .bio.sequence import Sequence
 from .bio.tree import Tree
 from .main import main as main
 
@@ -43,7 +40,7 @@ def pytest_generate_tests(metafunc):
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
         alignment_format = metafunc.config.getoption("--alignment-format")
-        sequences = _SeqIO.parse(alignment_path, alignment_format)
+        sequences = Sequence.parse(alignment_path, alignment_format)
         metafunc.parametrize("sequence", sequences, ids=lambda s: s.id)
 
 
