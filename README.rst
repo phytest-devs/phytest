@@ -49,7 +49,7 @@ Usage
 
 Phytest will run user defined tests against an alignment and tree file. Here we will create example data files to run our tests on.
 
-Create an alignment fasta file `example.fasta`
+Create an alignment fasta file :code:`example.fasta`
 
 .. code-block:: text
 
@@ -64,14 +64,14 @@ Create an alignment fasta file `example.fasta`
     >E
     ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
 
-Create a tree newick file `example.tree`
+Create a tree newick file :code:`example.tree`
 
 .. code-block:: text
 
     (A:0.1,B:0.2,(C:0.3,D:0.4):0.5);
 
 Writing a test file
-########
+########################
 
 We want to enforce the follow constraints on our data:
     1. The alignment has 4 sequences
@@ -83,60 +83,12 @@ We want to enforce the follow constraints on our data:
     7. The tree is bifurcating
     8. There are no outlier branches in the tree
 
-We can write these tests in a python files `example.py`
+We can write these tests in a python files :code:`example.py`
 
-.. code-block:: python
+.. include:: examples/example.py
+   :code: python
 
-    from phytest import Alignment, Sequence, Tree, asserts
-    from phytest.asserts import trees
-
-
-    def test_alignment_has_4_sequences(alignment: Alignment):
-        asserts.alignments.assert_alignment_length(alignment, 4)
-
-
-    def test_alignment_has_a_width_of_100(alignment: Alignment):
-        asserts.alignments.assert_alignment_width(alignment, 100)
-
-
-    def test_sequences_only_contains_the_characters(sequence: Sequence):
-        asserts.sequences.assert_sequence_valid_alphabet(sequence, alphabet="ATGCN-")
-
-
-    def test_single_base_deletions(sequence: Sequence):
-        asserts.sequences.assert_sequence_longest_stretch_gaps(sequence, max=1)
-
-
-    def test_longest_stretch_of_Ns_is_10(sequence: Sequence):
-        asserts.sequences.assert_sequence_longest_stretch_Ns(sequence, max=10)
-
-
-    def test_tree_has_4_tips(tree: Tree):
-        asserts.trees.assert_tree_number_of_tips(tree, 4)
-
-
-    def test_tree_is_bifurcating(tree: Tree):
-        asserts.trees.assert_tree_is_bifurcating(tree)
-
-
-    def test_no_outlier_branches(tree: Tree):
-        # Here we create custom functions to detect outliers
-        import statistics
-
-        def get_parent(tree, child_clade):
-            node_path = tree.get_path(child_clade)
-            if len(node_path) == 1:
-                return tree.root
-            return node_path[-2]
-
-        branch_lengths = [tree.distance(tip, get_parent(tree, tip)) for tip in tree.get_terminals()]
-        for branch_length, tip in zip(branch_lengths, tree.get_terminals()):
-            assert branch_length < statistics.mean(branch_lengths) + statistics.stdev(
-                branch_lengths
-            ), f"Outlier tip '{tip.name}' (branch length = {branch_length})!"
-
-
-We can then run these test on our data with `phytest`:
+We can then run these test on our data with :code:`phytest`:
 
 .. code-block:: bash
 
