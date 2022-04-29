@@ -1,3 +1,3 @@
 import pytest
 
-pytest.register_assert_rewrite("phytest.asserts")
+pytest.register_assert_rewrite("phytest.bio")

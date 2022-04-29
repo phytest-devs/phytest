@@ -1,9 +1,9 @@
 import phytest
-from phytest import sequences
+from phytest import sequence
 
 
 def test_length(sequence):
-    sequences.assert_sequence_length(sequence, length=462)
+    sequence.assert_sequence_length(sequence, length=462)
 
 
 if __name__ == "__main__":

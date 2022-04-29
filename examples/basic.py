@@ -1,9 +1,9 @@
-from phytest import Alignment, Sequence, asserts
+from phytest import Alignment, Sequence, bio
 
 
 def test_length(sequence: Sequence):
-    asserts.sequences.assert_sequence_length(sequence, length=100)
+    bio.sequence.assert_sequence_length(sequence, length=100)
 
 
 def test_alignment_length(alignment: Alignment):
-    asserts.alignments.assert_alignment_length(alignment, length=3)
+    bio.alignment.assert_alignment_length(alignment, length=3)

@@ -1,16 +1,14 @@
 from pathlib import Path
 
 import pytest
-from Bio import AlignIO as _AlignIO
 from Bio import Phylo as _Phylo
 from Bio import SeqIO as _SeqIO
-from Bio.AlignIO import MultipleSeqAlignment as Alignment
 from Bio.Phylo.BaseTree import Tree
 from Bio.SeqRecord import SeqRecord as Sequence
 
-from .asserts import alignments as alignments
-from .asserts import sequences as sequences
-from .asserts import trees as trees
+from .bio import sequence as sequence
+from .bio import tree as tree
+from .bio.alignment import Alignment
 from .main import main as main
 
 
@@ -54,7 +52,7 @@ def pytest_generate_tests(metafunc):
 def _alignment_fixture(request):
     alignment_path = request.config.getoption("alignment")
     alignment_format = request.config.getoption("--alignment-format")
-    alignment = _AlignIO.read(alignment_path, alignment_format)
+    alignment = Alignment.read(alignment_path, alignment_format)
     return alignment
 
 
