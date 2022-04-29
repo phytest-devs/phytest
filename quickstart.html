@@ -120,7 +120,7 @@
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
 <p>Phytest will run user defined tests against an alignment and tree file. Here we will create example data files to run our tests on.</p>
-<p>Create an alignment fasta file <cite>example.fasta</cite></p>
+<p>Create an alignment fasta file <code class="code docutils literal notranslate"><span class="pre">example.fasta</span></code></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&gt;A
 ATGAGATCCCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
 &gt;B
@@ -133,7 +133,7 @@ ATGAGATCCCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTA
 ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
 </pre></div>
 </div>
-<p>Create a tree newick file <cite>example.tree</cite></p>
+<p>Create a tree newick file <code class="code docutils literal notranslate"><span class="pre">example.tree</span></code></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(A:0.1,B:0.2,(C:0.3,D:0.4):0.5);
 </pre></div>
 </div>
@@ -152,56 +152,8 @@ ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTA
 </ol>
 </dd>
 </dl>
-<p>We can write these tests in a python files <cite>example.py</cite></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Alignment</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">asserts</span>
-
-
-<span class="k">def</span> <span class="nf">test_alignment_has_4_sequences</span><span class="p">(</span><span class="n">alignment</span><span class="p">:</span> <span class="n">Alignment</span><span class="p">):</span>
-    <span class="n">asserts</span><span class="o">.</span><span class="n">alignments</span><span class="o">.</span><span class="n">assert_alignment_length</span><span class="p">(</span><span class="n">alignment</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">test_alignment_has_a_width_of_100</span><span class="p">(</span><span class="n">alignment</span><span class="p">:</span> <span class="n">Alignment</span><span class="p">):</span>
-    <span class="n">asserts</span><span class="o">.</span><span class="n">alignments</span><span class="o">.</span><span class="n">assert_alignment_width</span><span class="p">(</span><span class="n">alignment</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">test_sequences_only_contains_the_characters</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
-    <span class="n">asserts</span><span class="o">.</span><span class="n">sequences</span><span class="o">.</span><span class="n">assert_sequence_valid_alphabet</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="s2">&quot;ATGCN-&quot;</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">test_single_base_deletions</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
-    <span class="n">asserts</span><span class="o">.</span><span class="n">sequences</span><span class="o">.</span><span class="n">assert_sequence_longest_stretch_gaps</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">test_longest_stretch_of_Ns_is_10</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
-    <span class="n">asserts</span><span class="o">.</span><span class="n">sequences</span><span class="o">.</span><span class="n">assert_sequence_longest_stretch_Ns</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">test_tree_has_4_tips</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Tree</span><span class="p">):</span>
-    <span class="n">asserts</span><span class="o">.</span><span class="n">trees</span><span class="o">.</span><span class="n">assert_tree_number_of_tips</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">test_tree_is_bifurcating</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Tree</span><span class="p">):</span>
-    <span class="n">asserts</span><span class="o">.</span><span class="n">trees</span><span class="o">.</span><span class="n">assert_tree_is_bifurcating</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">test_no_outlier_branches</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Tree</span><span class="p">):</span>
-    <span class="c1"># Here we create custom functions to detect outliers</span>
-    <span class="kn">import</span> <span class="nn">statistics</span>
-
-    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">child_clade</span><span class="p">):</span>
-        <span class="n">node_path</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="n">child_clade</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node_path</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">tree</span><span class="o">.</span><span class="n">root</span>
-        <span class="k">return</span> <span class="n">node_path</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-
-    <span class="n">branch_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="n">tree</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">tip</span><span class="p">,</span> <span class="n">get_parent</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">tip</span><span class="p">))</span> <span class="k">for</span> <span class="n">tip</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_terminals</span><span class="p">()]</span>
-    <span class="k">for</span> <span class="n">branch_length</span><span class="p">,</span> <span class="n">tip</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">branch_lengths</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_terminals</span><span class="p">()):</span>
-        <span class="k">assert</span> <span class="n">branch_length</span> <span class="o">&lt;</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">branch_lengths</span><span class="p">)</span> <span class="o">+</span> <span class="n">statistics</span><span class="o">.</span><span class="n">stdev</span><span class="p">(</span>
-            <span class="n">branch_lengths</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Outlier tip &#39;</span><span class="si">{</span><span class="n">tip</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (branch length = </span><span class="si">{</span><span class="n">branch_length</span><span class="si">}</span><span class="s2">)!&quot;</span>
-</pre></div>
-</div>
-<p>We can then run these test on our data with <cite>phytest</cite>:</p>
+<p>We can write these tests in a python files <code class="code docutils literal notranslate"><span class="pre">example.py</span></code></p>
+<p>We can then run these test on our data with <code class="code docutils literal notranslate"><span class="pre">phytest</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>phytest examples/example.py -a examples/data/example.fasta -t examples/data/example.tree
 </pre></div>
 </div>
