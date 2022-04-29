@@ -40,7 +40,6 @@ def test_outlier_branches(tree: Tree):
         return node_path[-2]
 
     branch_lengths = [(tip, tree.distance(tip, get_parent(tree, tip))) for tip in tree.get_terminals()]
+    cut_off = statistics.mean(branch_lengths) + statistics.stdev(branch_lengths)
     for tip, branch_length in branch_lengths:
-        assert branch_length < statistics.mean(branch_lengths) + statistics.stdev(
-            branch_lengths
-        ), f"Outlier tip '{tip.name}' (branch length = {branch_length})!"
+        assert branch_length < cut_off, f"Outlier tip '{tip.name}' (branch length = {branch_length})!"
