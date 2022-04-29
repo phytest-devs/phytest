@@ -11,24 +11,21 @@ from Bio.SeqRecord import SeqRecord
 class Sequence(SeqRecord):
     @classmethod
     def parse(cls, alignment_path, alignment_format) -> 'Sequence':
-        if format in AlignIO._FormatToIterator:
-            # Use Bio.AlignIO to read in the alignments
-            return (
-                Sequence(
-                    r.seq,
-                    id=r.id,
-                    name=r.name,
-                    description=r.description,
-                    dbxrefs=r.dbxrefs,
-                    features=r.features,
-                    annotations=r.annotations,
-                    letter_annotations=r.letter_annotations,
-                )
-                for alignment in AlignIO.parse(alignment_path, alignment_format)
-                for r in alignment
+        # Use Bio.AlignIO to read in the alignments
+        return (
+            Sequence(
+                r.seq,
+                id=r.id,
+                name=r.name,
+                description=r.description,
+                dbxrefs=r.dbxrefs,
+                features=r.features,
+                annotations=r.annotations,
+                letter_annotations=r.letter_annotations,
             )
-        else:
-            raise ValueError("Unknown format '%s'" % format)
+            for alignment in AlignIO.parse(alignment_path, alignment_format)
+            for r in alignment
+        )
 
     def assert_valid_alphabet(self, alphabet: str = "ATCGN-") -> None:
         regex_invalid = re.compile(f"[^{alphabet}]")

@@ -22,20 +22,20 @@ def pytest_generate_tests(metafunc):
     alignment_path = metafunc.config.getoption("alignment")
     if 'alignment' in metafunc.fixturenames:
         if alignment_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires alignment file")
+            raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
         fpth = Path(alignment_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
     tree_path = metafunc.config.getoption("tree")
     if 'tree' in metafunc.fixturenames:
         if tree_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires tree file")
+            raise ValueError(f"{metafunc.function.__name__} requires a tree file")
         fpth = Path(tree_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
     if "sequence" in metafunc.fixturenames:
         if alignment_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires alignment file")
+            raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
         fpth = Path(alignment_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
