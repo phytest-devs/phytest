@@ -1,16 +1,10 @@
 from pathlib import Path
 
 import pytest
-from Bio import AlignIO as _AlignIO
-from Bio import Phylo as _Phylo
-from Bio import SeqIO as _SeqIO
-from Bio.AlignIO import MultipleSeqAlignment as Alignment
-from Bio.Phylo.BaseTree import Tree
-from Bio.SeqRecord import SeqRecord as Sequence
 
-from .asserts import alignments as alignments
-from .asserts import sequences as sequences
-from .asserts import trees as trees
+from .bio.alignment import Alignment
+from .bio.sequence import Sequence
+from .bio.tree import Tree
 from .main import main as main
 
 
@@ -28,25 +22,25 @@ def pytest_generate_tests(metafunc):
     alignment_path = metafunc.config.getoption("alignment")
     if 'alignment' in metafunc.fixturenames:
         if alignment_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires alignment file")
+            raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
         fpth = Path(alignment_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
     tree_path = metafunc.config.getoption("tree")
     if 'tree' in metafunc.fixturenames:
         if tree_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires tree file")
+            raise ValueError(f"{metafunc.function.__name__} requires a tree file")
         fpth = Path(tree_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
     if "sequence" in metafunc.fixturenames:
         if alignment_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires alignment file")
+            raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
         fpth = Path(alignment_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
         alignment_format = metafunc.config.getoption("--alignment-format")
-        sequences = _SeqIO.parse(alignment_path, alignment_format)
+        sequences = Sequence.parse(alignment_path, alignment_format)
         metafunc.parametrize("sequence", sequences, ids=lambda s: s.id)
 
 
@@ -54,7 +48,7 @@ def pytest_generate_tests(metafunc):
 def _alignment_fixture(request):
     alignment_path = request.config.getoption("alignment")
     alignment_format = request.config.getoption("--alignment-format")
-    alignment = _AlignIO.read(alignment_path, alignment_format)
+    alignment = Alignment.read(alignment_path, alignment_format)
     return alignment
 
 
@@ -62,7 +56,7 @@ def _alignment_fixture(request):
 def _tree_fixture(request):
     tree_path = request.config.getoption("tree")
     tree_format = request.config.getoption("--tree-format")
-    tree = _Phylo.read(tree_path, tree_format)
+    tree = Tree.read(tree_path, tree_format)
     return tree
 
 
