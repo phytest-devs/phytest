@@ -94,7 +94,7 @@ We can then run these test on our data with :code:`phytest`:
 
     phytest examples/example.py -a examples/data/example.fasta -t examples/data/example.tree
 
-Generate a report by adding `--report`.
+Generate a report by adding :code:`--report`.
 
 .. image:: docs/images/report.png
   :alt: HTML Report
