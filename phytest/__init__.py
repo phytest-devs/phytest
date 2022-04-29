@@ -1,14 +1,13 @@
 from pathlib import Path
 
 import pytest
-from Bio import Phylo as _Phylo
 from Bio import SeqIO as _SeqIO
 from Bio.Phylo.BaseTree import Tree
 from Bio.SeqRecord import SeqRecord as Sequence
 
 from .bio import sequence as sequence
-from .bio import tree as tree
 from .bio.alignment import Alignment
+from .bio.tree import Tree
 from .main import main as main
 
 
@@ -60,7 +59,7 @@ def _alignment_fixture(request):
 def _tree_fixture(request):
     tree_path = request.config.getoption("tree")
     tree_format = request.config.getoption("--tree-format")
-    tree = _Phylo.read(tree_path, tree_format)
+    tree = Tree.read(tree_path, tree_format)
     return tree
 
 
