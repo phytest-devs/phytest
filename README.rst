@@ -53,20 +53,20 @@ Create an alignment fasta file :code:`example.fasta`
 
 .. code-block:: text
 
-    >A
+    >Sequence_A
     ATGAGATCCCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
-    >B
+    >Sequence_B
     ATGAGATCCCCGATAGCGAGCTAGXGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
-    >C
+    >Sequence_C
     ATGAGA--CCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
-    >D
+    >Sequence_D
     ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
 
 Create a tree newick file :code:`example.tree`
 
 .. code-block:: text
 
-    (A:1,B:0.2,(C:0.3,D:0.4):0.5);
+    (Sequence_A:1,Sequence_B:0.2,(Sequence_C:0.3,Sequence_D:0.4):0.5);
 
 Writing a test file
 ########################
@@ -156,17 +156,17 @@ From the output we can see several tests failed:
 
 .. code-block:: bash
 
-    FAILED examples/example.py::test_sequences_only_contains_the_characters[B] - AssertionError: Invalid pattern found in 'B'!
-    FAILED examples/example.py::test_single_base_deletions[C] - AssertionError: Longest stretch of '-' in 'C' > 1!
-    FAILED examples/example.py::test_longest_stretch_of_Ns_is_10[D] - AssertionError: Longest stretch of 'N' in 'D' > 10!
-    FAILED examples/example.py::test_no_outlier_branches - AssertionError: Outlier tip 'A' (branch length = 1.0)!
+    FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in 'Sequence_B'!
+    FAILED examples/example.py::test_single_base_deletions[Sequence_C] - AssertionError: Longest stretch of '-' in 'Sequence_C' > 1!
+    FAILED examples/example.py::test_longest_stretch_of_Ns_is_10[Sequence_D] - AssertionError: Longest stretch of 'N' in 'Sequence_D' > 10!
+    FAILED examples/example.py::test_outlier_branches - TypeError: can't convert type 'tuple' to numerator/denominator
 
     Results (0.07s):
-        30 passed
+        13 passed
         4 failed
-            - examples/example.py:20 test_sequences_only_contains_the_characters[B]
-            - examples/example.py:23 test_single_base_deletions[C]
-            - examples/example.py:26 test_longest_stretch_of_Ns_is_10[D]
-            - examples/example.py:35 test_no_outlier_branches
+            - examples/example.py:12 test_sequences_only_contains_the_characters[Sequence_B]
+            - examples/example.py:16 test_single_base_deletions[Sequence_C]
+            - examples/example.py:20 test_longest_stretch_of_Ns_is_10[Sequence_D]
+            - examples/example.py:32 test_outlier_branches
 
 .. end-quickstart
