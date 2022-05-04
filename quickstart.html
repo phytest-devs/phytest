@@ -121,18 +121,18 @@
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
 <p>Phytest will run user defined tests against an alignment and tree file. Here we will create example data files to run our tests on.</p>
 <p>Create an alignment fasta file <code class="code docutils literal notranslate"><span class="pre">example.fasta</span></code></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&gt;A
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&gt;Sequence_A
 ATGAGATCCCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
-&gt;B
+&gt;Sequence_B
 ATGAGATCCCCGATAGCGAGCTAGXGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
-&gt;C
+&gt;Sequence_C
 ATGAGA--CCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
-&gt;D
+&gt;Sequence_D
 ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
 </pre></div>
 </div>
 <p>Create a tree newick file <code class="code docutils literal notranslate"><span class="pre">example.tree</span></code></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(A:1,B:0.2,(C:0.3,D:0.4):0.5);
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(Sequence_A:1,Sequence_B:0.2,(Sequence_C:0.3,Sequence_D:0.4):0.5);
 </pre></div>
 </div>
 <section id="writing-a-test-file">
@@ -212,18 +212,18 @@ ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTA
 <img alt="HTML Report" src="docs/images/report.png" />
 <p>This report can be customised in future (see the <a class="reference external" href="https://pytest-html.readthedocs.io/en/latest/user_guide.html">pytest-html user guide</a>).</p>
 <p>From the output we can see several tests failed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FAILED examples/example.py::test_sequences_only_contains_the_characters<span class="o">[</span>B<span class="o">]</span> - AssertionError: Invalid pattern found <span class="k">in</span> <span class="s1">&#39;B&#39;</span>!
-FAILED examples/example.py::test_single_base_deletions<span class="o">[</span>C<span class="o">]</span> - AssertionError: Longest stretch of <span class="s1">&#39;-&#39;</span> <span class="k">in</span> <span class="s1">&#39;C&#39;</span> &gt; <span class="m">1</span>!
-FAILED examples/example.py::test_longest_stretch_of_Ns_is_10<span class="o">[</span>D<span class="o">]</span> - AssertionError: Longest stretch of <span class="s1">&#39;N&#39;</span> <span class="k">in</span> <span class="s1">&#39;D&#39;</span> &gt; <span class="m">10</span>!
-FAILED examples/example.py::test_no_outlier_branches - AssertionError: Outlier tip <span class="s1">&#39;A&#39;</span> <span class="o">(</span>branch <span class="nv">length</span> <span class="o">=</span> <span class="m">1</span>.0<span class="o">)</span>!
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in &#39;Sequence_B&#39;!
+FAILED examples/example.py::test_single_base_deletions[Sequence_C] - AssertionError: Longest stretch of &#39;-&#39; in &#39;Sequence_C&#39; &gt; 1!
+FAILED examples/example.py::test_longest_stretch_of_Ns_is_10[Sequence_D] - AssertionError: Longest stretch of &#39;N&#39; in &#39;Sequence_D&#39; &gt; 10!
+FAILED examples/example.py::test_outlier_branches - TypeError: can&#39;t convert type &#39;tuple&#39; to numerator/denominator
 
-Results <span class="o">(</span><span class="m">0</span>.07s<span class="o">)</span>:
-    <span class="m">30</span> passed
-    <span class="m">4</span> failed
-        - examples/example.py:20 test_sequences_only_contains_the_characters<span class="o">[</span>B<span class="o">]</span>
-        - examples/example.py:23 test_single_base_deletions<span class="o">[</span>C<span class="o">]</span>
-        - examples/example.py:26 test_longest_stretch_of_Ns_is_10<span class="o">[</span>D<span class="o">]</span>
-        - examples/example.py:35 test_no_outlier_branches
+Results (0.07s):
+    13 passed
+    4 failed
+        - examples/example.py:12 test_sequences_only_contains_the_characters[Sequence_B]
+        - examples/example.py:16 test_single_base_deletions[Sequence_C]
+        - examples/example.py:20 test_longest_stretch_of_Ns_is_10[Sequence_D]
+        - examples/example.py:32 test_outlier_branches
 </pre></div>
 </div>
 </section>
