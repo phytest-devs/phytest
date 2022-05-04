@@ -50,6 +50,7 @@ def test_assert_tip_regex():
     # Giving both patterns should pass
     tree.assert_tip_regex(patterns)
 
+
 def test_parse_tip_dates():
     tree = Tree.read_str("(A_1993.3, (B_1998-07-02,C_1992-10-01));")
     dates = tree.parse_tip_dates()
@@ -64,4 +65,17 @@ def test_parse_tip_dates():
         'B_1998-07-02': 1998.5,
         'C_1992-10-01': 1992.75,
     }
+
+
+def test_assert_root_to_tip():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
+    tree.assert_root_to_tip(min_r_squared=0.35)
+    with pytest.raises(AssertionError):
+        tree.assert_root_to_tip(min_r_squared=0.40)
+
+    tree.assert_root_to_tip(min_rate=1.5e-03, max_rate=1.6e-03)
+    with pytest.raises(AssertionError):
+        tree.assert_root_to_tip(max_rate=1.5e-03)
+    with pytest.raises(AssertionError):
+        tree.assert_root_to_tip(min_rate=1.6e-03)
 
