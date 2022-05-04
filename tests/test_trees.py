@@ -1,9 +1,9 @@
 from io import StringIO
-
+from datetime import datetime
 import pytest
 
 from phytest import Tree
-
+from phytest.utils import default_date_patterns
 
 def test_assert_tree_number_of_tips():
     treedata = "(Bovine:0.69395,(Hylobates:0.36079,(Pongo:0.33636,(G._Gorilla:0.17147, (P._paniscus:0.19268,H._sapiens:0.11927):0.08386):0.06124):0.15057):0.54939, Rodent:1.21460);"
@@ -39,11 +39,9 @@ def test_assert_tree_total_branch_length():
 
 
 def test_assert_tip_regex():
-    tree = Tree.read_str("(A_1993.3, (B_1998-09-02,C_1990-12-31));")
-    patterns = [
-        r"\d{4}\.?\d*$",
-        r"\d{4}-\d{2}-\d{2}",
-    ]
+    tree = Tree.read_str("(A_1993.3, (B_1998-07-02,C_1992-12-31));")
+    patterns = default_date_patterns()
+
     # Since the tree uses both conventions, just asserting a single pattern should fail
     for pattern in patterns:
         with pytest.raises(AssertionError):
@@ -51,3 +49,19 @@ def test_assert_tip_regex():
     
     # Giving both patterns should pass
     tree.assert_tip_regex(patterns)
+
+def test_parse_tip_dates():
+    tree = Tree.read_str("(A_1993.3, (B_1998-07-02,C_1992-10-01));")
+    dates = tree.parse_tip_dates()
+    assert dates == {
+        'A_1993.3': datetime(1993, 4, 20, 0, 0),
+        'B_1998-07-02': datetime(1998, 7, 2, 0, 0),
+        'C_1992-10-01': datetime(1992, 10, 1, 0, 0),
+    }
+    dates = tree.parse_tip_dates(decimal_year=True)
+    assert dates == {
+        'A_1993.3': 1993.3,
+        'B_1998-07-02': 1998.5,
+        'C_1992-10-01': 1992.75,
+    }
+

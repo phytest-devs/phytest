@@ -1,4 +1,5 @@
 import re
+from dateutil.parser import parse
 from io import StringIO
 from typing import Union, Optional, Dict, List
 from warnings import warn
@@ -7,6 +8,8 @@ from Bio import Phylo as Phylo
 from Bio.Phylo.BaseTree import Tree as BioTree
 from Bio.Align import MultipleSeqAlignment
 
+from treetime.utils import numeric_date, datetime_from_numeric
+from ..utils import default_date_patterns
 
 class Tree(BioTree):
     @classmethod
@@ -18,6 +21,38 @@ class Tree(BioTree):
     def read_str(cls, tree_str:str, tree_format:str="newick") -> 'Tree':
         data = StringIO(tree_str)
         return cls.read( data, tree_format )
+
+    def parse_tip_dates(
+        self, 
+        *,
+        patterns = None,        
+        date_format: Optional[str] = None,
+        decimal_year:bool = False,
+    ):
+        patterns = patterns or default_date_patterns()
+        if isinstance(patterns, str):
+            patterns = [patterns]
+
+        dates = {}
+
+        compiled_patterns = [re.compile(pattern_string) for pattern_string in patterns]
+        for tip in self.find_elements(terminal=True):
+            for pattern in compiled_patterns:
+                m = pattern.search(tip.name)
+                if m:
+                    matched_str = m.group(0)
+                    if re.match(r"^\d+\.?\d*$", matched_str):
+                        date = datetime_from_numeric(float(matched_str))
+                    else:
+                        date = parse(matched_str, date_format)
+                    
+                    dates[tip.name] = date
+                    break
+        
+        if decimal_year:
+            dates = {key: numeric_date(value) for key, value in dates.items()}
+        
+        return dates
 
     def assert_number_of_tips(
         self,
