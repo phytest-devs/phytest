@@ -1,9 +1,11 @@
-from io import StringIO
 from datetime import datetime
+from io import StringIO
+
 import pytest
 
 from phytest import Tree
 from phytest.utils import default_date_patterns
+
 
 def test_assert_tree_number_of_tips():
     treedata = "(Bovine:0.69395,(Hylobates:0.36079,(Pongo:0.33636,(G._Gorilla:0.17147, (P._paniscus:0.19268,H._sapiens:0.11927):0.08386):0.06124):0.15057):0.54939, Rodent:1.21460);"
@@ -46,7 +48,7 @@ def test_assert_tip_regex():
     for pattern in patterns:
         with pytest.raises(AssertionError):
             tree.assert_tip_regex(pattern)
-    
+
     # Giving both patterns should pass
     tree.assert_tip_regex(patterns)
 
@@ -78,4 +80,3 @@ def test_assert_root_to_tip():
         tree.assert_root_to_tip(max_rate=1.5e-03)
     with pytest.raises(AssertionError):
         tree.assert_root_to_tip(min_rate=1.6e-03)
-
