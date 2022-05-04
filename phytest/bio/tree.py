@@ -1,8 +1,11 @@
-from typing import Optional
+import re
+from io import StringIO
+from typing import Union, Optional, Dict, List
 from warnings import warn
 
 from Bio import Phylo as Phylo
 from Bio.Phylo.BaseTree import Tree as BioTree
+from Bio.Align import MultipleSeqAlignment
 
 
 class Tree(BioTree):
@@ -10,6 +13,11 @@ class Tree(BioTree):
     def read(cls, tree_path, tree_format) -> 'Tree':
         tree = Phylo.read(tree_path, tree_format)
         return Tree(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name)
+
+    @classmethod
+    def read_str(cls, tree_str:str, tree_format:str="newick") -> 'Tree':
+        data = StringIO(tree_str)
+        return cls.read( data, tree_format )
 
     def assert_number_of_tips(
         self,
@@ -49,3 +57,29 @@ class Tree(BioTree):
             assert total_branch_length <= max
         if warning is not None and total_branch_length != warning:
             warn(f"Total branch length '{total_branch_length}' != {warning}")
+
+    def assert_tip_regex(
+        self,
+        patterns: Union[List[str], str],
+    ):
+        """
+        Asserts that all the tips match at least one of a list of regular expression patterns.
+
+        Args:
+            patterns (Union[List[str], str]): The regex pattern(s) to match to. 
+                If a string, then every tip must match that pattern. 
+                If a list then each tip must match at least one pattern in the list.
+        """
+        if isinstance(patterns, str):
+            patterns = [patterns]
+
+        compiled_patterns = [re.compile(pattern_string) for pattern_string in patterns]
+
+        for tip in self.find_elements(terminal=True):
+            matches = False
+            for pattern in compiled_patterns:
+                if pattern.search(tip.name):
+                    matches = True
+                    break
+            assert matches, f"Tip {tip.name} does not match any of the regex patterns in: '{patterns}'."
+

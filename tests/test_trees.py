@@ -36,3 +36,18 @@ def test_assert_tree_total_branch_length():
         tree.assert_total_branch_length(min=12)
     with pytest.raises(AssertionError):
         tree.assert_total_branch_length(max=10)
+
+
+def test_assert_tip_regex():
+    tree = Tree.read_str("(A_1993.3, (B_1998-09-02,C_1990-12-31));")
+    patterns = [
+        r"\d{4}\.?\d*$",
+        r"\d{4}-\d{2}-\d{2}",
+    ]
+    # Since the tree uses both conventions, just asserting a single pattern should fail
+    for pattern in patterns:
+        with pytest.raises(AssertionError):
+            tree.assert_tip_regex(pattern)
+    
+    # Giving both patterns should pass
+    tree.assert_tip_regex(patterns)
