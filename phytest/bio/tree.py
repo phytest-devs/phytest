@@ -1,18 +1,19 @@
-import re
 import copy
-from dateutil.parser import parse
+import re
 from datetime import datetime
 from io import StringIO
-from typing import Union, Optional, Dict, List
+from typing import Dict, List, Optional, Union
 from warnings import warn
 
 from Bio import Phylo as Phylo
-from Bio.Phylo.BaseTree import Tree as BioTree
 from Bio.Align import MultipleSeqAlignment
+from Bio.Phylo.BaseTree import Tree as BioTree
+from dateutil.parser import parse
+from treetime import GTR, TreeTime
+from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from treetime import TreeTime, GTR
-from treetime.utils import numeric_date, datetime_from_numeric, DateConversion
 from ..utils import default_date_patterns
+
 
 class Tree(BioTree):
     @classmethod
@@ -21,16 +22,16 @@ class Tree(BioTree):
         return Tree(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name)
 
     @classmethod
-    def read_str(cls, tree_str:str, tree_format:str="newick") -> 'Tree':
+    def read_str(cls, tree_str: str, tree_format: str = "newick") -> 'Tree':
         data = StringIO(tree_str)
-        return cls.read( data, tree_format )
+        return cls.read(data, tree_format)
 
     def parse_tip_dates(
-        self, 
+        self,
         *,
-        patterns = None,        
+        patterns=None,
         date_format: Optional[str] = None,
-        decimal_year:bool = False,
+        decimal_year: bool = False,
     ):
         patterns = patterns or default_date_patterns()
         if isinstance(patterns, str):
@@ -48,13 +49,13 @@ class Tree(BioTree):
                         date = datetime_from_numeric(float(matched_str))
                     else:
                         date = parse(matched_str, date_format)
-                    
+
                     dates[tip.name] = date
                     break
-        
+
         if decimal_year:
             dates = {key: numeric_date(value) for key, value in dates.items()}
-        
+
         return dates
 
     def assert_number_of_tips(
@@ -104,8 +105,8 @@ class Tree(BioTree):
         Asserts that all the tips match at least one of a list of regular expression patterns.
 
         Args:
-            patterns (Union[List[str], str]): The regex pattern(s) to match to. 
-                If a string, then every tip must match that pattern. 
+            patterns (Union[List[str], str]): The regex pattern(s) to match to.
+                If a string, then every tip must match that pattern.
                 If a list then each tip must match at least one pattern in the list.
         """
         if isinstance(patterns, str):
@@ -127,12 +128,12 @@ class Tree(BioTree):
         dates: Optional[Dict] = None,
         alignment: Optional[MultipleSeqAlignment] = None,
         sequence_length: Optional[int] = None,
-        clock_filter:float = 3.0,
-        gtr:Union[GTR,str] = 'JC69',
-        root_method:str = 'least-squares',
-        allow_negative_rate:bool = False,
-        keep_root:bool = False,
-        covariation:bool = False,
+        clock_filter: float = 3.0,
+        gtr: Union[GTR, str] = 'JC69',
+        root_method: str = 'least-squares',
+        allow_negative_rate: bool = False,
+        keep_root: bool = False,
+        covariation: bool = False,
         min_r_squared: Optional[float] = None,
         min_rate: Optional[float] = None,
         max_rate: Optional[float] = None,
@@ -142,19 +143,19 @@ class Tree(BioTree):
         Performs a root-to-tip regression to determine how clock-like a tree is.
 
         Args:
-            dates (Optional[Dict], optional): The tip dates as a dictionary with the tip name as the key and the date as the value. 
+            dates (Optional[Dict], optional): The tip dates as a dictionary with the tip name as the key and the date as the value.
                 If not set, then it parses the tip dates to generate this dictionary using the `parse_tip_dates` method.
             alignment (Optional[MultipleSeqAlignment], optional): The alignment associated with this tree. Defaults to None.
             sequence_length (Optional[int], optional): The sequence length of the alignment. Defaults to None.
             clock_filter (float, optional): The number of interquartile ranges from regression beyond which to ignore.
-                This provides a way to ignore tips that don't follow a loose clock. 
+                This provides a way to ignore tips that don't follow a loose clock.
                 Defaults to 3.0.
             gtr (GTR, str, optional): The molecular evolution model. Defaults to 'JC69'.
-            allow_negative_rate (bool, optional): Whether or not a negative clock rate is allowed. 
+            allow_negative_rate (bool, optional): Whether or not a negative clock rate is allowed.
                 For trees with little temporal signal, it can be set to True to achieve essentially mid-point rooting.
                 Defaults to False.
             keep_root (bool, optional): Keeps the current root of the tree. If False, then a new optimal root is . Defaults to False.
-            root_method (str, optional): The method used to reroot the tree if `keep_root` is False. 
+            root_method (str, optional): The method used to reroot the tree if `keep_root` is False.
                 Valid choices are: 'min_dev', 'least-squares', and 'oldest'.
                 Defaults to 'least-squares'.
             covariation (bool, optional): Account for covariation when estimating rates or rerooting. Defaults to False.
@@ -166,12 +167,12 @@ class Tree(BioTree):
         dates = dates or self.parse_tip_dates()
 
         # Convert datetimes to floats with decimal years if necessary
-        dates = {name:numeric_date(date) if isinstance(date, datetime) else date for name,date in dates.items()}
+        dates = {name: numeric_date(date) if isinstance(date, datetime) else date for name, date in dates.items()}
 
         treetime = TreeTime(
-            dates=dates, 
-            tree=copy.deepcopy(self), 
-            aln=alignment, 
+            dates=dates,
+            tree=copy.deepcopy(self),
+            aln=alignment,
             gtr=gtr,
             seq_len=sequence_length,
         )
@@ -183,12 +184,11 @@ class Tree(BioTree):
             if len(bad_nodes_after) > len(bad_nodes):
                 print(
                     "The following leaves don't follow a loose clock and "
-                    "will be ignored in rate estimation:\n\t"
-                    +"\n\t".join(set(bad_nodes_after).difference(bad_nodes))
+                    "will be ignored in rate estimation:\n\t" + "\n\t".join(set(bad_nodes_after).difference(bad_nodes))
                 )
 
         if not keep_root:
-            if covariation: # this requires branch length estimates
+            if covariation:  # this requires branch length estimates
                 treetime.run(root="least-squares", max_iter=0, use_covariation=covariation)
 
             assert root_method in ['min_dev', 'least-squares', 'oldest']

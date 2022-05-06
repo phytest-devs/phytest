@@ -1,5 +1,3 @@
-
-
 def default_date_patterns():
     return [
         r"\d{4}\.?\d*$",
