@@ -117,7 +117,7 @@ We can write these tests in a python files :code:`example.py`
 
 
     def test_outlier_branches(tree: Tree):
-        # Here we create custom functions to detect outliers
+        # Here we create a custom function to detect outliers
         import statistics
 
         tips = tree.get_terminals()
