@@ -120,22 +120,11 @@ We can write these tests in a python files :code:`example.py`
         # Here we create custom functions to detect outliers
         import statistics
 
-        def get_parent(tree, child_clade):
-            node_path = tree.get_path(child_clade)
-            if len(node_path) == 1:
-                return tree.root
-            return node_path[-2]
-
-        branch_lengths = [
-            (tip, tree.distance(tip, get_parent(tree, tip)))
-            for tip in tree.get_terminals()
-        ]
-        cut_off = statistics.mean(branch_lengths) + statistics.stdev(
-                branch_lengths
-            )
-        for tip, branch_length in branch_lengths:
-            assert branch_length < cut_off, \
-                f"Outlier tip '{tip.name}' (branch length = {branch_length})!"
+        tips = tree.get_terminals()
+        branch_lengths = [t.branch_length for t in tips]
+        cut_off = statistics.mean(branch_lengths) + statistics.stdev(branch_lengths)
+        for tip in tips:
+            assert tip.branch_length < cut_off, f"Outlier tip '{tip.name}' (branch length = {tip.branch_length})!"
 
 
 
@@ -159,7 +148,7 @@ From the output we can see several tests failed:
     FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in 'Sequence_B'!
     FAILED examples/example.py::test_single_base_deletions[Sequence_C] - AssertionError: Longest stretch of '-' in 'Sequence_C' > 1!
     FAILED examples/example.py::test_longest_stretch_of_Ns_is_10[Sequence_D] - AssertionError: Longest stretch of 'N' in 'Sequence_D' > 10!
-    FAILED examples/example.py::test_outlier_branches - TypeError: can't convert type 'tuple' to numerator/denominator
+    FAILED examples/example.py::test_outlier_branches - AssertionError: Outlier tip 'Sequence_A' (branch length = 1.0)!
 
     Results (0.07s):
         13 passed

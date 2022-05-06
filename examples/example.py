@@ -33,13 +33,8 @@ def test_outlier_branches(tree: Tree):
     # Here we create custom functions to detect outliers
     import statistics
 
-    def get_parent(tree, child_clade):
-        node_path = tree.get_path(child_clade)
-        if len(node_path) == 1:
-            return tree.root
-        return node_path[-2]
-
-    branch_lengths = [(tip, tree.distance(tip, get_parent(tree, tip))) for tip in tree.get_terminals()]
+    tips = tree.get_terminals()
+    branch_lengths = [t.branch_length for t in tips]
     cut_off = statistics.mean(branch_lengths) + statistics.stdev(branch_lengths)
-    for tip, branch_length in branch_lengths:
-        assert branch_length < cut_off, f"Outlier tip '{tip.name}' (branch length = {branch_length})!"
+    for tip in tips:
+        assert tip.branch_length < cut_off, f"Outlier tip '{tip.name}' (branch length = {tip.branch_length})!"
