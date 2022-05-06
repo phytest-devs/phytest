@@ -1,1 +1,1 @@
-sphinx-build -b html docs docshtml -E -a
+sphinx-build -b html docs docs/_build/html -E -a

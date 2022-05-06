@@ -1,8 +1,10 @@
+from datetime import datetime
 from io import StringIO
 
 import pytest
 
 from phytest import Tree
+from phytest.utils import default_date_patterns
 
 
 def test_assert_tree_number_of_tips():
@@ -36,3 +38,45 @@ def test_assert_tree_total_branch_length():
         tree.assert_total_branch_length(min=12)
     with pytest.raises(AssertionError):
         tree.assert_total_branch_length(max=10)
+
+
+def test_assert_tip_regex():
+    tree = Tree.read_str("(A_1993.3, (B_1998-07-02,C_1992-12-31));")
+    patterns = default_date_patterns()
+
+    # Since the tree uses both conventions, just asserting a single pattern should fail
+    for pattern in patterns:
+        with pytest.raises(AssertionError):
+            tree.assert_tip_regex(pattern)
+
+    # Giving both patterns should pass
+    tree.assert_tip_regex(patterns)
+
+
+def test_parse_tip_dates():
+    tree = Tree.read_str("(A_1993.3, (B_1998-07-02,C_1992-10-01));")
+    dates = tree.parse_tip_dates()
+    assert dates == {
+        'A_1993.3': datetime(1993, 4, 20, 0, 0),
+        'B_1998-07-02': datetime(1998, 7, 2, 0, 0),
+        'C_1992-10-01': datetime(1992, 10, 1, 0, 0),
+    }
+    dates = tree.parse_tip_dates(decimal_year=True)
+    assert dates == {
+        'A_1993.3': 1993.3,
+        'B_1998-07-02': 1998.5,
+        'C_1992-10-01': 1992.75,
+    }
+
+
+def test_assert_root_to_tip():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
+    tree.assert_root_to_tip(min_r_squared=0.35)
+    with pytest.raises(AssertionError):
+        tree.assert_root_to_tip(min_r_squared=0.40)
+
+    tree.assert_root_to_tip(min_rate=1.5e-03, max_rate=1.6e-03)
+    with pytest.raises(AssertionError):
+        tree.assert_root_to_tip(max_rate=1.5e-03)
+    with pytest.raises(AssertionError):
+        tree.assert_root_to_tip(min_rate=1.6e-03)

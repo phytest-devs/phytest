@@ -9,12 +9,15 @@ readme = "README.rst"
 phytest = "phytest.cli:app"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.8,<3.11"
 pytest = "^7.1.1"
 pytest-sugar = "^0.9.4"
 pytest-html = "^3.1.1"
 typer = "^0.4.1"
 biopython = "^1.79"
+phylo-treetime = "^0.8.6"
+scipy = "^1.8.0"
+numpy = "^1.22.3"
 
 [tool.poetry.dev-dependencies]
 coverage = "^5.5"

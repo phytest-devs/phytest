@@ -7,23 +7,23 @@ phytest
 
 |pipeline badge| |coverage badge| |docs badge| |black badge| |pre-commit badge| |ice-virus-example badge|
 
-.. |pipeline badge| image:: https://github.com/smutch/phytest/workflows/pipeline/badge.svg
-    :target: https://github.com/smutch/phytest/actions
+.. |pipeline badge| image:: https://github.com/phytest-devs/phytest/workflows/pipeline/badge.svg
+    :target: https://github.com/phytest-devs/phytest/actions
 
-.. |docs badge| image:: https://github.com/smutch/phytest/workflows/docs/badge.svg
-    :target: https://smutch.github.io/phytest/
+.. |docs badge| image:: https://github.com/phytest-devs/phytest/workflows/docs/badge.svg
+    :target: https://phytest-devs.github.io/phytest/
 
 .. |black badge| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
 .. |coverage badge| image:: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/smutch/e8160655e03d9015b1e93b97ed611f4f/raw/coverage-badge.json
-    :target: https://smutch.github.io/phytest/coverage/
+    :target: https://phytest-devs.github.io/phytest/coverage/
 
 .. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/phytest-devs/phytest/main.svg
     :target: https://results.pre-commit.ci/latest/github/phytest-devs/phytest/main
 
-.. |ice-virus-example badge| image:: https://github.com/smutch/phytest/workflows/ice-virus-example/badge.svg
-    :target: https://github.com/smutch/phytest/actions/workflows/ice_virus_example.yml
+.. |ice-virus-example badge| image:: https://github.com/phytest-devs/phytest/workflows/ice-virus-example/badge.svg
+    :target: https://github.com/phytest-devs/phytest/actions/workflows/ice_virus_example.yml
 
 .. end-badges
 
@@ -143,7 +143,7 @@ This report can be customised in future (see the `pytest-html user guide <https:
 
 From the output we can see several tests failed:
 
-.. code-block:: bash
+.. code-block::
 
     FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in 'Sequence_B'!
     FAILED examples/example.py::test_single_base_deletions[Sequence_C] - AssertionError: Longest stretch of '-' in 'Sequence_C' > 1!
