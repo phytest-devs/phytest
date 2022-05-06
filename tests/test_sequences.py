@@ -162,13 +162,13 @@ def test_assert_sequence_endswith():
         sequence.assert_endswith(pattern='ATG')
 
 
-def test_assert_sequence_contains_motif():
+def test_assert_sequence_contains():
     sequence = Sequence(
         Seq("ATG" + "TGACGT" + "UGA"),
         id="DNAID",
         name="TEST",
         description="Test dna sequence",
     )
-    sequence.assert_contains_motif(motif='TGACGT')
+    sequence.assert_contains(pattern='TGACGT')
     with pytest.raises(AssertionError):
-        sequence.assert_contains_motif(motif='CAGCTG')
+        sequence.assert_contains(pattern='CAGCTG')

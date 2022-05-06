@@ -66,6 +66,15 @@ class Tree(BioTree):
         max: Optional[int] = None,
         warning: Optional[int] = None,
     ):
+        """
+        Asserts that that the number of tips meets the specified criteria.
+
+        Args:
+            tips (Optional[int], optional): If set, then number of tips must be equal to this value. Defaults to None.
+            min (Optional[int], optional): If set, then number of tips must be equal to or greater than this value. Defaults to None.
+            max (Optional[int], optional): If set, then number of tips must be equal to or less than this value. Defaults to None.
+            warning (Optional[int], optional): If set, raise a warning if the number of tips is not equal to this value. Defaults to None.
+        """
         number_of_tips = len(self.get_terminals())
         if tips is not None:
             assert number_of_tips == tips
@@ -77,16 +86,30 @@ class Tree(BioTree):
             warn(f"Number of tips '{number_of_tips}' != {warning}")
 
     def assert_is_bifurcating(self):
+        """
+        Asserts that the tree is bifurcating.
+
+        The root may have 3 descendents and still be considered part of a bifurcating tree, because it has no ancestor.
+        """
         assert self.is_bifurcating()
 
     def assert_total_branch_length(
         self,
-        length: Optional[int] = None,
+        length: Optional[float] = None,
         *,
-        min: Optional[int] = None,
-        max: Optional[int] = None,
-        warning: Optional[int] = None,
+        min: Optional[float] = None,
+        max: Optional[float] = None,
+        warning: Optional[float] = None,
     ):
+        """
+        Asserts that that the total brach length meets the specified criteria.
+
+        Args:
+            length (Optional[float], optional): If set, then total brach length must be equal to this value. Defaults to None.
+            min (Optional[float], optional): If set, then total brach length must be equal to or greater than this value. Defaults to None.
+            max (Optional[float], optional): If set, then total brach length must be equal to or less than this value. Defaults to None.
+            warning (Optional[float], optional): If set, raise a warning if the total brach length is not equal to this value. Defaults to None.
+        """
         total_branch_length = self.total_branch_length()
         if length is not None:
             assert total_branch_length == length
