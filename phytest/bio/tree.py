@@ -154,7 +154,7 @@ class Tree(BioTree):
             allow_negative_rate (bool, optional): Whether or not a negative clock rate is allowed.
                 For trees with little temporal signal, it can be set to True to achieve essentially mid-point rooting.
                 Defaults to False.
-            keep_root (bool, optional): Keeps the current root of the tree. 
+            keep_root (bool, optional): Keeps the current root of the tree.
                 If False, then a new optimal root is sought. Defaults to False.
             root_method (str, optional): The method used to reroot the tree if `keep_root` is False.
                 Valid choices are: 'min_dev', 'least-squares', and 'oldest'.
