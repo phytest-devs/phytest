@@ -53,6 +53,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 </ul>
 
@@ -212,7 +213,7 @@ ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTA
 <img alt="HTML Report" src="docs/images/report.png" />
 <p>This report can be customised in future (see the <a class="reference external" href="https://pytest-html.readthedocs.io/en/latest/user_guide.html">pytest-html user guide</a>).</p>
 <p>From the output we can see several tests failed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in &#39;Sequence_B&#39;!
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in &#39;Sequence_B&#39;!
 FAILED examples/example.py::test_single_base_deletions[Sequence_C] - AssertionError: Longest stretch of &#39;-&#39; in &#39;Sequence_C&#39; &gt; 1!
 FAILED examples/example.py::test_longest_stretch_of_Ns_is_10[Sequence_D] - AssertionError: Longest stretch of &#39;N&#39; in &#39;Sequence_D&#39; &gt; 10!
 FAILED examples/example.py::test_outlier_branches - TypeError: can&#39;t convert type &#39;tuple&#39; to numerator/denominator

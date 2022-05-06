@@ -19,6 +19,7 @@ Quality control for phylogenetic pipelines using pytest
    quickstart
    installation
    usage
+   reference
    development
 
 Indices and tables
