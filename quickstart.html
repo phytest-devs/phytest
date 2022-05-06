@@ -186,22 +186,11 @@ ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTA
     <span class="c1"># Here we create custom functions to detect outliers</span>
     <span class="kn">import</span> <span class="nn">statistics</span>
 
-    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">child_clade</span><span class="p">):</span>
-        <span class="n">node_path</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="n">child_clade</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node_path</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">tree</span><span class="o">.</span><span class="n">root</span>
-        <span class="k">return</span> <span class="n">node_path</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-
-    <span class="n">branch_lengths</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="n">tip</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">tip</span><span class="p">,</span> <span class="n">get_parent</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">tip</span><span class="p">)))</span>
-        <span class="k">for</span> <span class="n">tip</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_terminals</span><span class="p">()</span>
-    <span class="p">]</span>
-    <span class="n">cut_off</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">branch_lengths</span><span class="p">)</span> <span class="o">+</span> <span class="n">statistics</span><span class="o">.</span><span class="n">stdev</span><span class="p">(</span>
-            <span class="n">branch_lengths</span>
-        <span class="p">)</span>
-    <span class="k">for</span> <span class="n">tip</span><span class="p">,</span> <span class="n">branch_length</span> <span class="ow">in</span> <span class="n">branch_lengths</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">branch_length</span> <span class="o">&lt;</span> <span class="n">cut_off</span><span class="p">,</span> \
-            <span class="sa">f</span><span class="s2">&quot;Outlier tip &#39;</span><span class="si">{</span><span class="n">tip</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (branch length = </span><span class="si">{</span><span class="n">branch_length</span><span class="si">}</span><span class="s2">)!&quot;</span>
+    <span class="n">tips</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_terminals</span><span class="p">()</span>
+    <span class="n">branch_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">branch_length</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tips</span><span class="p">]</span>
+    <span class="n">cut_off</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">branch_lengths</span><span class="p">)</span> <span class="o">+</span> <span class="n">statistics</span><span class="o">.</span><span class="n">stdev</span><span class="p">(</span><span class="n">branch_lengths</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tip</span> <span class="ow">in</span> <span class="n">tips</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">tip</span><span class="o">.</span><span class="n">branch_length</span> <span class="o">&lt;</span> <span class="n">cut_off</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Outlier tip &#39;</span><span class="si">{</span><span class="n">tip</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (branch length = </span><span class="si">{</span><span class="n">tip</span><span class="o">.</span><span class="n">branch_length</span><span class="si">}</span><span class="s2">)!&quot;</span>
 </pre></div>
 </div>
 <p>We can then run these test on our data with <code class="code docutils literal notranslate"><span class="pre">phytest</span></code>:</p>
@@ -212,17 +201,17 @@ ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTA
 <img alt="HTML Report" src="docs/images/report.png" />
 <p>This report can be customised in future (see the <a class="reference external" href="https://pytest-html.readthedocs.io/en/latest/user_guide.html">pytest-html user guide</a>).</p>
 <p>From the output we can see several tests failed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in &#39;Sequence_B&#39;!
-FAILED examples/example.py::test_single_base_deletions[Sequence_C] - AssertionError: Longest stretch of &#39;-&#39; in &#39;Sequence_C&#39; &gt; 1!
-FAILED examples/example.py::test_longest_stretch_of_Ns_is_10[Sequence_D] - AssertionError: Longest stretch of &#39;N&#39; in &#39;Sequence_D&#39; &gt; 10!
-FAILED examples/example.py::test_outlier_branches - TypeError: can&#39;t convert type &#39;tuple&#39; to numerator/denominator
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FAILED examples/example.py::test_sequences_only_contains_the_characters<span class="o">[</span>Sequence_B<span class="o">]</span> - AssertionError: Invalid pattern found <span class="k">in</span> <span class="s1">&#39;Sequence_B&#39;</span>!
+FAILED examples/example.py::test_single_base_deletions<span class="o">[</span>Sequence_C<span class="o">]</span> - AssertionError: Longest stretch of <span class="s1">&#39;-&#39;</span> <span class="k">in</span> <span class="s1">&#39;Sequence_C&#39;</span> &gt; <span class="m">1</span>!
+FAILED examples/example.py::test_longest_stretch_of_Ns_is_10<span class="o">[</span>Sequence_D<span class="o">]</span> - AssertionError: Longest stretch of <span class="s1">&#39;N&#39;</span> <span class="k">in</span> <span class="s1">&#39;Sequence_D&#39;</span> &gt; <span class="m">10</span>!
+FAILED examples/example.py::test_outlier_branches - AssertionError: Outlier tip <span class="s1">&#39;Sequence_A&#39;</span> <span class="o">(</span>branch <span class="nv">length</span> <span class="o">=</span> <span class="m">1</span>.0<span class="o">)</span>!
 
-Results (0.07s):
-    13 passed
-    4 failed
-        - examples/example.py:12 test_sequences_only_contains_the_characters[Sequence_B]
-        - examples/example.py:16 test_single_base_deletions[Sequence_C]
-        - examples/example.py:20 test_longest_stretch_of_Ns_is_10[Sequence_D]
+Results <span class="o">(</span><span class="m">0</span>.07s<span class="o">)</span>:
+    <span class="m">13</span> passed
+    <span class="m">4</span> failed
+        - examples/example.py:12 test_sequences_only_contains_the_characters<span class="o">[</span>Sequence_B<span class="o">]</span>
+        - examples/example.py:16 test_single_base_deletions<span class="o">[</span>Sequence_C<span class="o">]</span>
+        - examples/example.py:20 test_longest_stretch_of_Ns_is_10<span class="o">[</span>Sequence_D<span class="o">]</span>
         - examples/example.py:32 test_outlier_branches
 </pre></div>
 </div>
