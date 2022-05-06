@@ -3,21 +3,21 @@ API Reference
 =======================
 
 
-Tree 
+Tree
 ======================
 
 .. autoclass:: phytest.bio.tree.Tree
    :members:
 
 
-Sequence 
+Sequence
 ======================
 
 .. autoclass:: phytest.bio.sequence.Sequence
    :members:
 
 
-Alignment 
+Alignment
 ======================
 
 .. autoclass:: phytest.bio.alignment.Alignment

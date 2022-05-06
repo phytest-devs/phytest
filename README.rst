@@ -154,7 +154,7 @@ This report can be customised in future (see the `pytest-html user guide <https:
 
 From the output we can see several tests failed:
 
-.. code-block:: 
+.. code-block::
 
     FAILED examples/example.py::test_sequences_only_contains_the_characters[Sequence_B] - AssertionError: Invalid pattern found in 'Sequence_B'!
     FAILED examples/example.py::test_single_base_deletions[Sequence_C] - AssertionError: Longest stretch of '-' in 'Sequence_C' > 1!
