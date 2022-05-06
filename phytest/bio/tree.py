@@ -154,11 +154,12 @@ class Tree(BioTree):
             allow_negative_rate (bool, optional): Whether or not a negative clock rate is allowed.
                 For trees with little temporal signal, it can be set to True to achieve essentially mid-point rooting.
                 Defaults to False.
-            keep_root (bool, optional): Keeps the current root of the tree. If False, then a new optimal root is . Defaults to False.
+            keep_root (bool, optional): Keeps the current root of the tree. 
+                If False, then a new optimal root is sought. Defaults to False.
             root_method (str, optional): The method used to reroot the tree if `keep_root` is False.
                 Valid choices are: 'min_dev', 'least-squares', and 'oldest'.
                 Defaults to 'least-squares'.
-            covariation (bool, optional): Account for covariation when estimating rates or rerooting. Defaults to False.
+            covariation (bool, optional): Accounts for covariation when estimating rates or rerooting. Defaults to False.
             min_r_squared (Optional[float], optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
             min_rate (Optional[float], optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.
             max_rate (Optional[float], optional): If set, then the clock rate must be equal or lesser than this value. Defaults to None.
