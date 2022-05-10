@@ -27,7 +27,7 @@ def cli(
         None, "-k", help="Only run tests which match the given substring expression."
     ),
 ):
-    main(
+    exit_code = main(
         testfile=testfile,
         alignment=alignment,
         alignment_format=alignment_format,
@@ -37,3 +37,4 @@ def cli(
         report=report,
         expression=expression,
     )
+    raise typer.Exit(code=exit_code)

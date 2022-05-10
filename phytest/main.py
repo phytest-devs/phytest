@@ -31,4 +31,5 @@ def main(
         args.extend(["--html=report.html", "--self-contained-html"])
     if expression:
         args.extend(["-k", expression])
-    pytest.main(args, plugins=['phytest'])
+    exit_code = pytest.main(args, plugins=['phytest'])
+    return exit_code
