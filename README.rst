@@ -37,11 +37,7 @@ Install phytest using pip:
 
 .. code-block:: bash
 
-    pip install git+https://github.com/smutch/phytest.git
-
-.. note ::
-
-    Soon installation will be possible using PyPI.
+    pip install phytest
 
 
 Usage
