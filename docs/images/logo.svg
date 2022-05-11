@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 75.087 1292.396 319.384" xmlns="http://www.w3.org/2000/svg">
+  <rect x="-30.144" y="-6.661" width="1396.125" height="486.274" style="stroke: rgb(0, 0, 0); visibility: hidden;"/>
+  <g transform="matrix(1, 0, 0, 1, -10.385771, 13.131555)">
+    <g>
+      <title>tree</title>
+      <polyline style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 4px; stroke: rgb(127, 140, 141);" points="287.823 225.159 235.994 225.159 235.994 146.05 287.897 146.05"/>
+      <polyline style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 4px; stroke: rgb(127, 140, 141);" points="235.639 185.716 178.087 185.716 178.087 295.494 287.859 295.494"/>
+    </g>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M 304.033 145.271 L 306.285 147.523 L 310.789 143.019 M 317.544 145.271 C 317.544 153.071 309.1 157.948 302.345 154.046 C 299.21 152.237 297.278 148.892 297.278 145.271 C 297.278 137.471 305.722 132.596 312.478 136.496 C 315.613 138.306 317.544 141.651 317.544 145.271 Z" style="fill: none; stroke: rgb(46, 204, 113); stroke-width: 3px;"/>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M 304.033 295.582 L 306.285 297.834 L 310.789 293.33 M 317.544 295.582 C 317.544 303.382 309.1 308.259 302.345 304.357 C 299.21 302.548 297.278 299.203 297.278 295.582 C 297.278 287.782 305.722 282.907 312.478 286.807 C 315.613 288.617 317.544 291.963 317.544 295.582 Z" style="fill: none; stroke: rgb(46, 204, 113); stroke-width: 3px;"/>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M 305.159 227.581 L 307.411 225.329 M 307.411 225.329 L 309.663 223.077 M 307.411 225.329 L 305.159 223.077 M 307.411 225.329 L 309.663 227.581 M 317.544 225.329 C 317.544 233.129 309.1 238.004 302.345 234.104 C 299.21 232.294 297.278 228.949 297.278 225.329 C 297.278 217.528 305.722 212.653 312.478 216.553 C 315.613 218.363 317.544 221.708 317.544 225.329 Z" style="fill: none; stroke: rgb(231, 76, 60); stroke-width: 3px;"/>
+    <text style="fill: rgb(44, 62, 80); font-family: Arial, sans-serif; font-size: 244.9px; stroke: rgb(127, 140, 141); stroke-linecap: round; stroke-linejoin: round; stroke-width: 4px; white-space: pre;" x="318.358" y="306.691">Phytest</text>
+  </g>
+</svg>

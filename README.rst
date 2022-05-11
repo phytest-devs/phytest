@@ -27,6 +27,9 @@ phytest
 
 .. end-badges
 
+.. image:: docs/images/logo.png
+  :alt: Phytest logo
+
 Quality control for phylogenetic pipelines using pytest
 
 .. start-quickstart
