@@ -32,11 +32,11 @@ class Alignment(MultipleSeqAlignment):
         """
         alignment_width = self.get_alignment_length()
         if width is not None:
-            assert alignment_width == width
+            assert alignment_width == width, f"Alignment width '{alignment_width}' != '{width}'"
         if min is not None:
-            assert alignment_width >= min
+            assert alignment_width >= min, f"Alignment width '{alignment_width}' < '{min}'"
         if max is not None:
-            assert alignment_width <= max
+            assert alignment_width <= max, f"Alignment width '{alignment_width}' > '{max}'"
         if warning is not None and alignment_width != warning:
             warn(f"Alignment width '{alignment_width}' != {warning}")
 
@@ -59,10 +59,10 @@ class Alignment(MultipleSeqAlignment):
         """
         alignment_length = len(self)
         if length is not None:
-            assert alignment_length == length
+            assert alignment_length == length, f"Alignment length '{alignment_length}' != '{length}'"
         if min is not None:
-            assert alignment_length >= min
+            assert alignment_length >= min, f"Alignment length '{alignment_length}' < '{min}'"
         if max is not None:
-            assert alignment_length <= max
+            assert alignment_length <= max, f"Alignment length '{alignment_length}' > '{max}'"
         if warning is not None and alignment_length != warning:
             warn(f"Alignment length '{alignment_length}' != {warning}")
