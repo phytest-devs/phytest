@@ -2,11 +2,13 @@ import copy
 import re
 from datetime import datetime
 from io import StringIO
+from msilib.schema import Error
 from typing import Dict, List, Optional, Union
 from warnings import warn
 
 from Bio import Phylo as Phylo
 from Bio.Align import MultipleSeqAlignment
+from Bio.Phylo.BaseTree import Clade
 from Bio.Phylo.BaseTree import Tree as BioTree
 from dateutil.parser import parse
 from treetime import GTR, TreeTime
@@ -92,6 +94,24 @@ class Tree(BioTree):
         The root may have 3 descendents and still be considered part of a bifurcating tree, because it has no ancestor.
         """
         assert self.is_bifurcating()
+
+    def assert_is_monophyletic(self, tips: List[Clade], warning: Optional[bool] = False):
+        """
+        Asserts that the specified tips form a monophyletic group.
+
+        Args:
+            tips (List[Clade]): List of terminal nodes (tips).
+                Can be a list of dictionaries of the form `[ {'name': 'tip_label'}, ... ]`.
+            warning (Optional[bool], optional): If True, raise a warning insted of an error. Defaults to False.
+        """
+        msg = f"The group \'{', '.join([tip.name for tip in tips])}\' is paraphyletic!"
+        try:
+            assert self.is_monophyletic(terminals=tips), msg
+        except AssertionError as e:
+            if warning:
+                warn(msg)
+            else:
+                raise e
 
     def assert_total_branch_length(
         self,
