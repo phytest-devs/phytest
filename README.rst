@@ -3,7 +3,11 @@
 
 .. start-badges
 
-|pipeline badge| |coverage badge| |docs badge| |black badge| |pre-commit badge| |ice-virus-example badge|
+|pypi badge| |pipeline badge| |coverage badge| |docs badge| |black badge| |pre-commit badge| |ice-virus-example badge|
+
+
+.. |pypi badge| image:: https://img.shields.io/pypi/v/phytest.svg
+    :target: https://pypi.org/project/phytest/
 
 .. |pipeline badge| image:: https://github.com/phytest-devs/phytest/workflows/pipeline/badge.svg
     :target: https://github.com/phytest-devs/phytest/actions
