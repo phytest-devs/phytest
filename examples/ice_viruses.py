@@ -6,10 +6,9 @@ def test_sequence(sequence: Sequence):
 
 
 def test_alignment(alignment: Alignment):
-    alignment.assert_length(52)
     alignment.assert_width(462)
 
 
-def test_tree(tree: Tree):
-    tree.assert_is_bifurcating()
-    tree.assert_number_of_tips(52)
+def test_root_to_tip(tree: Tree):
+    # Evolutionary rate of influenza is on the order of 10^-3
+    tree.assert_root_to_tip(min_r_squared=0.5, min_rate=0.001, max_rate=0.009)
