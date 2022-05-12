@@ -100,10 +100,9 @@ class Tree(BioTree):
 
         Args:
             tips (List[Clade]): List of terminal nodes (tips).
-                Can be a list of dictionaries of the form `[ {'name': 'tip_label'}, ... ]`.
             warning (Optional[bool], optional): If True, raise a warning insted of an error. Defaults to False.
         """
-        msg = f"The group \'{', '.join(tips)}\' is paraphyletic!"
+        msg = f"The group \'{', '.join([tip.name for tip in tips])}\' is paraphyletic!"
         try:
             assert self.is_monophyletic(tips), msg
         except Exception as e:
