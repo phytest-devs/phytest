@@ -1,4 +1,4 @@
-.. image:: docs/images/logo.png
+.. image:: https://raw.githubusercontent.com/phytest-devs/phytest/main/docs/images/logo.png
   :alt: Phytest logo
 
 .. start-badges
@@ -136,7 +136,9 @@ We can then run these test on our data with :code:`phytest`:
 
 Generate a report by adding :code:`--report`.
 
-|report image|
+.. image:: https://raw.githubusercontent.com/phytest-devs/phytest/main/docs/images/report.png
+    :alt: HTML Report
+
 
 This report can be customised in future (see the `pytest-html user guide <https://pytest-html.readthedocs.io/en/latest/user_guide.html>`_).
 
@@ -158,6 +160,3 @@ From the output we can see several tests failed:
             - examples/example.py:32 test_outlier_branches
 
 .. end-quickstart
-
-.. |report image| image:: docs/images/report.png
-    :alt: HTML Report
