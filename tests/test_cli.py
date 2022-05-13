@@ -17,3 +17,19 @@ def test_cli_no_input_file(request: pytest.FixtureRequest):
     assert result.exit_code == 0
     assert "testfile1.py" in result.stdout
     assert "1 passed" in result.stdout
+
+
+def test_cli_basic(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-a",
+            "examples/data/example.fasta",
+            "-t",
+            "examples/data/example.tree",
+            "-d",
+            "examples/data/example.csv",
+        ],
+    )
+    assert "7 passed" in result.stdout

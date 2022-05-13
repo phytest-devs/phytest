@@ -1,6 +1,8 @@
 from pathlib import Path
 
+import pandas as pd
 import pytest
+from pandas import DataFrame as MetaData
 
 from .bio.alignment import Alignment
 from .bio.sequence import Sequence
@@ -13,6 +15,7 @@ def pytest_addoption(parser):
     parser.addoption("--alignment-format", action="store", default='fasta', help="alignment file format")
     parser.addoption("--tree", "-T", action="store", default=None, help="tree file")
     parser.addoption("--tree-format", action="store", default='newick', help="tree file format")
+    parser.addoption("--metadata", "-D", action="store", default=None, help="metadata file")
     parser.addoption(
         "--apply-fixes", action="store_true", default=None, help="automatically apply fixes where possible"
     )
@@ -33,6 +36,13 @@ def pytest_generate_tests(metafunc):
         fpth = Path(tree_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
+    metadata_path = metafunc.config.getoption("metadata")
+    if 'metadata' in metafunc.fixturenames:
+        if metadata_path is None:
+            raise ValueError(f"{metafunc.function.__name__} requires a metadata file")
+        fpth = Path(metadata_path)
+        if not fpth.exists():
+            raise FileNotFoundError(f"Unable to locate requested metadata file ({fpth})! 😱")
     if "sequence" in metafunc.fixturenames:
         if alignment_path is None:
             raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
@@ -58,6 +68,13 @@ def _tree_fixture(request):
     tree_format = request.config.getoption("--tree-format")
     tree = Tree.read(tree_path, tree_format)
     return tree
+
+
+@pytest.fixture(scope="session", name="metadata")
+def _metadata_fixture(request):
+    metadata_path = request.config.getoption("metadata")
+    metadata = pd.read_csv(metadata_path)
+    return metadata
 
 
 @pytest.fixture()
