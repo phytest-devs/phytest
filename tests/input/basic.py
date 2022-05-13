@@ -13,5 +13,5 @@ def test_tree_number_of_tips(tree: Tree):
     tree.assert_number_of_tips(4)
 
 
-def test_metadata_number_of_rows(metadata: MetaData):
-    assert len(metadata) == 4
+def test_data_number_of_rows(data: MetaData):
+    assert len(data) == 4
