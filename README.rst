@@ -1,4 +1,4 @@
-.. image:: docs/images/logo.png
+.. image:: https://raw.githubusercontent.com/phytest-devs/phytest/main/docs/images/logo.png
   :alt: Phytest logo
 
 .. start-badges
@@ -136,8 +136,9 @@ We can then run these test on our data with :code:`phytest`:
 
 Generate a report by adding :code:`--report`.
 
-.. image:: docs/images/report.png
-  :alt: HTML Report
+.. image:: https://raw.githubusercontent.com/phytest-devs/phytest/main/docs/images/report.png
+    :alt: HTML Report
+
 
 This report can be customised in future (see the `pytest-html user guide <https://pytest-html.readthedocs.io/en/latest/user_guide.html>`_).
 
