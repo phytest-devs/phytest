@@ -13,7 +13,7 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import default_date_patterns
+from ..utils import default_date_patterns, PhytestWarning, assert_or_warn
 
 
 class Tree(BioTree):
@@ -178,16 +178,19 @@ class Tree(BioTree):
         min_r_squared: Optional[float] = None,
         min_rate: Optional[float] = None,
         max_rate: Optional[float] = None,
+        min_root_date: Optional[float] = None,
+        max_root_date: Optional[float] = None,
         assert_valid_confidence: bool = False,
+        warning: Optional[bool] = False,
     ):
         """
         Performs a root-to-tip regression to determine how clock-like a tree is.
 
         Args:
-            dates (Optional[Dict], optional): The tip dates as a dictionary with the tip name as the key and the date as the value.
+            dates (Dict, optional): The tip dates as a dictionary with the tip name as the key and the date as the value.
                 If not set, then it parses the tip dates to generate this dictionary using the `parse_tip_dates` method.
-            alignment (Optional[MultipleSeqAlignment], optional): The alignment associated with this tree. Defaults to None.
-            sequence_length (Optional[int], optional): The sequence length of the alignment. Defaults to None.
+            alignment (MultipleSeqAlignment, optional): The alignment associated with this tree. Defaults to None.
+            sequence_length (int, optional): The sequence length of the alignment. Defaults to None.
             clock_filter (float, optional): The number of interquartile ranges from regression beyond which to ignore.
                 This provides a way to ignore tips that don't follow a loose clock.
                 Defaults to 3.0.
@@ -201,10 +204,13 @@ class Tree(BioTree):
                 Valid choices are: 'min_dev', 'least-squares', and 'oldest'.
                 Defaults to 'least-squares'.
             covariation (bool, optional): Accounts for covariation when estimating rates or rerooting. Defaults to False.
-            min_r_squared (Optional[float], optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
-            min_rate (Optional[float], optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.
-            max_rate (Optional[float], optional): If set, then the clock rate must be equal or lesser than this value. Defaults to None.
+            min_r_squared (float, optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
+            min_rate (float, optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.
+            max_rate (float, optional): If set, then the clock rate must be equal or less than this value. Defaults to None.
+            min_root_date (float, optional): If set, then the interpolated root date must be equal or greater than this value. Defaults to None.
+            max_root_date (float, optional): If set, then the interpolated root date must be equal or less than this value. Defaults to None.
             assert_valid_confidence (bool, optional): If set then `valid_confidence` in the regression must be True. Defaults to False.
+            warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
         """
         dates = dates or self.parse_tip_dates()
 
@@ -224,9 +230,10 @@ class Tree(BioTree):
             treetime.clock_filter(n_iqd=clock_filter, reroot=root_method or 'least-squares')
             bad_nodes_after = [node.name for node in treetime.tree.get_terminals() if node.bad_branch]
             if len(bad_nodes_after) > len(bad_nodes):
-                print(
+                warn(
                     "The following leaves don't follow a loose clock and "
-                    "will be ignored in rate estimation:\n\t" + "\n\t".join(set(bad_nodes_after).difference(bad_nodes))
+                    "will be ignored in rate estimation:\n\t" + "\n\t".join(set(bad_nodes_after).difference(bad_nodes)),
+                    PhytestWarning
                 )
 
         if not keep_root:
@@ -238,15 +245,48 @@ class Tree(BioTree):
 
         treetime.get_clock_model(covariation=covariation)
         clock_model = DateConversion.from_regression(treetime.clock_model)
+        root_date = clock_model.numdate_from_dist2root(0.0)
 
         if min_r_squared is not None:
-            assert clock_model.r_val**2 >= min_r_squared
+            assert_or_warn( 
+                clock_model.r_val**2 >= min_r_squared,
+                warning,
+                f"The R-squarred value from the root-to-tip regression '{clock_model.r_val**2}' "
+                "is less than the minimum allowed R-squarred '{min_r_squared}'."
+            )
 
         if min_rate is not None:
-            assert clock_model.clock_rate >= min_rate
+            assert_or_warn( 
+                clock_model.clock_rate >= min_rate,
+                warning,
+                f"Inferred clock rate '{clock_model.clock_rate}' is less than the minimum allowed clock rate '{min_rate}'."
+            )
 
         if max_rate is not None:
-            assert clock_model.clock_rate <= max_rate
+            assert_or_warn( 
+                clock_model.clock_rate <= max_rate,
+                warning,
+                f"Inferred clock rate '{clock_model.clock_rate}' is greater than the maximum allowed clock rate '{max_rate}'."
+            )
+
+        if min_root_date is not None:
+            assert_or_warn( 
+                root_date >= min_root_date,
+                warning,
+                f"Inferred root date '{root_date}' is less than the minimum allowed root date '{min_root_date}'."
+            )
+
+        if max_root_date is not None:
+            assert_or_warn( 
+                root_date <= max_root_date,
+                warning,
+                f"Inferred root date '{root_date}' is greater than the maximum allowed root date: '{max_root_date}'."
+            )
 
         if assert_valid_confidence:
-            assert clock_model.valid_confidence
+            assert_or_warn( 
+                clock_model.valid_confidence,
+                warning,
+                f"The `clock_model.valid_confidence` variable is False."
+            )
+

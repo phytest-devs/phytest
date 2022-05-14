@@ -4,7 +4,7 @@ from io import StringIO
 import pytest
 
 from phytest import Tree
-from phytest.utils import default_date_patterns
+from phytest.utils import default_date_patterns, PhytestWarning, PhytestAssertion
 
 
 def test_assert_tree_number_of_tips():
@@ -84,11 +84,18 @@ def test_parse_tip_dates():
 def test_assert_root_to_tip():
     tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
     tree.assert_root_to_tip(min_r_squared=0.35)
-    with pytest.raises(AssertionError):
+    with pytest.raises(PhytestAssertion):
         tree.assert_root_to_tip(min_r_squared=0.40)
 
     tree.assert_root_to_tip(min_rate=1.5e-03, max_rate=1.6e-03)
-    with pytest.raises(AssertionError):
+    with pytest.raises(PhytestAssertion):
         tree.assert_root_to_tip(max_rate=1.5e-03)
-    with pytest.raises(AssertionError):
+    with pytest.raises(PhytestAssertion):
         tree.assert_root_to_tip(min_rate=1.6e-03)
+
+    tree.assert_root_to_tip(min_root_date=1772.0, max_root_date=1773.0)
+    with pytest.raises(PhytestAssertion):
+        tree.assert_root_to_tip(max_root_date=1772.0)
+    with pytest.raises(PhytestAssertion):
+        tree.assert_root_to_tip(min_root_date=1773.0)
+
