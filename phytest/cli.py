@@ -12,15 +12,16 @@ app = typer.Typer()
 def cli(
     testfile: Path = typer.Argument(..., help="Path to test file"),
     alignment: Optional[Path] = typer.Option(
-        None, "--alignment", "-a", dir_okay=False, exists=True, help="Path to sequence alignment"
+        None, "--alignment", "-a", dir_okay=False, exists=True, help="Path to alignment file"
     ),
     alignment_format: Optional[str] = typer.Option(
-        'fasta', "--alignment-format", dir_okay=False, exists=True, help="Sequence alignment format"
+        'fasta', "--alignment-format", dir_okay=False, exists=True, help="Alignment format"
     ),
-    tree: Optional[Path] = typer.Option(None, "--tree", "-t", dir_okay=False, exists=True, help="Tree file format"),
+    tree: Optional[Path] = typer.Option(None, "--tree", "-t", dir_okay=False, exists=True, help="Path to tree file"),
     tree_format: Optional[str] = typer.Option(
-        'newick', "--tree-format", dir_okay=False, exists=True, help="Sequence alignment format"
+        'newick', "--tree-format", dir_okay=False, exists=True, help="Tree file format"
     ),
+    data: Optional[Path] = typer.Option(None, "--data", "-d", dir_okay=False, exists=True, help="Metadata file (CSV)"),
     report: Optional[bool] = typer.Option(False, "--report", "-r", help="Generate an html report"),
     verbose: Optional[bool] = typer.Option(False, "--verbose", "-v", help="Verbose output"),
     expression: Optional[str] = typer.Option(
@@ -33,6 +34,7 @@ def cli(
         alignment_format=alignment_format,
         tree=tree,
         tree_format=tree_format,
+        data=data,
         verbose=verbose,
         report=report,
         expression=expression,

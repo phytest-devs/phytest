@@ -12,6 +12,7 @@ def main(
     alignment_format: Optional[str] = 'fasta',
     tree: Optional[Path] = None,
     tree_format: Optional[str] = 'newick',
+    data: Optional[Path] = None,
     verbose: bool = False,
     report: bool = False,
     expression: str = None,
@@ -27,6 +28,8 @@ def main(
     if tree is not None:
         args.extend(["--tree", tree])
         args.extend(["--tree-format", tree_format])
+    if data is not None:
+        args.extend(["--data", data])
     if report:
         args.extend(["--html=report.html", "--self-contained-html"])
     if expression:
