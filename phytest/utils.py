@@ -1,5 +1,6 @@
 from warnings import warn
 
+
 class PhytestWarning(Warning):
     pass
 
