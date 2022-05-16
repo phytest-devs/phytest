@@ -2,11 +2,9 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
-from pandas import DataFrame as MetaData
+from pandas import DataFrame
 
-from .bio.alignment import Alignment
-from .bio.sequence import Sequence
-from .bio.tree import Tree
+from .bio import Alignment, Sequence, Tree
 from .main import main as main
 
 
@@ -36,6 +34,9 @@ def pytest_generate_tests(metafunc):
         fpth = Path(tree_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
+        tree_format = metafunc.config.getoption("--tree-format")
+        trees = Tree.parse(tree_path, tree_format)
+        metafunc.parametrize("tree", trees, ids=lambda t: t.name)
     data_path = metafunc.config.getoption("data")
     if 'data' in metafunc.fixturenames:
         if data_path is None:
@@ -60,14 +61,6 @@ def _alignment_fixture(request):
     alignment_format = request.config.getoption("--alignment-format")
     alignment = Alignment.read(alignment_path, alignment_format)
     return alignment
-
-
-@pytest.fixture(scope="session", name="tree")
-def _tree_fixture(request):
-    tree_path = request.config.getoption("tree")
-    tree_format = request.config.getoption("--tree-format")
-    tree = Tree.read(tree_path, tree_format)
-    return tree
 
 
 @pytest.fixture(scope="session", name="data")

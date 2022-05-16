@@ -1,4 +1,4 @@
-from phytest import Alignment, MetaData, Sequence, Tree
+from phytest import Alignment, DataFrame, Sequence, Tree
 
 
 def test_length(sequence: Sequence):
@@ -13,5 +13,5 @@ def test_tree_number_of_tips(tree: Tree):
     tree.assert_number_of_tips(4)
 
 
-def test_data_number_of_rows(data: MetaData):
+def test_data_number_of_rows(data: DataFrame):
     assert len(data) == 4

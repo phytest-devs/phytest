@@ -13,7 +13,7 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import default_date_patterns, PhytestWarning, assert_or_warn
+from ..utils import PhytestWarning, assert_or_warn, default_date_patterns
 
 
 class Tree(BioTree):
@@ -21,6 +21,11 @@ class Tree(BioTree):
     def read(cls, tree_path, tree_format) -> 'Tree':
         tree = Phylo.read(tree_path, tree_format)
         return Tree(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name)
+
+    @classmethod
+    def parse(cls, tree_path, tree_format) -> 'Tree':
+        trees = Phylo.parse(tree_path, tree_format)
+        return (Tree(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name) for tree in trees)
 
     @classmethod
     def read_str(cls, tree_str: str, tree_format: str = "newick") -> 'Tree':
@@ -233,7 +238,7 @@ class Tree(BioTree):
                 warn(
                     "The following leaves don't follow a loose clock and "
                     "will be ignored in rate estimation:\n\t" + "\n\t".join(set(bad_nodes_after).difference(bad_nodes)),
-                    PhytestWarning
+                    PhytestWarning,
                 )
 
         if not keep_root:
@@ -248,45 +253,42 @@ class Tree(BioTree):
         root_date = clock_model.numdate_from_dist2root(0.0)
 
         if min_r_squared is not None:
-            assert_or_warn( 
+            assert_or_warn(
                 clock_model.r_val**2 >= min_r_squared,
                 warning,
                 f"The R-squarred value from the root-to-tip regression '{clock_model.r_val**2}' "
-                "is less than the minimum allowed R-squarred '{min_r_squared}'."
+                "is less than the minimum allowed R-squarred '{min_r_squared}'.",
             )
 
         if min_rate is not None:
-            assert_or_warn( 
+            assert_or_warn(
                 clock_model.clock_rate >= min_rate,
                 warning,
-                f"Inferred clock rate '{clock_model.clock_rate}' is less than the minimum allowed clock rate '{min_rate}'."
+                f"Inferred clock rate '{clock_model.clock_rate}' is less than the minimum allowed clock rate '{min_rate}'.",
             )
 
         if max_rate is not None:
-            assert_or_warn( 
+            assert_or_warn(
                 clock_model.clock_rate <= max_rate,
                 warning,
-                f"Inferred clock rate '{clock_model.clock_rate}' is greater than the maximum allowed clock rate '{max_rate}'."
+                f"Inferred clock rate '{clock_model.clock_rate}' is greater than the maximum allowed clock rate '{max_rate}'.",
             )
 
         if min_root_date is not None:
-            assert_or_warn( 
+            assert_or_warn(
                 root_date >= min_root_date,
                 warning,
-                f"Inferred root date '{root_date}' is less than the minimum allowed root date '{min_root_date}'."
+                f"Inferred root date '{root_date}' is less than the minimum allowed root date '{min_root_date}'.",
             )
 
         if max_root_date is not None:
-            assert_or_warn( 
+            assert_or_warn(
                 root_date <= max_root_date,
                 warning,
-                f"Inferred root date '{root_date}' is greater than the maximum allowed root date: '{max_root_date}'."
+                f"Inferred root date '{root_date}' is greater than the maximum allowed root date: '{max_root_date}'.",
             )
 
         if assert_valid_confidence:
-            assert_or_warn( 
-                clock_model.valid_confidence,
-                warning,
-                f"The `clock_model.valid_confidence` variable is False."
+            assert_or_warn(
+                clock_model.valid_confidence, warning, f"The `clock_model.valid_confidence` variable is False."
             )
-
