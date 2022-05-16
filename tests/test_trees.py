@@ -1,10 +1,11 @@
+import warnings
 from datetime import datetime
 from io import StringIO
-import warnings
+
 import pytest
 
 from phytest import Tree
-from phytest.utils import default_date_patterns, PhytestWarning, PhytestAssertion
+from phytest.utils import PhytestAssertion, PhytestWarning, default_date_patterns
 
 
 def test_assert_tree_number_of_tips():
@@ -105,4 +106,3 @@ def test_assert_root_to_tip():
         assert len(w) == 1
         assert issubclass(w[-1].category, PhytestWarning)
         assert "is less than the minimum allowed root date" in str(w[-1].message)
-
