@@ -20,12 +20,12 @@ class Tree(BioTree):
     @classmethod
     def read(cls, tree_path, tree_format) -> 'Tree':
         tree = Phylo.read(tree_path, tree_format)
-        return Tree(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name)
+        return cls(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name)
 
     @classmethod
     def parse(cls, tree_path, tree_format) -> 'Tree':
         trees = Phylo.parse(tree_path, tree_format)
-        return (Tree(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name) for tree in trees)
+        return (cls(root=tree.root, rooted=tree.rooted, id=tree.id, name=tree.name) for tree in trees)
 
     @classmethod
     def read_str(cls, tree_str: str, tree_format: str = "newick") -> 'Tree':
