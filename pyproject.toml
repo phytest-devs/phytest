@@ -2,7 +2,7 @@
 name = "phytest"
 version = "0.1.4"
 description = "Quality control for phylogenetic pipelines using pytest"
-authors = ["Wytamma Wirth <wytamma.wirth@me.com>, Simon Mutch <smutch@unimelb.edu.au>, Rob Turnbull <robert.turnbull@unimelb.edu.au>"]
+authors = ["Wytamma Wirth <wytamma.wirth@me.com>", "Simon Mutch <smutch@unimelb.edu.au>", "Rob Turnbull <robert.turnbull@unimelb.edu.au>"]
 readme = "README.rst"
 
 [tool.poetry.scripts]
