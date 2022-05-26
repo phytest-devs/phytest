@@ -76,10 +76,10 @@ class Tree(BioTree):
         Asserts that that the number of tips meets the specified criteria.
 
         Args:
-            tips (Optional[int], optional): If set, then number of tips must be equal to this value. Defaults to None.
-            min (Optional[int], optional): If set, then number of tips must be equal to or greater than this value. Defaults to None.
-            max (Optional[int], optional): If set, then number of tips must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the number of tips is not equal to this value. Defaults to None.
+            tips (int, optional): If set, then number of tips must be equal to this value. Defaults to None.
+            min (int, optional): If set, then number of tips must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then number of tips must be equal to or less than this value. Defaults to None.
+            warning (int, optional): If set, raise a warning if the number of tips is not equal to this value. Defaults to None.
         """
         number_of_tips = len(self.get_terminals())
         if tips is not None:
@@ -105,16 +105,13 @@ class Tree(BioTree):
 
         Args:
             tips (List[Clade]): List of terminal nodes (tips).
-            warning (Optional[bool], optional): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
         """
-        msg = f"The group \'{', '.join([tip.name for tip in tips])}\' is paraphyletic!"
-        try:
-            assert self.is_monophyletic(tips), msg
-        except Exception as e:
-            if warning:
-                warn(msg)
-            else:
-                raise e
+        assert_or_warn(
+            self.is_monophyletic(tips), 
+            warning, 
+            f"The group \'{', '.join([tip.name for tip in tips])}\' is paraphyletic!"
+        )
 
     def assert_total_branch_length(
         self,
@@ -128,10 +125,10 @@ class Tree(BioTree):
         Asserts that that the total brach length meets the specified criteria.
 
         Args:
-            length (Optional[float], optional): If set, then total brach length must be equal to this value. Defaults to None.
-            min (Optional[float], optional): If set, then total brach length must be equal to or greater than this value. Defaults to None.
-            max (Optional[float], optional): If set, then total brach length must be equal to or less than this value. Defaults to None.
-            warning (Optional[float], optional): If set, raise a warning if the total brach length is not equal to this value. Defaults to None.
+            length (float, optional): If set, then total brach length must be equal to this value. Defaults to None.
+            min (float, optional): If set, then total brach length must be equal to or greater than this value. Defaults to None.
+            max (float, optional): If set, then total brach length must be equal to or less than this value. Defaults to None.
+            warning (float, optional): If set, raise a warning if the total brach length is not equal to this value. Defaults to None.
         """
         total_branch_length = self.total_branch_length()
         if length is not None:
@@ -146,6 +143,7 @@ class Tree(BioTree):
     def assert_tip_regex(
         self,
         patterns: Union[List[str], str],
+        warning: Optional[bool] = False,
     ):
         """
         Asserts that all the tips match at least one of a list of regular expression patterns.
@@ -166,7 +164,12 @@ class Tree(BioTree):
                 if pattern.search(tip.name):
                     matches = True
                     break
-            assert matches, f"Tip {tip.name} does not match any of the regex patterns in: '{patterns}'."
+            assert_or_warn(
+                matches,
+                warning,
+                f"Tip {tip.name} does not match any of the regex patterns in: '{patterns}'.",
+            )
+
 
     def assert_root_to_tip(
         self,
@@ -256,7 +259,7 @@ class Tree(BioTree):
             assert_or_warn(
                 clock_model.r_val**2 >= min_r_squared,
                 warning,
-                f"The R-squarred value from the root-to-tip regression '{clock_model.r_val**2}' "
+                f"The R-squared value from the root-to-tip regression '{clock_model.r_val**2}' "
                 "is less than the minimum allowed R-squarred '{min_r_squared}'.",
             )
 
