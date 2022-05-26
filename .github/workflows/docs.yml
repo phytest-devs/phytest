@@ -1,37 +1,44 @@
 name: docs
+
 on: [push]
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+  build:
 
-      - name: Install 🔧
-        run: |
-          sudo apt-get install pandoc
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install
-      - name: Docs
-        run: |
-          poetry run sphinx-build -b html docs gh-pages
-      - name: Coverage
-        run: |
-          poetry run coverage run -m pytest
-          poetry run coverage html --directory gh-pages/coverage
-          echo "COVERAGE=$(poetry run coverage report --precision 2 | grep TOTAL | tr -s ' ' | cut -f 4 -d " ")" >> $GITHUB_ENV
-      - name: Create Badge
-        uses: schneegans/dynamic-badges-action@v1.1.0 # instructions here: https://github.com/Schneegans/dynamic-badges-action
-        with:
-          auth: ${{ secrets.GIST_SECRET }}
-          gistID: e8160655e03d9015b1e93b97ed611f4f
-          filename: coverage-badge.json
-          label: coverage
-          message: ${{ env.COVERAGE }}
-          color: green
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.5
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: gh-pages # The folder the action should deploy.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9']
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install poetry
+      run: pipx install poetry
+    - name: Install dependencies for Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'poetry'
+    - run: poetry install
+    - name: Docs
+      run: |
+        poetry run sphinx-build -b html docs gh-pages
+    - name: Coverage
+      run: |
+        poetry run coverage run -m pytest
+        poetry run coverage html --directory gh-pages/coverage
+        echo "COVERAGE=$(poetry run coverage report --precision 2 | grep TOTAL | tr -s ' ' | cut -f 4 -d " ")" >> $GITHUB_ENV
+    - name: Create Badge
+      uses: schneegans/dynamic-badges-action@v1.1.0 # instructions here: https://github.com/Schneegans/dynamic-badges-action
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: e8160655e03d9015b1e93b97ed611f4f
+        filename: coverage-badge.json
+        label: coverage
+        message: ${{ env.COVERAGE }}
+        color: green
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: gh-pages # The folder the action should deploy.
