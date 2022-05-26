@@ -125,7 +125,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tips</strong> (<em>List</em><em>[</em><em>Clade</em><em>]</em>) – List of terminal nodes (tips).</p></li>
-<li><p><strong>warning</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em><em>, </em><em>optional</em>) – If True, raise a warning insted of an error. Defaults to False.</p></li>
+<li><p><strong>warning</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, raise a warning insted of an error. Defaults to False.</p></li>
 </ul>
 </dd>
 </dl>
@@ -138,10 +138,10 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tips</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – If set, then number of tips must be equal to this value. Defaults to None.</p></li>
-<li><p><strong>min</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – If set, then number of tips must be equal to or greater than this value. Defaults to None.</p></li>
-<li><p><strong>max</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – If set, then number of tips must be equal to or less than this value. Defaults to None.</p></li>
-<li><p><strong>warning</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – If set, raise a warning if the number of tips is not equal to this value. Defaults to None.</p></li>
+<li><p><strong>tips</strong> (<em>int</em><em>, </em><em>optional</em>) – If set, then number of tips must be equal to this value. Defaults to None.</p></li>
+<li><p><strong>min</strong> (<em>int</em><em>, </em><em>optional</em>) – If set, then number of tips must be equal to or greater than this value. Defaults to None.</p></li>
+<li><p><strong>max</strong> (<em>int</em><em>, </em><em>optional</em>) – If set, then number of tips must be equal to or less than this value. Defaults to None.</p></li>
+<li><p><strong>warning</strong> (<em>int</em><em>, </em><em>optional</em>) – If set, raise a warning if the number of tips is not equal to this value. Defaults to None.</p></li>
 </ul>
 </dd>
 </dl>
@@ -185,7 +185,7 @@ Defaults to ‘least-squares’.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phytest.bio.tree.Tree.assert_tip_regex">
-<span class="sig-name descname"><span class="pre">assert_tip_regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phytest.bio.tree.Tree.assert_tip_regex" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">assert_tip_regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warning</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phytest.bio.tree.Tree.assert_tip_regex" title="Permalink to this definition"></a></dt>
 <dd><p>Asserts that all the tips match at least one of a list of regular expression patterns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -203,10 +203,10 @@ If a list then each tip must match at least one pattern in the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>length</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – If set, then total brach length must be equal to this value. Defaults to None.</p></li>
-<li><p><strong>min</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – If set, then total brach length must be equal to or greater than this value. Defaults to None.</p></li>
-<li><p><strong>max</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – If set, then total brach length must be equal to or less than this value. Defaults to None.</p></li>
-<li><p><strong>warning</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – If set, raise a warning if the total brach length is not equal to this value. Defaults to None.</p></li>
+<li><p><strong>length</strong> (<em>float</em><em>, </em><em>optional</em>) – If set, then total brach length must be equal to this value. Defaults to None.</p></li>
+<li><p><strong>min</strong> (<em>float</em><em>, </em><em>optional</em>) – If set, then total brach length must be equal to or greater than this value. Defaults to None.</p></li>
+<li><p><strong>max</strong> (<em>float</em><em>, </em><em>optional</em>) – If set, then total brach length must be equal to or less than this value. Defaults to None.</p></li>
+<li><p><strong>warning</strong> (<em>float</em><em>, </em><em>optional</em>) – If set, raise a warning if the total brach length is not equal to this value. Defaults to None.</p></li>
 </ul>
 </dd>
 </dl>
