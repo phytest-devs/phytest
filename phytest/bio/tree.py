@@ -108,9 +108,9 @@ class Tree(BioTree):
             warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
         """
         assert_or_warn(
-            self.is_monophyletic(tips), 
-            warning, 
-            f"The group \'{', '.join([tip.name for tip in tips])}\' is paraphyletic!"
+            self.is_monophyletic(tips),
+            warning,
+            f"The group \'{', '.join([tip.name for tip in tips])}\' is paraphyletic!",
         )
 
     def assert_total_branch_length(
@@ -169,7 +169,6 @@ class Tree(BioTree):
                 warning,
                 f"Tip {tip.name} does not match any of the regex patterns in: '{patterns}'.",
             )
-
 
     def assert_root_to_tip(
         self,
