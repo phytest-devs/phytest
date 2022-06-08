@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 from typer.testing import CliRunner
 
@@ -33,3 +35,21 @@ def test_cli_basic(request: pytest.FixtureRequest):
         ],
     )
     assert "7 passed" in result.stdout
+
+
+def test_cli_report(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-a",
+            "examples/data/example.fasta",
+            "-t",
+            "examples/data/example.tree",
+            "-d",
+            "examples/data/example.csv",
+            "-r",
+            "pytest-report.html",
+        ],
+    )
+    assert Path("pytest-report.html").exists()

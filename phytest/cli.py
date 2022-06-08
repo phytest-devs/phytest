@@ -22,7 +22,9 @@ def cli(
         'newick', "--tree-format", dir_okay=False, exists=True, help="Tree file format"
     ),
     data: Optional[Path] = typer.Option(None, "--data", "-d", dir_okay=False, exists=True, help="Metadata file (CSV)"),
-    report: Optional[bool] = typer.Option(False, "--report", "-r", help="Generate an html report"),
+    report: Optional[Path] = typer.Option(
+        None, "--report", "-r", dir_okay=False, exists=False, help="Path to HTML report to generate."
+    ),
     verbose: Optional[bool] = typer.Option(False, "--verbose", "-v", help="Verbose output"),
     expression: Optional[str] = typer.Option(
         None, "-k", help="Only run tests which match the given substring expression."

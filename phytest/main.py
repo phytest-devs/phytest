@@ -14,7 +14,7 @@ def main(
     tree_format: Optional[str] = 'newick',
     data: Optional[Path] = None,
     verbose: bool = False,
-    report: bool = False,
+    report: Optional[Path] = None,
     expression: str = None,
 ):
     if not testfile:
@@ -31,7 +31,9 @@ def main(
     if data is not None:
         args.extend(["--data", data])
     if report:
-        args.extend(["--html=report.html", "--self-contained-html"])
+        if not str(report).endswith('.html'):
+            raise ValueError(f"Report must use .html extension.")
+        args.extend([f"--html={report}", "--self-contained-html"])
     if expression:
         args.extend(["-k", expression])
     exit_code = pytest.main(args, plugins=['phytest'])
