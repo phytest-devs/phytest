@@ -210,7 +210,7 @@ class Tree(BioTree):
         # Convert datetimes to floats with decimal years if necessary
         dates = {name: numeric_date(date) if isinstance(date, datetime) else date for name, date in dates.items()}
 
-        treetime = TreeTime(
+        regression = TreeTime(
             dates=dates,
             tree=copy.deepcopy(self),
             aln=alignment,
@@ -219,9 +219,9 @@ class Tree(BioTree):
         )
 
         if clock_filter:
-            bad_nodes = [node.name for node in treetime.tree.get_terminals() if node.bad_branch]
-            treetime.clock_filter(n_iqd=clock_filter, reroot=root_method or 'least-squares')
-            bad_nodes_after = [node.name for node in treetime.tree.get_terminals() if node.bad_branch]
+            bad_nodes = [node.name for node in regression.tree.get_terminals() if node.bad_branch]
+            regression.clock_filter(n_iqd=clock_filter, reroot=root_method or 'least-squares')
+            bad_nodes_after = [node.name for node in regression.tree.get_terminals() if node.bad_branch]
             if len(bad_nodes_after) > len(bad_nodes):
                 warn(
                     "The following leaves don't follow a loose clock and "
@@ -231,17 +231,18 @@ class Tree(BioTree):
 
         if not keep_root:
             if covariation:  # this requires branch length estimates
-                treetime.run(root="least-squares", max_iter=0, use_covariation=covariation)
+                regression.run(root="least-squares", max_iter=0, use_covariation=covariation)
 
             assert root_method in ['min_dev', 'least-squares', 'oldest']
-            treetime.reroot(root_method, force_positive=not allow_negative_rate)
+            regression.reroot(root_method, force_positive=not allow_negative_rate)
 
-        treetime.get_clock_model(covariation=covariation)
-        return treetime
+        regression.get_clock_model(covariation=covariation)
+        return regression
 
     def assert_root_to_tip(
         self,
         *,
+        regression: Optional[TreeTime] = None,
         min_r_squared: Optional[float] = None,
         min_rate: Optional[float] = None,
         max_rate: Optional[float] = None,
@@ -255,6 +256,8 @@ class Tree(BioTree):
         Performs a root-to-tip regression to determine how clock-like a tree is.
 
         Args:
+            regression (TreeTime, optional): The root-to-tip regression for this tree. 
+                If None, then this regression is calculated using the `root_to_tip_regression` method.
             min_r_squared (float, optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
             min_rate (float, optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.
             max_rate (float, optional): If set, then the clock rate must be equal or less than this value. Defaults to None.
@@ -264,8 +267,8 @@ class Tree(BioTree):
             warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
             **kwargs: Keyword arguments for the `root_to_tip_regression` method.
         """
-        treetime = self.root_to_tip_regression(**kwargs)
-        clock_model = DateConversion.from_regression(treetime.clock_model)
+        regression = regression or self.root_to_tip_regression(**kwargs)
+        clock_model = DateConversion.from_regression(regression.clock_model)
         root_date = clock_model.numdate_from_dist2root(0.0)
 
         if min_r_squared is not None:
