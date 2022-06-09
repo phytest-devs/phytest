@@ -170,7 +170,7 @@ class Tree(BioTree):
                 f"Tip {tip.name} does not match any of the regex patterns in: '{patterns}'.",
             )
 
-    def assert_root_to_tip(
+    def root_to_tip_regression(
         self,
         *,
         dates: Optional[Dict] = None,
@@ -182,13 +182,6 @@ class Tree(BioTree):
         allow_negative_rate: bool = False,
         keep_root: bool = False,
         covariation: bool = False,
-        min_r_squared: Optional[float] = None,
-        min_rate: Optional[float] = None,
-        max_rate: Optional[float] = None,
-        min_root_date: Optional[float] = None,
-        max_root_date: Optional[float] = None,
-        assert_valid_confidence: bool = False,
-        warning: Optional[bool] = False,
     ):
         """
         Performs a root-to-tip regression to determine how clock-like a tree is.
@@ -211,13 +204,6 @@ class Tree(BioTree):
                 Valid choices are: 'min_dev', 'least-squares', and 'oldest'.
                 Defaults to 'least-squares'.
             covariation (bool, optional): Accounts for covariation when estimating rates or rerooting. Defaults to False.
-            min_r_squared (float, optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
-            min_rate (float, optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.
-            max_rate (float, optional): If set, then the clock rate must be equal or less than this value. Defaults to None.
-            min_root_date (float, optional): If set, then the interpolated root date must be equal or greater than this value. Defaults to None.
-            max_root_date (float, optional): If set, then the interpolated root date must be equal or less than this value. Defaults to None.
-            assert_valid_confidence (bool, optional): If set then `valid_confidence` in the regression must be True. Defaults to False.
-            warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
         """
         dates = dates or self.parse_tip_dates()
 
@@ -251,6 +237,34 @@ class Tree(BioTree):
             treetime.reroot(root_method, force_positive=not allow_negative_rate)
 
         treetime.get_clock_model(covariation=covariation)
+        return treetime
+
+    def assert_root_to_tip(
+        self,
+        *,
+        min_r_squared: Optional[float] = None,
+        min_rate: Optional[float] = None,
+        max_rate: Optional[float] = None,
+        min_root_date: Optional[float] = None,
+        max_root_date: Optional[float] = None,
+        assert_valid_confidence: bool = False,
+        warning: Optional[bool] = False,
+        **kwargs,
+    ):
+        """
+        Performs a root-to-tip regression to determine how clock-like a tree is.
+
+        Args:
+            min_r_squared (float, optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
+            min_rate (float, optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.
+            max_rate (float, optional): If set, then the clock rate must be equal or less than this value. Defaults to None.
+            min_root_date (float, optional): If set, then the interpolated root date must be equal or greater than this value. Defaults to None.
+            max_root_date (float, optional): If set, then the interpolated root date must be equal or less than this value. Defaults to None.
+            assert_valid_confidence (bool, optional): If set then `valid_confidence` in the regression must be True. Defaults to False.
+            warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
+            **kwargs: Keyword arguments for the `root_to_tip_regression` method.
+        """
+        treetime = self.root_to_tip_regression(**kwargs)
         clock_model = DateConversion.from_regression(treetime.clock_model)
         root_date = clock_model.numdate_from_dist2root(0.0)
 
