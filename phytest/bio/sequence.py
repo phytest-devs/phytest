@@ -8,7 +8,6 @@ from Bio import SeqIO as SeqIO
 from Bio.SeqRecord import SeqRecord
 from ..utils import assert_or_warn, PhytestObject
 
-
 class Sequence(PhytestObject, SeqRecord):
     @classmethod
     def parse(cls, alignment_path, alignment_format) -> 'Sequence':
@@ -289,4 +288,3 @@ class Sequence(PhytestObject, SeqRecord):
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         self.assert_count(pattern=pattern, min=1, warning=warning)
-

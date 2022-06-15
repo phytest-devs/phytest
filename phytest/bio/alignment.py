@@ -97,4 +97,3 @@ class Alignment(PhytestObject, MultipleSeqAlignment):
                 summary,
                 f"This is greater than the maximum {max}.",
             )
-
