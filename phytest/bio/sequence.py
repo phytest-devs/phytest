@@ -36,7 +36,7 @@ class Sequence(SeqRecord):
             alphabet (str): A string containing legal charaters. Defaults to 'ATCGN-'.
             warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
-        regex_invalid = re.compile(f"[^{alphabet}]")
+        regex_invalid = re.compile(f"[^{re.escape(alphabet)}]")
         result = regex_invalid.search(str(self.seq))
         if result:
             assert_or_warn(
@@ -65,13 +65,23 @@ class Sequence(SeqRecord):
         """
         sequence_length = len(self.seq)
         if length is not None:
-            assert sequence_length == length
+            assert_or_warn(
+                sequence_length == length,
+                warning,
+                f"Sequence length of '{self.id}' ({sequence_length}) is not equal to the required length of {length}.",
+            )
         if min is not None:
-            assert sequence_length >= min
+            assert_or_warn(
+                sequence_length >= min,
+                warning,
+                f"Sequence length of '{self.id}' ({sequence_length}) is less than the minimum {min}.",
+            )
         if max is not None:
-            assert sequence_length <= max
-        if warning is not None and sequence_length != warning:
-            warn(f"Sequence length '{sequence_length}' != {warning}")
+            assert_or_warn(
+                sequence_length <= max,
+                warning,
+                f"Sequence length of '{self.id}' ({sequence_length}) is greater than the maximum {max}.",
+            )
 
     def assert_count(
         self,

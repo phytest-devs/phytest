@@ -1,3 +1,4 @@
+import re
 import pytest
 from Bio.Seq import Seq
 
@@ -42,11 +43,23 @@ def test_assert_length():
         description="Test dna sequence",
     )
     sequence.assert_length(length=100, min=99, max=101)
-    with pytest.raises(AssertionError):
+    
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence length of 'DNAID' (100) is not equal to the required length of 1.")
+    ):
         sequence.assert_length(length=1)
-    with pytest.raises(AssertionError):
+
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence length of 'DNAID' (100) is less than the minimum 101.")
+    ):
         sequence.assert_length(min=101)
-    with pytest.raises(AssertionError):
+    
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence length of 'DNAID' (100) is greater than the maximum 99.")
+    ):
         sequence.assert_length(max=99)
 
 
