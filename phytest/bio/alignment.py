@@ -6,6 +6,7 @@ from Bio.Align import MultipleSeqAlignment
 
 from ..utils import assert_or_warn, PhytestObject
 
+
 class Alignment(PhytestObject, MultipleSeqAlignment):
     @classmethod
     def read(cls, alignment_path, alignment_format) -> 'Alignment':

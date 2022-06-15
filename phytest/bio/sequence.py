@@ -8,6 +8,7 @@ from Bio import SeqIO as SeqIO
 from Bio.SeqRecord import SeqRecord
 from ..utils import assert_or_warn, PhytestObject
 
+
 class Sequence(PhytestObject, SeqRecord):
     @classmethod
     def parse(cls, alignment_path, alignment_format) -> 'Sequence':
