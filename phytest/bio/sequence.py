@@ -6,6 +6,7 @@ from warnings import warn
 from Bio import AlignIO
 from Bio import SeqIO as SeqIO
 from Bio.SeqRecord import SeqRecord
+
 from ..utils import assert_or_warn
 
 
@@ -289,4 +290,3 @@ class Sequence(SeqRecord):
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         self.assert_count(pattern=pattern, min=1, warning=warning)
-

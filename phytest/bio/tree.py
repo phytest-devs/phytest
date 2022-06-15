@@ -285,7 +285,7 @@ class Tree(BioTree):
         Performs a root-to-tip regression to determine how clock-like a tree is.
 
         Args:
-            regression (TreeTime, optional): The root-to-tip regression for this tree. 
+            regression (TreeTime, optional): The root-to-tip regression for this tree.
                 If None, then this regression is calculated using the `root_to_tip_regression` method.
             min_r_squared (float, optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
             min_rate (float, optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.

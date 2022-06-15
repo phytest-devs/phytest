@@ -6,6 +6,7 @@ from Bio.Align import MultipleSeqAlignment
 
 from ..utils import assert_or_warn
 
+
 class Alignment(MultipleSeqAlignment):
     @classmethod
     def read(cls, alignment_path, alignment_format) -> 'Alignment':
@@ -97,4 +98,3 @@ class Alignment(MultipleSeqAlignment):
                 summary,
                 f"This is greater than the maximum {max}.",
             )
-
