@@ -58,10 +58,10 @@
     <p id="t4" class="run"><span class="n"><a href="#t4">4</a></span><span class="t"><span class="key">from</span> <span class="nam">Bio</span> <span class="key">import</span> <span class="nam">AlignIO</span>&nbsp;</span><span class="r"></span></p>
     <p id="t5" class="run"><span class="n"><a href="#t5">5</a></span><span class="t"><span class="key">from</span> <span class="nam">Bio</span><span class="op">.</span><span class="nam">Align</span> <span class="key">import</span> <span class="nam">MultipleSeqAlignment</span>&nbsp;</span><span class="r"></span></p>
     <p id="t6" class="pln"><span class="n"><a href="#t6">6</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t7" class="run"><span class="n"><a href="#t7">7</a></span><span class="t"><span class="key">from</span> <span class="op">.</span><span class="op">.</span><span class="nam">utils</span> <span class="key">import</span> <span class="nam">assert_or_warn</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t7" class="run"><span class="n"><a href="#t7">7</a></span><span class="t"><span class="key">from</span> <span class="op">.</span><span class="op">.</span><span class="nam">utils</span> <span class="key">import</span> <span class="nam">assert_or_warn</span><span class="op">,</span> <span class="nam">PhytestObject</span>&nbsp;</span><span class="r"></span></p>
     <p id="t8" class="pln"><span class="n"><a href="#t8">8</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t9" class="pln"><span class="n"><a href="#t9">9</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t10" class="run"><span class="n"><a href="#t10">10</a></span><span class="t"><span class="key">class</span> <span class="nam">Alignment</span><span class="op">(</span><span class="nam">MultipleSeqAlignment</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t10" class="run"><span class="n"><a href="#t10">10</a></span><span class="t"><span class="key">class</span> <span class="nam">Alignment</span><span class="op">(</span><span class="nam">PhytestObject</span><span class="op">,</span> <span class="nam">MultipleSeqAlignment</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t11" class="run"><span class="n"><a href="#t11">11</a></span><span class="t">    <span class="op">@</span><span class="nam">classmethod</span>&nbsp;</span><span class="r"></span></p>
     <p id="t12" class="run"><span class="n"><a href="#t12">12</a></span><span class="t">    <span class="key">def</span> <span class="nam">read</span><span class="op">(</span><span class="nam">cls</span><span class="op">,</span> <span class="nam">alignment_path</span><span class="op">,</span> <span class="nam">alignment_format</span><span class="op">)</span> <span class="op">-></span> <span class="str">'Alignment'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t13" class="run"><span class="n"><a href="#t13">13</a></span><span class="t">        <span class="nam">alignment</span> <span class="op">=</span> <span class="nam">AlignIO</span><span class="op">.</span><span class="nam">read</span><span class="op">(</span><span class="nam">alignment_path</span><span class="op">,</span> <span class="nam">alignment_format</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -157,7 +157,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2022-06-15 03:10 +0000
+            created at 2022-06-15 04:38 +0000
         </p>
     </div>
 </div>

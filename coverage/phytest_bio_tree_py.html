@@ -67,10 +67,10 @@
     <p id="t13" class="run"><span class="n"><a href="#t13">13</a></span><span class="t"><span class="key">from</span> <span class="nam">treetime</span> <span class="key">import</span> <span class="nam">GTR</span><span class="op">,</span> <span class="nam">TreeTime</span>&nbsp;</span><span class="r"></span></p>
     <p id="t14" class="run"><span class="n"><a href="#t14">14</a></span><span class="t"><span class="key">from</span> <span class="nam">treetime</span><span class="op">.</span><span class="nam">utils</span> <span class="key">import</span> <span class="nam">DateConversion</span><span class="op">,</span> <span class="nam">datetime_from_numeric</span><span class="op">,</span> <span class="nam">numeric_date</span>&nbsp;</span><span class="r"></span></p>
     <p id="t15" class="pln"><span class="n"><a href="#t15">15</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t16" class="run"><span class="n"><a href="#t16">16</a></span><span class="t"><span class="key">from</span> <span class="op">.</span><span class="op">.</span><span class="nam">utils</span> <span class="key">import</span> <span class="nam">PhytestWarning</span><span class="op">,</span> <span class="nam">assert_or_warn</span><span class="op">,</span> <span class="nam">default_date_patterns</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t16" class="run"><span class="n"><a href="#t16">16</a></span><span class="t"><span class="key">from</span> <span class="op">.</span><span class="op">.</span><span class="nam">utils</span> <span class="key">import</span> <span class="nam">PhytestWarning</span><span class="op">,</span> <span class="nam">PhytestObject</span><span class="op">,</span> <span class="nam">assert_or_warn</span><span class="op">,</span> <span class="nam">default_date_patterns</span>&nbsp;</span><span class="r"></span></p>
     <p id="t17" class="pln"><span class="n"><a href="#t17">17</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t18" class="pln"><span class="n"><a href="#t18">18</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t19" class="run"><span class="n"><a href="#t19">19</a></span><span class="t"><span class="key">class</span> <span class="nam">Tree</span><span class="op">(</span><span class="nam">BioTree</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t19" class="run"><span class="n"><a href="#t19">19</a></span><span class="t"><span class="key">class</span> <span class="nam">Tree</span><span class="op">(</span><span class="nam">PhytestObject</span><span class="op">,</span> <span class="nam">BioTree</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t20" class="run"><span class="n"><a href="#t20">20</a></span><span class="t">    <span class="op">@</span><span class="nam">classmethod</span>&nbsp;</span><span class="r"></span></p>
     <p id="t21" class="run"><span class="n"><a href="#t21">21</a></span><span class="t">    <span class="key">def</span> <span class="nam">read</span><span class="op">(</span><span class="nam">cls</span><span class="op">,</span> <span class="nam">tree_path</span><span class="op">,</span> <span class="nam">tree_format</span><span class="op">)</span> <span class="op">-></span> <span class="str">'Tree'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t22" class="run"><span class="n"><a href="#t22">22</a></span><span class="t">        <span class="nam">tree</span> <span class="op">=</span> <span class="nam">Phylo</span><span class="op">.</span><span class="nam">read</span><span class="op">(</span><span class="nam">tree_path</span><span class="op">,</span> <span class="nam">tree_format</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -399,7 +399,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2022-06-15 03:10 +0000
+            created at 2022-06-15 04:38 +0000
         </p>
     </div>
 </div>
