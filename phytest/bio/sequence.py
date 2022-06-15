@@ -34,7 +34,7 @@ class Sequence(PhytestObject, SeqRecord):
 
         Args:
             alphabet (str): A string containing legal charaters. Defaults to 'ATCGN-'.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         regex_invalid = re.compile(f"[^{re.escape(alphabet)}]")
@@ -62,7 +62,7 @@ class Sequence(PhytestObject, SeqRecord):
             length (int, optional): If set, then sequence length must be equal to this value. Defaults to None.
             min (int, optional): If set, then sequence length must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then sequence length must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         sequence_length = len(self.seq)
@@ -102,7 +102,7 @@ class Sequence(PhytestObject, SeqRecord):
             count (int, optional): If set, then pattern count must be equal to this value. Defaults to None.
             min (int, optional): If set, then pattern count must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then pattern count must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         base_count = self.seq.count(pattern)
@@ -144,7 +144,7 @@ class Sequence(PhytestObject, SeqRecord):
             count (int, optional): If set, then the number of N's must be equal to this value. Defaults to None.
             min (int, optional): If set, then the number of N's must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then the number of N's must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         self.assert_count(pattern='N', count=count, min=min, max=max, warning=warning)
@@ -164,7 +164,7 @@ class Sequence(PhytestObject, SeqRecord):
             count (int, optional): If set, then the number of gaps (-) must be equal to this value. Defaults to None.
             min (int, optional): If set, then the number of gaps (-) must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then the number of gaps (-) must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         self.assert_count(pattern='-', count=count, min=min, max=max, warning=warning)
@@ -188,7 +188,7 @@ class Sequence(PhytestObject, SeqRecord):
             count (int, optional): If set, then the longest stretch of the pattern must be equal to this value. Defaults to None.
             min (int, optional): If set, then the longest stretch of the pattern must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then the longest stretch of the pattern must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         matches = re.findall(f'{pattern}+', str(self.seq))
@@ -233,7 +233,7 @@ class Sequence(PhytestObject, SeqRecord):
             count (int, optional): If set, then the longest stretch of N's must be equal to this value. Defaults to None.
             min (int, optional): If set, then the longest stretch of N's must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then the longest stretch of N's must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         self.assert_longest_stretch(pattern='N', count=count, min=min, max=max, warning=warning)
@@ -255,7 +255,7 @@ class Sequence(PhytestObject, SeqRecord):
             count (int, optional): If set, then the longest stretch of gaps (-) must be equal to this value. Defaults to None.
             min (int, optional): If set, then the longest stretch of gaps (-) must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then the longest stretch of gaps (-) must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         self.assert_longest_stretch(pattern='-', count=count, min=min, max=max, warning=warning)
@@ -266,7 +266,7 @@ class Sequence(PhytestObject, SeqRecord):
 
         Args:
             pattern (str): The sequence must start with this value.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         assert_or_warn(
@@ -281,7 +281,7 @@ class Sequence(PhytestObject, SeqRecord):
 
         Args:
             pattern (str): The sequence must end with this value.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         assert_or_warn(
@@ -296,7 +296,7 @@ class Sequence(PhytestObject, SeqRecord):
 
         Args:
             pattern (str): The sequence must contain this value.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         self.assert_count(pattern=pattern, min=1, warning=warning)

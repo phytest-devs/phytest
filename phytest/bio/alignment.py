@@ -30,7 +30,7 @@ class Alignment(PhytestObject, MultipleSeqAlignment):
             length (int, optional): If set, then alignment width must be equal to this value. Defaults to None.
             min (int, optional): If set, then alignment width must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then alignment width must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         alignment_width = self.get_alignment_length()
@@ -73,7 +73,7 @@ class Alignment(PhytestObject, MultipleSeqAlignment):
             length (int, optional): If set, then alignment length must be equal to this value. Defaults to None.
             min (int, optional): If set, then alignment length must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then alignment length must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         alignment_length = len(self)
