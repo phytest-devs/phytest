@@ -4,7 +4,7 @@ from warnings import warn
 from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 
-from ..utils import assert_or_warn, PhytestObject
+from ..utils import PhytestObject, assert_or_warn
 
 
 class Alignment(PhytestObject, MultipleSeqAlignment):
