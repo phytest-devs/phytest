@@ -227,7 +227,10 @@ def test_assert_sequence_startswith():
         description="Test dna sequence",
     )
     sequence.assert_startswith(pattern='ATG')
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' does not start with 'UGA'.")
+    ):
         sequence.assert_startswith(pattern='UGA')
 
 
@@ -239,7 +242,10 @@ def test_assert_sequence_endswith():
         description="Test dna sequence",
     )
     sequence.assert_endswith(pattern='UGA')
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' does not end with 'ATG'.")
+    ):
         sequence.assert_endswith(pattern='ATG')
 
 
@@ -251,5 +257,8 @@ def test_assert_sequence_contains():
         description="Test dna sequence",
     )
     sequence.assert_contains(pattern='TGACGT')
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern 'CAGCTG' 0 time(s).\nThis is less than the minimum 1.")
+    ):
         sequence.assert_contains(pattern='CAGCTG')

@@ -34,7 +34,7 @@ class Sequence(SeqRecord):
 
         Args:
             alphabet (str): A string containing legal charaters. Defaults to 'ATCGN-'.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         regex_invalid = re.compile(f"[^{re.escape(alphabet)}]")
         result = regex_invalid.search(str(self.seq))
@@ -61,7 +61,7 @@ class Sequence(SeqRecord):
             length (int, optional): If set, then sequence length must be equal to this value. Defaults to None.
             min (int, optional): If set, then sequence length must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then sequence length must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         sequence_length = len(self.seq)
         if length is not None:
@@ -100,7 +100,7 @@ class Sequence(SeqRecord):
             count (int, optional): If set, then pattern count must be equal to this value. Defaults to None.
             min (int, optional): If set, then pattern count must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then pattern count must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         base_count = self.seq.count(pattern)
         summary = f"Sequence '{self.id}' matches pattern '{pattern}' {base_count} time(s)."
@@ -141,7 +141,7 @@ class Sequence(SeqRecord):
             count (int, optional): If set, then the number of N's must be equal to this value. Defaults to None.
             min (int, optional): If set, then the number of N's must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then the number of N's must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         self.assert_count(pattern='N', count=count, min=min, max=max, warning=warning)
 
@@ -160,7 +160,7 @@ class Sequence(SeqRecord):
             count (Optional[int], optional): If set, then the number of gaps (-) must be equal to this value. Defaults to None.
             min (Optional[int], optional): If set, then the number of gaps (-) must be equal to or greater than this value. Defaults to None.
             max (Optional[int], optional): If set, then the number of gaps (-) must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         self.assert_count(pattern='-', count=count, min=min, max=max, warning=warning)
 
@@ -183,7 +183,7 @@ class Sequence(SeqRecord):
             count (int, optional): If set, then the longest stretch of the pattern must be equal to this value. Defaults to None.
             min (int, optional): If set, then the longest stretch of the pattern must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then the longest stretch of the pattern must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         matches = re.findall(f'{pattern}+', str(self.seq))
         longest_stretch = len(builtin_max(matches)) if matches else 0
@@ -227,7 +227,7 @@ class Sequence(SeqRecord):
             count (Optional[int], optional): If set, then the longest stretch of N's must be equal to this value. Defaults to None.
             min (Optional[int], optional): If set, then the longest stretch of N's must be equal to or greater than this value. Defaults to None.
             max (Optional[int], optional): If set, then the longest stretch of N's must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         self.assert_longest_stretch(pattern='N', count=count, min=min, max=max, warning=warning)
 
@@ -248,33 +248,45 @@ class Sequence(SeqRecord):
             count (Optional[int], optional): If set, then the longest stretch of gaps (-) must be equal to this value. Defaults to None.
             min (Optional[int], optional): If set, then the longest stretch of gaps (-) must be equal to or greater than this value. Defaults to None.
             max (Optional[int], optional): If set, then the longest stretch of gaps (-) must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
         self.assert_longest_stretch(pattern='-', count=count, min=min, max=max, warning=warning)
 
-    def assert_startswith(self, pattern: str):
+    def assert_startswith(self, pattern: str, *, warning: bool = False):
         """
         Asserts that the sequence starts with a particular pattern.
 
         Args:
             pattern (str): The sequence must start with this value.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
-        assert self.seq.startswith(pattern)
+        assert_or_warn(
+            self.seq.startswith(pattern),
+            warning,
+            f"Sequence '{self.id}' does not start with '{pattern}'.",
+        )
 
-    def assert_endswith(self, pattern: str):
+    def assert_endswith(self, pattern: str, *, warning: bool = False):
         """
         Asserts that the sequence ends with a particular pattern.
 
         Args:
             pattern (str): The sequence must end with this value.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
-        assert self.seq.endswith(pattern)
+        assert_or_warn(
+            self.seq.endswith(pattern),
+            warning,
+            f"Sequence '{self.id}' does not end with '{pattern}'.",
+        )
 
-    def assert_contains(self, pattern: str):
+    def assert_contains(self, pattern: str, *, warning: bool = False):
         """
         Asserts that the sequence contains a particular pattern.
 
         Args:
             pattern (str): The sequence must contain this value.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
         """
-        self.assert_count(pattern=pattern, min=1)
+        self.assert_count(pattern=pattern, min=1, warning=warning)
+
