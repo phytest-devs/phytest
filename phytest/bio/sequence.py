@@ -6,6 +6,7 @@ from warnings import warn
 from Bio import AlignIO
 from Bio import SeqIO as SeqIO
 from Bio.SeqRecord import SeqRecord
+from ..utils import assert_or_warn
 
 
 class Sequence(SeqRecord):
@@ -27,15 +28,23 @@ class Sequence(SeqRecord):
             for r in alignment
         )
 
-    def assert_valid_alphabet(self, alphabet: str = "ATCGN-") -> None:
+    def assert_valid_alphabet(self, alphabet: str = "ATCGN-", *, warning: bool = False) -> None:
         """
         Asserts that that the sequence only contains particular charaters.
 
         Args:
             alphabet (str): A string containing legal charaters. Defaults to 'ATCGN-'.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         regex_invalid = re.compile(f"[^{alphabet}]")
-        assert not regex_invalid.search(str(self.seq)), f"Invalid pattern found in '{self.id}'!"
+        result = regex_invalid.search(str(self.seq))
+        if result:
+            assert_or_warn(
+                not result,
+                warning,
+                f"Invalid pattern found in '{self.id}'.",
+                f"Character '{result.group(0)}' at position {result.start(0)+1} found which is not in alphabet '{alphabet}'.",
+            )
 
     def assert_length(
         self,
@@ -43,16 +52,16 @@ class Sequence(SeqRecord):
         *,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ) -> None:
         """
         Asserts that that the sequence length meets the specified criteria.
 
         Args:
-            length (Optional[int], optional): If set, then sequence length must be equal to this value. Defaults to None.
-            min (Optional[int], optional): If set, then sequence length must be equal to or greater than this value. Defaults to None.
-            max (Optional[int], optional): If set, then sequence length must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the sequence length is not equal to this value. Defaults to None.
+            length (int, optional): If set, then sequence length must be equal to this value. Defaults to None.
+            min (int, optional): If set, then sequence length must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then sequence length must be equal to or less than this value. Defaults to None.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         sequence_length = len(self.seq)
         if length is not None:
@@ -81,7 +90,7 @@ class Sequence(SeqRecord):
             count (Optional[int], optional): If set, then pattern count must be equal to this value. Defaults to None.
             min (Optional[int], optional): If set, then pattern count must be equal to or greater than this value. Defaults to None.
             max (Optional[int], optional): If set, then pattern count must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the pattern count is not equal to this value. Defaults to None.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         base_count = self.seq.count(pattern)
         if count is not None:

@@ -3,6 +3,8 @@ from Bio.Seq import Seq
 
 from phytest import Sequence
 
+from phytest.utils import PhytestAssertion
+
 
 def test_assert_valid_alphabet():
     sequence = Sequence(
@@ -18,11 +20,17 @@ def test_assert_valid_alphabet():
         description="Test protein sequence",
     )
     sequence.assert_valid_alphabet()
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match="Invalid pattern found in 'DNAID'.\nCharacter 'G' at position 3 found which is not in alphabet 'ABCDE'."
+    ):
         sequence.assert_valid_alphabet(alphabet="ABCDE")
 
     protein.assert_valid_alphabet(alphabet="ACDEFGHIKLMNPQRSTVWYXBZJ")
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match="Invalid pattern found in 'PROTEINID'.\nCharacter 'M' at position 1 found which is not in alphabet 'ATCGN-'."
+    ):
         protein.assert_valid_alphabet()
 
 

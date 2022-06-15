@@ -9,10 +9,11 @@ class PhytestAssertion(AssertionError):
     pass
 
 
-def assert_or_warn(statement, warning, message):
+def assert_or_warn(statement, warning, *messages):
     if statement:
         return
 
+    message = "\n".join(messages)
     if warning:
         warn(message, PhytestWarning)
     else:
