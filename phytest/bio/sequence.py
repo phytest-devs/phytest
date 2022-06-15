@@ -1,7 +1,6 @@
 import re
 from builtins import max as builtin_max
 from typing import Optional
-from warnings import warn
 
 from Bio import AlignIO
 from Bio import SeqIO as SeqIO
