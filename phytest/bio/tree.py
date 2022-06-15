@@ -79,7 +79,8 @@ class Tree(PhytestObject, BioTree):
             tips (int, optional): If set, then number of tips must be equal to this value. Defaults to None.
             min (int, optional): If set, then number of tips must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then number of tips must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         number_of_tips = len(self.get_terminals())
         if tips is not None:
@@ -108,7 +109,8 @@ class Tree(PhytestObject, BioTree):
         The root may have 3 descendents and still be considered part of a bifurcating tree, because it has no ancestor.
 
         Args:
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         assert_or_warn(
             self.is_bifurcating(),
@@ -122,7 +124,8 @@ class Tree(PhytestObject, BioTree):
 
         Args:
             tips (List[Clade]): List of terminal nodes (tips).
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         assert_or_warn(
             self.is_monophyletic(tips),
@@ -145,7 +148,8 @@ class Tree(PhytestObject, BioTree):
             length (float, optional): If set, then total brach length must be equal to this value. Defaults to None.
             min (float, optional): If set, then total brach length must be equal to or greater than this value. Defaults to None.
             max (float, optional): If set, then total brach length must be equal to or less than this value. Defaults to None.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         total_branch_length = self.total_branch_length()
         if length is not None:
@@ -180,7 +184,8 @@ class Tree(PhytestObject, BioTree):
             patterns (Union[List[str], str]): The regex pattern(s) to match to.
                 If a string, then every tip must match that pattern.
                 If a list then each tip must match at least one pattern in the list.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         if isinstance(patterns, str):
             patterns = [patterns]
@@ -293,7 +298,8 @@ class Tree(PhytestObject, BioTree):
             min_root_date (float, optional): If set, then the interpolated root date must be equal or greater than this value. Defaults to None.
             max_root_date (float, optional): If set, then the interpolated root date must be equal or less than this value. Defaults to None.
             assert_valid_confidence (bool, optional): If set then `valid_confidence` in the regression must be True. Defaults to False.
-            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False. 
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
             **kwargs: Keyword arguments for the `root_to_tip_regression` method.
         """
         regression = regression or self.root_to_tip_regression(**kwargs)
