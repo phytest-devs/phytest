@@ -176,28 +176,39 @@ class Sequence(SeqRecord):
         """
         Asserts that the longest stretch of a pattern in the sequence meets the specified criteria.
 
-        e.g. the logest stretch of N's in 'ANNNANNA' is 3.
+        e.g. the longest stretch of N's in 'ANNNANNA' is 3.
 
         Args:
             pattern: (str): the pattern to count in the the sequence.
-            count (Optional[int], optional): If set, then the longest stretch of the pattern must be equal to this value. Defaults to None.
-            min (Optional[int], optional): If set, then the longest stretch of the pattern must be equal to or greater than this value. Defaults to None.
-            max (Optional[int], optional): If set, then the longest stretch of the pattern must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the longest stretch of the pattern is not equal to this value. Defaults to None.
+            count (int, optional): If set, then the longest stretch of the pattern must be equal to this value. Defaults to None.
+            min (int, optional): If set, then the longest stretch of the pattern must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then the longest stretch of the pattern must be equal to or less than this value. Defaults to None.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         matches = re.findall(f'{pattern}+', str(self.seq))
-        if matches:
-            longest_stretch = len(builtin_max(matches))
-        else:
-            longest_stretch = 0
+        longest_stretch = len(builtin_max(matches)) if matches else 0
+        summary = f"The longest stretch of pattern '{pattern}' in sequence '{self.id}' is {longest_stretch}."
         if count is not None:
-            assert longest_stretch == count
+            assert_or_warn(
+                longest_stretch == count,
+                warning,
+                summary,
+                f"This is not equal to the required number of {count}.",
+            )
         if min is not None:
-            assert longest_stretch >= min
+            assert_or_warn(
+                longest_stretch >= min,
+                warning,
+                summary,
+                f"This is less than the minimum {min}.",
+            )
         if max is not None:
-            assert longest_stretch <= max, f"Longest stretch of '{pattern}' in '{self.id}' > {max}!"
-        if warning is not None and longest_stretch != warning:
-            warn(f"Longest stretch of '{pattern}' in {self.id} != {warning}")
+            assert_or_warn(
+                longest_stretch <= max,
+                warning,
+                summary,
+                f"This is greater than the maximum {max}.",
+            )
 
     def assert_longest_stretch_Ns(
         self,
@@ -205,7 +216,7 @@ class Sequence(SeqRecord):
         *,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ):
         """
         Asserts that the longest stretch of a N's in the sequence meets the specified criteria.
@@ -216,7 +227,7 @@ class Sequence(SeqRecord):
             count (Optional[int], optional): If set, then the longest stretch of N's must be equal to this value. Defaults to None.
             min (Optional[int], optional): If set, then the longest stretch of N's must be equal to or greater than this value. Defaults to None.
             max (Optional[int], optional): If set, then the longest stretch of N's must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the longest stretch of N's is not equal to this value. Defaults to None.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         self.assert_longest_stretch(pattern='N', count=count, min=min, max=max, warning=warning)
 
@@ -226,7 +237,7 @@ class Sequence(SeqRecord):
         *,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ):
         """
         Asserts that the longest stretch of a gaps (-) in the sequence meets the specified criteria.
@@ -237,7 +248,7 @@ class Sequence(SeqRecord):
             count (Optional[int], optional): If set, then the longest stretch of gaps (-) must be equal to this value. Defaults to None.
             min (Optional[int], optional): If set, then the longest stretch of gaps (-) must be equal to or greater than this value. Defaults to None.
             max (Optional[int], optional): If set, then the longest stretch of gaps (-) must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the longest stretch of gaps (-) is not equal to this value. Defaults to None.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         self.assert_longest_stretch(pattern='-', count=count, min=min, max=max, warning=warning)
 

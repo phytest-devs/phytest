@@ -152,11 +152,20 @@ def test_assert_sequence_longest_stretch():
         description="Test dna sequence",
     )
     sequence.assert_longest_stretch(pattern='A', count=10, min=9, max=11)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern 'A' in sequence 'DNAID' is 10.\nThis is not equal to the required number of 1")
+    ):
         sequence.assert_longest_stretch(pattern='A', count=1)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern 'A' in sequence 'DNAID' is 10.\nThis is less than the minimum 11.")
+    ):
         sequence.assert_longest_stretch(pattern='A', min=11)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern 'A' in sequence 'DNAID' is 10.\nThis is greater than the maximum 9.")
+    ):
         sequence.assert_longest_stretch(pattern='A', max=9)
 
 
@@ -168,11 +177,20 @@ def test_assert_sequence_longest_Ns():
         description="Test dna sequence",
     )
     sequence.assert_longest_stretch_Ns(count=10, min=9, max=11)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern 'N' in sequence 'DNAID' is 10.\nThis is not equal to the required number of 1.")
+    ):
         sequence.assert_longest_stretch_Ns(count=1)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern 'N' in sequence 'DNAID' is 10.\nThis is less than the minimum 11.")
+    ):
         sequence.assert_longest_stretch_Ns(min=11)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern 'N' in sequence 'DNAID' is 10.\nThis is greater than the maximum 9.")
+    ):
         sequence.assert_longest_stretch_Ns(max=9)
 
 
@@ -184,11 +202,20 @@ def test_assert_sequence_longest_gaps():
         description="Test dna sequence",
     )
     sequence.assert_longest_stretch_gaps(count=3, min=2, max=4)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern '-' in sequence 'DNAID' is 3.\nThis is not equal to the required number of 1.")
+    ):
         sequence.assert_longest_stretch_gaps(count=1)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern '-' in sequence 'DNAID' is 3.\nThis is less than the minimum 4.")
+    ):
         sequence.assert_longest_stretch_gaps(min=4)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("The longest stretch of pattern '-' in sequence 'DNAID' is 3.\nThis is greater than the maximum 2.")
+    ):
         sequence.assert_longest_stretch_gaps(max=2)
 
 
