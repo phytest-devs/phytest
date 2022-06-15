@@ -5,7 +5,8 @@ from typing import Optional
 from Bio import AlignIO
 from Bio import SeqIO as SeqIO
 from Bio.SeqRecord import SeqRecord
-from ..utils import assert_or_warn, PhytestObject
+
+from ..utils import PhytestObject, assert_or_warn
 
 
 class Sequence(PhytestObject, SeqRecord):

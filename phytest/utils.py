@@ -1,6 +1,6 @@
-from warnings import warn
-from typing import List
 from functools import partial
+from typing import List
+from warnings import warn
 
 
 class PhytestWarning(Warning):

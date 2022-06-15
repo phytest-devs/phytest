@@ -97,8 +97,12 @@ def test_assert_root_to_tip():
     tree.assert_root_to_tip(min_root_date=1772.0, max_root_date=1773.0)
     with pytest.raises(PhytestAssertion):
         tree.assert_root_to_tip(max_root_date=1772.0)
-    with pytest.raises(PhytestAssertion, match=r"Inferred root date '1772.\d*' is less than the minimum allowed root date '1773.0'."):
+    with pytest.raises(
+        PhytestAssertion, match=r"Inferred root date '1772.\d*' is less than the minimum allowed root date '1773.0'."
+    ):
         tree.assert_root_to_tip(min_root_date=1773.0)
 
-    with pytest.warns(PhytestWarning, match=r"Inferred root date '1772.\d*' is less than the minimum allowed root date '1773.0'."):
+    with pytest.warns(
+        PhytestWarning, match=r"Inferred root date '1772.\d*' is less than the minimum allowed root date '1773.0'."
+    ):
         tree.warn_root_to_tip(min_root_date=1773.0)

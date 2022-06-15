@@ -13,7 +13,7 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import PhytestWarning, PhytestObject, assert_or_warn, default_date_patterns
+from ..utils import PhytestObject, PhytestWarning, assert_or_warn, default_date_patterns
 
 
 class Tree(PhytestObject, BioTree):
