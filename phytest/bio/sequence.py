@@ -90,27 +90,41 @@ class Sequence(SeqRecord):
         count: Optional[int] = None,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ) -> None:
         """
         Asserts that the count of a pattern in the sequence meets the specified criteria.
 
         Args:
             pattern: (str): the pattern to count in the the sequence.
-            count (Optional[int], optional): If set, then pattern count must be equal to this value. Defaults to None.
-            min (Optional[int], optional): If set, then pattern count must be equal to or greater than this value. Defaults to None.
-            max (Optional[int], optional): If set, then pattern count must be equal to or less than this value. Defaults to None.
+            count (int, optional): If set, then pattern count must be equal to this value. Defaults to None.
+            min (int, optional): If set, then pattern count must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then pattern count must be equal to or less than this value. Defaults to None.
             warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         base_count = self.seq.count(pattern)
+        summary = f"Sequence '{self.id}' matches pattern '{pattern}' {base_count} time(s)."
         if count is not None:
-            assert base_count == count
+            assert_or_warn(
+                base_count == count,
+                warning,
+                summary,
+                f"This is not equal to the required number of {count}.",
+            )
         if min is not None:
-            assert base_count >= min
+            assert_or_warn(
+                base_count >= min,
+                warning,
+                summary,
+                f"This is less than the minimum {min}.",
+            )
         if max is not None:
-            assert base_count <= max
-        if warning is not None and base_count != warning:
-            warn(f"Count of '{pattern}' in {self.id} != {warning}")
+            assert_or_warn(
+                base_count <= max,
+                warning,
+                summary,
+                f"This is greater than the maximum {max}.",
+            )
 
     def assert_count_Ns(
         self,
@@ -118,16 +132,16 @@ class Sequence(SeqRecord):
         *,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ) -> None:
         """
         Asserts that the number of a N's in the sequence meets the specified criteria.
 
         Args:
-            count (Optional[int], optional): If set, then the number of N's must be equal to this value. Defaults to None.
-            min (Optional[int], optional): If set, then the number of N's must be equal to or greater than this value. Defaults to None.
-            max (Optional[int], optional): If set, then the number of N's must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the number of N's is not equal to this value. Defaults to None.
+            count (int, optional): If set, then the number of N's must be equal to this value. Defaults to None.
+            min (int, optional): If set, then the number of N's must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then the number of N's must be equal to or less than this value. Defaults to None.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         self.assert_count(pattern='N', count=count, min=min, max=max, warning=warning)
 
@@ -137,7 +151,7 @@ class Sequence(SeqRecord):
         *,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ) -> None:
         """
         Asserts that the number of a gaps (-) in the sequence meets the specified criteria.
@@ -146,7 +160,7 @@ class Sequence(SeqRecord):
             count (Optional[int], optional): If set, then the number of gaps (-) must be equal to this value. Defaults to None.
             min (Optional[int], optional): If set, then the number of gaps (-) must be equal to or greater than this value. Defaults to None.
             max (Optional[int], optional): If set, then the number of gaps (-) must be equal to or less than this value. Defaults to None.
-            warning (Optional[int], optional): If set, raise a warning if the number of gaps (-) is not equal to this value. Defaults to None.
+            warning (bool): If True, raise a warning insted of an error. Defaults to False.
         """
         self.assert_count(pattern='-', count=count, min=min, max=max, warning=warning)
 
@@ -157,7 +171,7 @@ class Sequence(SeqRecord):
         count: Optional[int] = None,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ):
         """
         Asserts that the longest stretch of a pattern in the sequence meets the specified criteria.

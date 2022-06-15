@@ -4,7 +4,7 @@ from Bio.Seq import Seq
 
 from phytest import Sequence
 
-from phytest.utils import PhytestAssertion
+from phytest.utils import PhytestAssertion, PhytestWarning
 
 
 def test_assert_valid_alphabet():
@@ -62,6 +62,12 @@ def test_assert_length():
     ):
         sequence.assert_length(max=99)
 
+    with pytest.warns(
+        PhytestWarning, 
+        match=re.escape("Sequence length of 'DNAID' (100) is greater than the maximum 99.")
+    ):
+        sequence.assert_length(max=99, warning=True)
+
 
 def test_assert_count():
     sequence = Sequence(
@@ -71,11 +77,20 @@ def test_assert_count():
         description="Test dna sequence",
     )
     sequence.assert_count(pattern='A', count=100, min=99, max=101)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern 'A' 100 time(s).\nThis is not equal to the required number of 1.")
+    ):
         sequence.assert_count(pattern='A', count=1)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern 'A' 100 time(s).\nThis is less than the minimum 101.")
+    ):
         sequence.assert_count(pattern='A', min=101)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern 'A' 100 time(s).\nThis is greater than the maximum 99.")
+    ):
         sequence.assert_count(pattern='A', max=99)
 
 
@@ -87,11 +102,20 @@ def test_assert_count_Ns():
         description="Test dna sequence",
     )
     sequence.assert_count_Ns(count=100, min=99, max=101)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern 'N' 100 time(s).\nThis is not equal to the required number of 1.")
+    ):
         sequence.assert_count_Ns(count=1)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern 'N' 100 time(s).\nThis is less than the minimum 101.")
+    ):
         sequence.assert_count_Ns(min=101)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern 'N' 100 time(s).\nThis is greater than the maximum 99.")
+    ):
         sequence.assert_count_Ns(max=99)
 
 
@@ -103,11 +127,20 @@ def test_assert_count_gaps():
         description="Test dna sequence",
     )
     sequence.assert_count_gaps(count=100, min=99, max=101)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern '-' 100 time(s).\nThis is not equal to the required number of 1.")
+    ):
         sequence.assert_count_gaps(count=1)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern '-' 100 time(s).\nThis is less than the minimum 101.")
+    ):
         sequence.assert_count_gaps(min=101)
-    with pytest.raises(AssertionError):
+    with pytest.raises(
+        PhytestAssertion, 
+        match=re.escape("Sequence 'DNAID' matches pattern '-' 100 time(s).\nThis is greater than the maximum 99.")
+    ):
         sequence.assert_count_gaps(max=99)
 
 
