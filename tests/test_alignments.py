@@ -29,7 +29,7 @@ def test_assert_alignment_width():
         PhytestWarning, 
         match=re.escape("The width of the alignment is 100.\nThis is greater than the maximum width of 99.")
     ):
-        alignment.assert_width(max=99, warning=True)
+        alignment.warn_width(max=99)
 
 
 def test_assert_alignment_length():

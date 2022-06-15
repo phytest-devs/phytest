@@ -6,10 +6,10 @@ from warnings import warn
 from Bio import AlignIO
 from Bio import SeqIO as SeqIO
 from Bio.SeqRecord import SeqRecord
-from ..utils import assert_or_warn
+from ..utils import assert_or_warn, PhytestObject
 
 
-class Sequence(SeqRecord):
+class Sequence(PhytestObject, SeqRecord):
     @classmethod
     def parse(cls, alignment_path, alignment_format) -> 'Sequence':
         # Use Bio.AlignIO to read in the alignments

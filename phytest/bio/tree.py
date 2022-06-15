@@ -13,10 +13,10 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import PhytestWarning, assert_or_warn, default_date_patterns
+from ..utils import PhytestWarning, PhytestObject, assert_or_warn, default_date_patterns
 
 
-class Tree(BioTree):
+class Tree(PhytestObject, BioTree):
     @classmethod
     def read(cls, tree_path, tree_format) -> 'Tree':
         tree = Phylo.read(tree_path, tree_format)

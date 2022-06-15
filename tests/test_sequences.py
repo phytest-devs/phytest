@@ -66,7 +66,7 @@ def test_assert_length():
         PhytestWarning, 
         match=re.escape("Sequence length of 'DNAID' (100) is greater than the maximum 99.")
     ):
-        sequence.assert_length(max=99, warning=True)
+        sequence.warn_length(max=99)
 
 
 def test_assert_count():

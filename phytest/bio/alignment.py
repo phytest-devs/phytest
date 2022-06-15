@@ -4,9 +4,9 @@ from warnings import warn
 from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 
-from ..utils import assert_or_warn
+from ..utils import assert_or_warn, PhytestObject
 
-class Alignment(MultipleSeqAlignment):
+class Alignment(PhytestObject, MultipleSeqAlignment):
     @classmethod
     def read(cls, alignment_path, alignment_format) -> 'Alignment':
         alignment = AlignIO.read(alignment_path, alignment_format)

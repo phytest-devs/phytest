@@ -1,5 +1,6 @@
 from warnings import warn
-
+from typing import List
+from functools import partial
 
 class PhytestWarning(Warning):
     pass
@@ -25,3 +26,24 @@ def default_date_patterns():
         r"\d{4}\.?\d*$",
         r"\d{4}-\d{2}-\d{2}",
     ]
+
+
+class PhytestObject():
+    def __init__(self, *args, **kwargs):
+        super().__init__( *args, **kwargs)
+
+        # Add partial methods with the warning flag set to True
+        for method_name in self.assertion_method_names():
+            method = getattr(self, method_name)
+            truncated_name = method_name[len("assert"):]
+            warning_name = f"warn{truncated_name}"
+            setattr(self, warning_name, partial(method, warning=True))
+    
+    def assertion_method_names(self) -> List[str]:
+        """
+        Returns a list with the names of the methods used to make assertion statements.
+        """
+        return [
+            attribute for attribute in dir(self)
+            if callable(getattr(self, attribute)) and attribute.startswith("assert_")
+        ]
