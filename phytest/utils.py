@@ -47,5 +47,5 @@ class PhytestObject:
         return [
             attribute
             for attribute in dir(self)
-            if callable(getattr(self, attribute)) and attribute.startswith("assert_")
+            if attribute.startswith("assert_") and callable(getattr(self, attribute))
         ]
