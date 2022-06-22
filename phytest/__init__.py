@@ -1,3 +1,4 @@
+import inspect
 from pathlib import Path
 
 import pandas as pd
@@ -27,16 +28,6 @@ def pytest_generate_tests(metafunc):
         fpth = Path(alignment_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
-    tree_path = metafunc.config.getoption("tree")
-    if 'tree' in metafunc.fixturenames:
-        if tree_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires a tree file")
-        fpth = Path(tree_path)
-        if not fpth.exists():
-            raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
-        tree_format = metafunc.config.getoption("--tree-format")
-        trees = Tree.parse(tree_path, tree_format)
-        metafunc.parametrize("tree", trees, ids=lambda t: t.name)
     data_path = metafunc.config.getoption("data")
     if 'data' in metafunc.fixturenames:
         if data_path is None:
@@ -44,7 +35,21 @@ def pytest_generate_tests(metafunc):
         fpth = Path(data_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested data file ({fpth})! 😱")
-    if "sequence" in metafunc.fixturenames:
+
+    signature = inspect.signature(metafunc.definition.function)
+    param_types = {pram.annotation: pram.name for pram in signature.parameters.values()}
+
+    tree_path = metafunc.config.getoption("tree")
+    if Tree in param_types:
+        if tree_path is None:
+            raise ValueError(f"{metafunc.function.__name__} requires a tree file")
+        fpth = Path(tree_path)
+        if not fpth.exists():
+            raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
+        tree_format = metafunc.config.getoption("--tree-format")
+        trees = Tree.parse(tree_path, tree_format)
+        metafunc.parametrize(param_types[Tree], trees, ids=lambda t: t.name)
+    if Sequence in param_types:
         if alignment_path is None:
             raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
         fpth = Path(alignment_path)
@@ -52,7 +57,7 @@ def pytest_generate_tests(metafunc):
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
         alignment_format = metafunc.config.getoption("--alignment-format")
         sequences = Sequence.parse(alignment_path, alignment_format)
-        metafunc.parametrize("sequence", sequences, ids=lambda s: s.id)
+        metafunc.parametrize(param_types[Sequence], sequences, ids=lambda s: s.id)
 
 
 @pytest.fixture(scope="session", name="alignment")
