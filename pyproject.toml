@@ -4,6 +4,9 @@ version = "0.2.0"
 description = "Quality control for phylogenetic pipelines using pytest"
 authors = ["Wytamma Wirth <wytamma.wirth@me.com>", "Simon Mutch <smutch@unimelb.edu.au>", "Rob Turnbull <robert.turnbull@unimelb.edu.au>"]
 readme = "README.rst"
+classifiers = [
+    "Framework :: Pytest",
+]
 
 [tool.poetry.scripts]
 phytest = "phytest.cli:app"
