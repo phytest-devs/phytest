@@ -14,7 +14,7 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import PhytestObject, PhytestWarning, assert_or_warn, default_date_patterns
+from ..utils import PhytestObject, PhytestAssertion, PhytestWarning, assert_or_warn, default_date_patterns
 
 
 class Tree(PhytestObject, BioTree):
@@ -240,6 +240,10 @@ class Tree(PhytestObject, BioTree):
                 Defaults to 'least-squares'.
             covariation (bool, optional): Accounts for covariation when estimating rates or rerooting. Defaults to False.
         """
+
+        if covariation and (alignment is None and sequence_length is None):
+            raise PhytestAssertion("Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided.")
+
         dates = dates or self.parse_tip_dates()
 
         # Convert datetimes to floats with decimal years if necessary
