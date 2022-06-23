@@ -2,6 +2,7 @@ import copy
 import re
 from datetime import datetime
 from io import StringIO
+from pathlib import Path
 from typing import Dict, List, Optional, Union
 from warnings import warn
 
@@ -13,7 +14,13 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import PhytestObject, PhytestWarning, assert_or_warn, default_date_patterns
+from ..utils import (
+    PhytestAssertion,
+    PhytestObject,
+    PhytestWarning,
+    assert_or_warn,
+    default_date_patterns,
+)
 
 
 class Tree(PhytestObject, BioTree):
@@ -239,6 +246,12 @@ class Tree(PhytestObject, BioTree):
                 Defaults to 'least-squares'.
             covariation (bool, optional): Accounts for covariation when estimating rates or rerooting. Defaults to False.
         """
+
+        if covariation and (alignment is None and sequence_length is None):
+            raise PhytestAssertion(
+                "Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided."
+            )
+
         dates = dates or self.parse_tip_dates()
 
         # Convert datetimes to floats with decimal years if necessary
@@ -273,6 +286,34 @@ class Tree(PhytestObject, BioTree):
         regression.get_clock_model(covariation=covariation)
         return regression
 
+    def plot_root_to_tip(
+        self,
+        filename: Union[str, Path],
+        *,
+        regression: Optional[TreeTime] = None,
+        add_internal: bool = False,
+        label: bool = True,
+        ax=None,
+        **kwargs,
+    ):
+        """
+        Plots a root-to-tip regression.
+
+        Args:
+            filename (str, Path): The path to save the plot as an image.
+            regression (TreeTime, optional): The root-to-tip regression for this tree.
+                If None, then this regression is calculated using the `root_to_tip_regression` method.
+            add_internal (bool): Whether or not to plot the internal node positions. Default: False.
+            label (bool): Whether or not to label the points. Default: True.
+            ax (matplotlib axes): Uses matplotlib axes if provided. Default: None.
+            **kwargs: Keyword arguments for the `root_to_tip_regression` method.
+        """
+        regression = regression or self.root_to_tip_regression(**kwargs)
+        from matplotlib import pyplot as plt
+
+        regression.plot_root_to_tip(add_internal=add_internal, label=label, ax=ax)
+        plt.savefig(str(filename))
+
     def assert_root_to_tip(
         self,
         *,
@@ -282,12 +323,12 @@ class Tree(PhytestObject, BioTree):
         max_rate: Optional[float] = None,
         min_root_date: Optional[float] = None,
         max_root_date: Optional[float] = None,
-        assert_valid_confidence: bool = False,
+        valid_confidence: Optional[bool] = None,
         warning: bool = False,
         **kwargs,
     ):
         """
-        Performs a root-to-tip regression to determine how clock-like a tree is.
+        Checks inferred values from a root-to-tip regression.
 
         Args:
             regression (TreeTime, optional): The root-to-tip regression for this tree.
@@ -297,7 +338,8 @@ class Tree(PhytestObject, BioTree):
             max_rate (float, optional): If set, then the clock rate must be equal or less than this value. Defaults to None.
             min_root_date (float, optional): If set, then the interpolated root date must be equal or greater than this value. Defaults to None.
             max_root_date (float, optional): If set, then the interpolated root date must be equal or less than this value. Defaults to None.
-            assert_valid_confidence (bool, optional): If set then `valid_confidence` in the regression must be True. Defaults to False.
+            valid_confidence (bool, optional): Checks that the `valid_confidence` value in the regression is equal to this boolean value.
+                Defaults to None which does not perform a check.
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
             **kwargs: Keyword arguments for the `root_to_tip_regression` method.
@@ -342,7 +384,9 @@ class Tree(PhytestObject, BioTree):
                 f"Inferred root date '{root_date}' is greater than the maximum allowed root date: '{max_root_date}'.",
             )
 
-        if assert_valid_confidence:
+        if valid_confidence is not None:
             assert_or_warn(
-                clock_model.valid_confidence, warning, f"The `clock_model.valid_confidence` variable is False."
+                clock_model.valid_confidence == valid_confidence,
+                warning,
+                f"The `clock_model.valid_confidence` variable is not {valid_confidence}.",
             )
