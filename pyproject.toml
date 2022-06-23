@@ -48,6 +48,10 @@ testpaths = [
     "tests",
 ]
 
+[tool.poetry.plugins."pytest11"]
+"phytest" = "phytest"
+
+
 [tool.pylint.messages_control]
 disable = "C0330, C0326"
 
