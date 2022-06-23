@@ -22,6 +22,8 @@ def main(
     args = [testfile]
     if not verbose:
         args.extend(["-ra", "--tb=no", "--no-header"])
+    else:
+        args.extend(["-v"])
     if alignment is not None:
         args.extend(["--alignment", alignment])
         args.extend(["--alignment-format", alignment_format])

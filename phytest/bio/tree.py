@@ -2,6 +2,7 @@ import copy
 import re
 from datetime import datetime
 from io import StringIO
+from pathlib import Path
 from typing import Dict, List, Optional, Union
 from warnings import warn
 
@@ -13,10 +14,16 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import PhytestWarning, assert_or_warn, default_date_patterns
+from ..utils import (
+    PhytestAssertion,
+    PhytestObject,
+    PhytestWarning,
+    assert_or_warn,
+    default_date_patterns,
+)
 
 
-class Tree(BioTree):
+class Tree(PhytestObject, BioTree):
     @classmethod
     def read(cls, tree_path, tree_format) -> 'Tree':
         tree = Phylo.read(tree_path, tree_format)
@@ -70,7 +77,7 @@ class Tree(BioTree):
         *,
         min: Optional[int] = None,
         max: Optional[int] = None,
-        warning: Optional[int] = None,
+        warning: bool = False,
     ):
         """
         Asserts that that the number of tips meets the specified criteria.
@@ -79,33 +86,53 @@ class Tree(BioTree):
             tips (int, optional): If set, then number of tips must be equal to this value. Defaults to None.
             min (int, optional): If set, then number of tips must be equal to or greater than this value. Defaults to None.
             max (int, optional): If set, then number of tips must be equal to or less than this value. Defaults to None.
-            warning (int, optional): If set, raise a warning if the number of tips is not equal to this value. Defaults to None.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         number_of_tips = len(self.get_terminals())
         if tips is not None:
-            assert number_of_tips == tips
+            assert_or_warn(
+                number_of_tips == tips,
+                warning,
+                f"The number of tips ({number_of_tips}) which is different from the required number of tips ({tips}).",
+            )
         if min is not None:
-            assert number_of_tips >= min
+            assert_or_warn(
+                number_of_tips >= min,
+                warning,
+                f"The number of tips ({number_of_tips}) is less than the minimum ({min}).",
+            )
         if max is not None:
-            assert number_of_tips <= max
-        if warning is not None and number_of_tips != warning:
-            warn(f"Number of tips '{number_of_tips}' != {warning}")
+            assert_or_warn(
+                number_of_tips <= max,
+                warning,
+                f"The number of tips ({number_of_tips}) is greater than the maximum ({max}).",
+            )
 
-    def assert_is_bifurcating(self):
+    def assert_is_bifurcating(self, *, warning: bool = False):
         """
         Asserts that the tree is bifurcating.
 
         The root may have 3 descendents and still be considered part of a bifurcating tree, because it has no ancestor.
-        """
-        assert self.is_bifurcating()
 
-    def assert_is_monophyletic(self, tips: List[Clade], warning: Optional[bool] = False):
+        Args:
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
+        """
+        assert_or_warn(
+            self.is_bifurcating(),
+            warning,
+            f"The tree is not bifurcating.",
+        )
+
+    def assert_is_monophyletic(self, tips: List[Clade], *, warning: bool = False):
         """
         Asserts that the specified tips form a monophyletic group.
 
         Args:
             tips (List[Clade]): List of terminal nodes (tips).
-            warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         assert_or_warn(
             self.is_monophyletic(tips),
@@ -119,7 +146,7 @@ class Tree(BioTree):
         *,
         min: Optional[float] = None,
         max: Optional[float] = None,
-        warning: Optional[float] = None,
+        warning: bool = False,
     ):
         """
         Asserts that that the total brach length meets the specified criteria.
@@ -128,22 +155,34 @@ class Tree(BioTree):
             length (float, optional): If set, then total brach length must be equal to this value. Defaults to None.
             min (float, optional): If set, then total brach length must be equal to or greater than this value. Defaults to None.
             max (float, optional): If set, then total brach length must be equal to or less than this value. Defaults to None.
-            warning (float, optional): If set, raise a warning if the total brach length is not equal to this value. Defaults to None.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         total_branch_length = self.total_branch_length()
         if length is not None:
-            assert total_branch_length == length
+            assert_or_warn(
+                total_branch_length == length,
+                warning,
+                f"The total branch length ({total_branch_length}) is not equal to the required length ({length}).",
+            )
         if min is not None:
-            assert total_branch_length >= min
+            assert_or_warn(
+                total_branch_length >= min,
+                warning,
+                f"The total branch length ({total_branch_length}) is less than the minimum ({length}).",
+            )
         if max is not None:
-            assert total_branch_length <= max
-        if warning is not None and total_branch_length != warning:
-            warn(f"Total branch length '{total_branch_length}' != {warning}")
+            assert_or_warn(
+                total_branch_length <= max,
+                warning,
+                f"The total branch length ({total_branch_length}) is greater than the maximum ({length}).",
+            )
 
     def assert_tip_regex(
         self,
         patterns: Union[List[str], str],
-        warning: Optional[bool] = False,
+        *,
+        warning: bool = False,
     ):
         """
         Asserts that all the tips match at least one of a list of regular expression patterns.
@@ -152,6 +191,8 @@ class Tree(BioTree):
             patterns (Union[List[str], str]): The regex pattern(s) to match to.
                 If a string, then every tip must match that pattern.
                 If a list then each tip must match at least one pattern in the list.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         if isinstance(patterns, str):
             patterns = [patterns]
@@ -205,6 +246,12 @@ class Tree(BioTree):
                 Defaults to 'least-squares'.
             covariation (bool, optional): Accounts for covariation when estimating rates or rerooting. Defaults to False.
         """
+
+        if covariation and (alignment is None and sequence_length is None):
+            raise PhytestAssertion(
+                "Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided."
+            )
+
         dates = dates or self.parse_tip_dates()
 
         # Convert datetimes to floats with decimal years if necessary
@@ -239,6 +286,34 @@ class Tree(BioTree):
         regression.get_clock_model(covariation=covariation)
         return regression
 
+    def plot_root_to_tip(
+        self,
+        filename: Union[str, Path],
+        *,
+        regression: Optional[TreeTime] = None,
+        add_internal: bool = False,
+        label: bool = True,
+        ax=None,
+        **kwargs,
+    ):
+        """
+        Plots a root-to-tip regression.
+
+        Args:
+            filename (str, Path): The path to save the plot as an image.
+            regression (TreeTime, optional): The root-to-tip regression for this tree.
+                If None, then this regression is calculated using the `root_to_tip_regression` method.
+            add_internal (bool): Whether or not to plot the internal node positions. Default: False.
+            label (bool): Whether or not to label the points. Default: True.
+            ax (matplotlib axes): Uses matplotlib axes if provided. Default: None.
+            **kwargs: Keyword arguments for the `root_to_tip_regression` method.
+        """
+        regression = regression or self.root_to_tip_regression(**kwargs)
+        from matplotlib import pyplot as plt
+
+        regression.plot_root_to_tip(add_internal=add_internal, label=label, ax=ax)
+        plt.savefig(str(filename))
+
     def assert_root_to_tip(
         self,
         *,
@@ -248,23 +323,25 @@ class Tree(BioTree):
         max_rate: Optional[float] = None,
         min_root_date: Optional[float] = None,
         max_root_date: Optional[float] = None,
-        assert_valid_confidence: bool = False,
-        warning: Optional[bool] = False,
+        valid_confidence: Optional[bool] = None,
+        warning: bool = False,
         **kwargs,
     ):
         """
-        Performs a root-to-tip regression to determine how clock-like a tree is.
+        Checks inferred values from a root-to-tip regression.
 
         Args:
-            regression (TreeTime, optional): The root-to-tip regression for this tree. 
+            regression (TreeTime, optional): The root-to-tip regression for this tree.
                 If None, then this regression is calculated using the `root_to_tip_regression` method.
             min_r_squared (float, optional): If set, then R^2 must be equal or greater than this value. Defaults to None.
             min_rate (float, optional): If set, then the clock rate must be equal or greater than this value. Defaults to None.
             max_rate (float, optional): If set, then the clock rate must be equal or less than this value. Defaults to None.
             min_root_date (float, optional): If set, then the interpolated root date must be equal or greater than this value. Defaults to None.
             max_root_date (float, optional): If set, then the interpolated root date must be equal or less than this value. Defaults to None.
-            assert_valid_confidence (bool, optional): If set then `valid_confidence` in the regression must be True. Defaults to False.
-            warning (bool, optional): If True, raise a warning insted of an error. Defaults to False.
+            valid_confidence (bool, optional): Checks that the `valid_confidence` value in the regression is equal to this boolean value.
+                Defaults to None which does not perform a check.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
             **kwargs: Keyword arguments for the `root_to_tip_regression` method.
         """
         regression = regression or self.root_to_tip_regression(**kwargs)
@@ -307,7 +384,9 @@ class Tree(BioTree):
                 f"Inferred root date '{root_date}' is greater than the maximum allowed root date: '{max_root_date}'.",
             )
 
-        if assert_valid_confidence:
+        if valid_confidence is not None:
             assert_or_warn(
-                clock_model.valid_confidence, warning, f"The `clock_model.valid_confidence` variable is False."
+                clock_model.valid_confidence == valid_confidence,
+                warning,
+                f"The `clock_model.valid_confidence` variable is not {valid_confidence}.",
             )
