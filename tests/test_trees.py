@@ -1,6 +1,6 @@
-import warnings
+from tempfile import NamedTemporaryFile
 from datetime import datetime
-from io import StringIO
+from pathlib import Path
 
 import pytest
 
@@ -81,18 +81,35 @@ def test_parse_tip_dates():
         'C_1992-10-01': 1992.75,
     }
 
+def test_plot_root_to_tip():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
+    with NamedTemporaryFile(suffix=".svg") as file:
+        path = Path(file.name)
+        tree.plot_root_to_tip(path, covariation=True, sequence_length=463)
+        assert path.exists()
+        assert path.stat().st_size > 30_000
+        svg = path.read_text()
+        assert "!DOCTYPE svg PUBLIC" in svg
 
-def test_assert_root_to_tip():
+
+def test_assert_root_to_tip_min_r_squared():
     tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
     tree.assert_root_to_tip(min_r_squared=0.35)
     with pytest.raises(PhytestAssertion):
         tree.assert_root_to_tip(min_r_squared=0.40)
 
+
+def test_assert_root_to_tip_rate():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
     tree.assert_root_to_tip(min_rate=1.5e-03, max_rate=1.6e-03)
     with pytest.raises(PhytestAssertion):
         tree.assert_root_to_tip(max_rate=1.5e-03)
     with pytest.raises(PhytestAssertion):
         tree.assert_root_to_tip(min_rate=1.6e-03)
+
+
+def test_assert_root_to_tip_root_date():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
 
     tree.assert_root_to_tip(min_root_date=1772.0, max_root_date=1773.0)
     with pytest.raises(PhytestAssertion):
@@ -106,3 +123,15 @@ def test_assert_root_to_tip():
         PhytestWarning, match=r"Inferred root date '1772.\d*' is less than the minimum allowed root date '1773.0'."
     ):
         tree.warn_root_to_tip(min_root_date=1773.0)
+
+
+def test_assert_root_to_tip_covariation():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
+    tree.assert_root_to_tip(covariation=True, sequence_length=463, valid_confidence=True)
+    tree.assert_root_to_tip(valid_confidence=False)
+    with pytest.raises(
+        PhytestAssertion, match=r"The `clock_model.valid_confidence` variable is not False."
+    ):
+        tree.assert_root_to_tip(covariation=True, sequence_length=463, valid_confidence=False)
+
+
