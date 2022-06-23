@@ -1,8 +1,8 @@
-from pathlib import Path
 import copy
 import re
 from datetime import datetime
 from io import StringIO
+from pathlib import Path
 from typing import Dict, List, Optional, Union
 from warnings import warn
 
@@ -14,7 +14,13 @@ from dateutil.parser import parse
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
-from ..utils import PhytestObject, PhytestAssertion, PhytestWarning, assert_or_warn, default_date_patterns
+from ..utils import (
+    PhytestAssertion,
+    PhytestObject,
+    PhytestWarning,
+    assert_or_warn,
+    default_date_patterns,
+)
 
 
 class Tree(PhytestObject, BioTree):

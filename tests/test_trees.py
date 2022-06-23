@@ -1,6 +1,6 @@
-from tempfile import NamedTemporaryFile
 from datetime import datetime
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 import pytest
 
