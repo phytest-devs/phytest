@@ -242,7 +242,9 @@ class Tree(PhytestObject, BioTree):
         """
 
         if covariation and (alignment is None and sequence_length is None):
-            raise PhytestAssertion("Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided.")
+            raise PhytestAssertion(
+                "Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided."
+            )
 
         dates = dates or self.parse_tip_dates()
 

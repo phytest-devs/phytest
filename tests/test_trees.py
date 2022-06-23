@@ -134,7 +134,7 @@ def test_assert_root_to_tip_covariation():
         tree.assert_root_to_tip(covariation=True, sequence_length=463, valid_confidence=False)
 
     with pytest.raises(
-        PhytestAssertion, 
-        match=r"Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided."
+        PhytestAssertion,
+        match=r"Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided.",
     ):
         tree.assert_root_to_tip(covariation=True, valid_confidence=True)
