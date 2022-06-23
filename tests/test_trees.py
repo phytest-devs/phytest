@@ -81,6 +81,7 @@ def test_parse_tip_dates():
         'C_1992-10-01': 1992.75,
     }
 
+
 def test_plot_root_to_tip():
     tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
     with NamedTemporaryFile(suffix=".svg") as file:
@@ -129,9 +130,5 @@ def test_assert_root_to_tip_covariation():
     tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
     tree.assert_root_to_tip(covariation=True, sequence_length=463, valid_confidence=True)
     tree.assert_root_to_tip(valid_confidence=False)
-    with pytest.raises(
-        PhytestAssertion, match=r"The `clock_model.valid_confidence` variable is not False."
-    ):
+    with pytest.raises(PhytestAssertion, match=r"The `clock_model.valid_confidence` variable is not False."):
         tree.assert_root_to_tip(covariation=True, sequence_length=463, valid_confidence=False)
-
-

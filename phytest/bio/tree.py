@@ -276,11 +276,11 @@ class Tree(PhytestObject, BioTree):
 
     def plot_root_to_tip(
         self,
-        filename:Union[str,Path],
+        filename: Union[str, Path],
         *,
         regression: Optional[TreeTime] = None,
-        add_internal:bool=False, 
-        label:bool=True, 
+        add_internal: bool = False,
+        label: bool = True,
         ax=None,
         **kwargs,
     ):
@@ -298,6 +298,7 @@ class Tree(PhytestObject, BioTree):
         """
         regression = regression or self.root_to_tip_regression(**kwargs)
         from matplotlib import pyplot as plt
+
         regression.plot_root_to_tip(add_internal=add_internal, label=label, ax=ax)
         plt.savefig(str(filename))
 
@@ -325,7 +326,7 @@ class Tree(PhytestObject, BioTree):
             max_rate (float, optional): If set, then the clock rate must be equal or less than this value. Defaults to None.
             min_root_date (float, optional): If set, then the interpolated root date must be equal or greater than this value. Defaults to None.
             max_root_date (float, optional): If set, then the interpolated root date must be equal or less than this value. Defaults to None.
-            valid_confidence (bool, optional): Checks that the `valid_confidence` value in the regression is equal to this boolean value. 
+            valid_confidence (bool, optional): Checks that the `valid_confidence` value in the regression is equal to this boolean value.
                 Defaults to None which does not perform a check.
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
@@ -373,5 +374,7 @@ class Tree(PhytestObject, BioTree):
 
         if valid_confidence is not None:
             assert_or_warn(
-                clock_model.valid_confidence == valid_confidence, warning, f"The `clock_model.valid_confidence` variable is not {valid_confidence}."
+                clock_model.valid_confidence == valid_confidence,
+                warning,
+                f"The `clock_model.valid_confidence` variable is not {valid_confidence}.",
             )
