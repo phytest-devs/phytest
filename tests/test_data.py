@@ -6,6 +6,15 @@ from phytest import Data
 from phytest.utils import PhytestAssertion, PhytestWarning
 
 
+def test_data_read():
+    data_path = 'examples/data/example.csv'
+    data = Data.read(data_path, 'csv')
+    data_path = 'examples/data/example.tsv'
+    data = Data.read(data_path, 'tsv')
+    data_path = 'examples/data/example.xlsx'
+    data = Data.read(data_path, 'excel')
+
+
 def test_assert_data_contains():
     data_path = 'examples/data/example.csv'
     data = Data.read(data_path, 'csv')
