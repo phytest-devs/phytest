@@ -53,3 +53,63 @@ def test_cli_report(request: pytest.FixtureRequest):
         ],
     )
     assert Path("pytest-report.html").exists()
+
+
+def test_cli_missing_sequence_file(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-t",
+            "examples/data/example.tree",
+            "-d",
+            "examples/data/example.csv",
+            "-v",
+        ],
+    )
+    assert "ValueError: test_length requires a sequence file" in result.stdout
+
+
+def test_cli_missing_tree_file(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-s",
+            "examples/data/example.fasta",
+            "-d",
+            "examples/data/example.csv",
+            "-v",
+        ],
+    )
+    assert "ValueError: test_tree_number_of_tips requires a tree file" in result.stdout
+
+
+def test_cli_missing_data_file(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-s",
+            "examples/data/example.fasta",
+            "-t",
+            "examples/data/example.tree",
+            "-v",
+        ],
+    )
+    assert "ValueError: test_data_number_of_rows requires a data file" in result.stdout
+
+
+def test_cli_missing_alignment_file(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/alignment.py"),
+            "-t",
+            "examples/data/example.tree",
+            "-d",
+            "examples/data/example.csv",
+            "-v",
+        ],
+    )
+    assert "ValueError: test_alignment_length requires an alignment file" in result.stdout

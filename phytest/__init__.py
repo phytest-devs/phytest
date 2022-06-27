@@ -45,7 +45,7 @@ def pytest_generate_tests(metafunc):
             raise FileNotFoundError(f"Unable to locate requested data file ({fpth})! 😱")
     if "sequence" in metafunc.fixturenames:
         if sequence_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires an sequence file")
+            raise ValueError(f"{metafunc.function.__name__} requires a sequence file")
         fpth = Path(sequence_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested sequence file ({fpth})! 😱")
