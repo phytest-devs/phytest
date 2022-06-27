@@ -92,6 +92,33 @@ def test_assert_count():
         sequence.assert_count(pattern='A', max=99)
 
 
+def test_assert_percent():
+    sequence = Sequence(
+        Seq("ATGC" * 100),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequence.assert_percent(nucleotide='A', percent=25, min=24.9, max=25.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape(
+            "Sequence 'DNAID' contains 25.0 percent 'A'.\nThis is not equal to the required percentage of 24."
+        ),
+    ):
+        sequence.assert_percent(nucleotide='A', percent=24)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape("Sequence 'DNAID' contains 25.0 percent 'A'.\nThis is less than the minimum 25.1."),
+    ):
+        sequence.assert_percent(nucleotide='A', min=25.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape("Sequence 'DNAID' contains 25.0 percent 'A'.\nThis is greater than the maximum 24.9."),
+    ):
+        sequence.assert_percent(nucleotide='A', max=24.9)
+
+
 def test_assert_count_Ns():
     sequence = Sequence(
         Seq("ATGN" * 100),

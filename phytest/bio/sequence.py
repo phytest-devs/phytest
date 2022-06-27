@@ -1,6 +1,6 @@
 import re
 from builtins import max as builtin_max
-from typing import Optional
+from typing import Optional, Union
 
 from Bio import AlignIO
 from Bio import SeqIO as SeqIO
@@ -124,6 +124,61 @@ class Sequence(PhytestObject, SeqRecord):
         if max is not None:
             assert_or_warn(
                 base_count <= max,
+                warning,
+                summary,
+                f"This is greater than the maximum {max}.",
+            )
+
+    def assert_percent(
+        self,
+        nucleotide: Union[str, list],
+        *,
+        percent: Optional[float] = None,
+        min: Optional[float] = None,
+        max: Optional[float] = None,
+        warning: bool = False,
+    ) -> None:
+        """
+        Asserts that the percentage of a nucleotide in the sequence meets the specified criteria.
+
+        Args:
+            nucleotide: (str): the nucleotide to count in the the sequence.
+            percent (float, optional): If set, then pattern percentage () must be equal to this value. Defaults to None.
+            min (float, optional): If set, then pattern count must be equal to or greater than this value. Defaults to None.
+            max (float, optional): If set, then pattern count must be equal to or less than this value. Defaults to None.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
+        """
+        try:
+            if type(nucleotide) == str:
+                if len(nucleotide) > 1:
+                    raise ValueError('Nucleotide length > 1.')
+                base_percent = (self.seq.count(nucleotide) * 100.0) / len(self.seq)
+            elif type(nucleotide) == list:
+                base_percent = (sum(self.seq.count(x) for x in nucleotide) * 100) / len(self.seq)
+                nucleotide = ', '.join(nucleotide)
+            else:
+                raise ValueError('Nucleotide must be str or list.')
+        except ZeroDivisionError:
+            base_percent = 0.0
+        summary = f"Sequence '{self.id}' contains {base_percent} percent '{nucleotide}'."
+        if percent is not None:
+            assert_or_warn(
+                base_percent == percent,
+                warning,
+                summary,
+                f"This is not equal to the required percentage of {percent}.",
+            )
+        if min is not None:
+            assert_or_warn(
+                base_percent >= min,
+                warning,
+                summary,
+                f"This is less than the minimum {min}.",
+            )
+        if max is not None:
+            assert_or_warn(
+                base_percent <= max,
                 warning,
                 summary,
                 f"This is greater than the maximum {max}.",
