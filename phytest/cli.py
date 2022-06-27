@@ -22,6 +22,9 @@ def cli(
         'newick', "--tree-format", dir_okay=False, exists=True, help="Tree file format"
     ),
     data: Optional[Path] = typer.Option(None, "--data", "-d", dir_okay=False, exists=True, help="Metadata file (CSV)"),
+    data_format: Optional[str] = typer.Option(
+        'csv', "--data-format", dir_okay=False, exists=True, help="Data file format"
+    ),
     report: Optional[Path] = typer.Option(
         None, "--report", "-r", dir_okay=False, exists=False, help="Path to HTML report to generate."
     ),
@@ -37,6 +40,7 @@ def cli(
         tree=tree,
         tree_format=tree_format,
         data=data,
+        data_format=data_format,
         verbose=verbose,
         report=report,
         expression=expression,

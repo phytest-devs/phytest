@@ -1,10 +1,8 @@
 from pathlib import Path
 
-import pandas as pd
 import pytest
-from pandas import DataFrame
 
-from .bio import Alignment, Sequence, Tree
+from .bio import Alignment, Data, Sequence, Tree
 from .main import main as main
 
 
@@ -14,6 +12,7 @@ def pytest_addoption(parser):
     parser.addoption("--tree", "-T", action="store", default=None, help="tree file")
     parser.addoption("--tree-format", action="store", default='newick', help="tree file format")
     parser.addoption("--data", "-D", action="store", default=None, help="data file")
+    parser.addoption("--data-format", action="store", default='csv', help="data file format")
     parser.addoption(
         "--apply-fixes", action="store_true", default=None, help="automatically apply fixes where possible"
     )
@@ -66,7 +65,8 @@ def _alignment_fixture(request):
 @pytest.fixture(scope="session", name="data")
 def _data_fixture(request):
     data_path = request.config.getoption("data")
-    data = pd.read_csv(data_path)
+    data_format = request.config.getoption("--data-format")
+    data = Data.read(data_path, data_format)
     return data
 
 

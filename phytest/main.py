@@ -13,6 +13,7 @@ def main(
     tree: Optional[Path] = None,
     tree_format: Optional[str] = 'newick',
     data: Optional[Path] = None,
+    data_format: Optional[str] = 'csv',
     verbose: bool = False,
     report: Optional[Path] = None,
     expression: str = None,
@@ -32,6 +33,7 @@ def main(
         args.extend(["--tree-format", tree_format])
     if data is not None:
         args.extend(["--data", data])
+        args.extend(["--data-format", data_format])
     if report:
         if not str(report).endswith('.html'):
             raise ValueError(f"Report must use .html extension.")
