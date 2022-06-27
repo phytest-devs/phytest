@@ -22,4 +22,4 @@ jobs:
         poetry install
     - name: Run phytest
       run: |
-        poetry run phytest examples/ice_viruses.py -a examples/data/ice_viruses_cleaned.fasta -t examples/data/ice_viruses_cleaned.fasta.treefile
+        poetry run phytest examples/ice_viruses.py -s examples/data/ice_viruses_cleaned.fasta -t examples/data/ice_viruses_cleaned.fasta.treefile
