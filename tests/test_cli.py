@@ -26,7 +26,7 @@ def test_cli_basic(request: pytest.FixtureRequest):
         app,
         [
             str(request.path.parent / "input/basic.py"),
-            "-a",
+            "-s",
             "examples/data/example.fasta",
             "-t",
             "examples/data/example.tree",
@@ -42,7 +42,7 @@ def test_cli_report(request: pytest.FixtureRequest):
         app,
         [
             str(request.path.parent / "input/basic.py"),
-            "-a",
+            "-s",
             "examples/data/example.fasta",
             "-t",
             "examples/data/example.tree",

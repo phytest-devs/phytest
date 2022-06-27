@@ -8,4 +8,4 @@ def test_length(sequence: phytest.Sequence):
 
 
 if __name__ == "__main__":
-    sys.exit(phytest.main(alignment='examples/data/ice_viruses.fasta', tree='examples/data/ice_viruses.fasta.treefile'))
+    sys.exit(phytest.main(sequence='examples/data/ice_viruses.fasta'))

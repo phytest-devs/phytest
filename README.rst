@@ -132,7 +132,7 @@ We can then run these test on our data with :code:`phytest`:
 
 .. code-block:: bash
 
-    phytest examples/example.py -a examples/data/example.fasta -t examples/data/example.tree
+    phytest examples/example.py -s examples/data/example.fasta -t examples/data/example.tree
 
 Generate a report by adding :code:`--report report.html`.
 

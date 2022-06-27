@@ -8,8 +8,8 @@ import pytest
 
 def main(
     testfile: Optional[Path] = None,
-    alignment: Optional[Path] = None,
-    alignment_format: Optional[str] = 'fasta',
+    sequence: Optional[Path] = None,
+    sequence_format: Optional[str] = 'fasta',
     tree: Optional[Path] = None,
     tree_format: Optional[str] = 'newick',
     data: Optional[Path] = None,
@@ -25,9 +25,9 @@ def main(
         args.extend(["-ra", "--tb=no", "--no-header"])
     else:
         args.extend(["-v"])
-    if alignment is not None:
-        args.extend(["--alignment", alignment])
-        args.extend(["--alignment-format", alignment_format])
+    if sequence is not None:
+        args.extend(["--sequence", sequence])
+        args.extend(["--sequence-format", sequence_format])
     if tree is not None:
         args.extend(["--tree", tree])
         args.extend(["--tree-format", tree_format])

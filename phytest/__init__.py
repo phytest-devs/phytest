@@ -7,8 +7,8 @@ from .main import main as main
 
 
 def pytest_addoption(parser):
-    parser.addoption("--alignment", "-A", action="store", default=None, help="alignment file")
-    parser.addoption("--alignment-format", action="store", default='fasta', help="alignment file format")
+    parser.addoption("--sequence", "-S", action="store", default=None, help="sequence file")
+    parser.addoption("--sequence-format", action="store", default='fasta', help="sequence file format")
     parser.addoption("--tree", "-T", action="store", default=None, help="tree file")
     parser.addoption("--tree-format", action="store", default='newick', help="tree file format")
     parser.addoption("--data", "-D", action="store", default=None, help="data file")
@@ -19,11 +19,11 @@ def pytest_addoption(parser):
 
 
 def pytest_generate_tests(metafunc):
-    alignment_path = metafunc.config.getoption("alignment")
+    sequence_path = metafunc.config.getoption("sequence")
     if 'alignment' in metafunc.fixturenames:
-        if alignment_path is None:
+        if sequence_path is None:
             raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
-        fpth = Path(alignment_path)
+        fpth = Path(sequence_path)
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
     tree_path = metafunc.config.getoption("tree")
@@ -44,20 +44,20 @@ def pytest_generate_tests(metafunc):
         if not fpth.exists():
             raise FileNotFoundError(f"Unable to locate requested data file ({fpth})! 😱")
     if "sequence" in metafunc.fixturenames:
-        if alignment_path is None:
-            raise ValueError(f"{metafunc.function.__name__} requires an alignment file")
-        fpth = Path(alignment_path)
+        if sequence_path is None:
+            raise ValueError(f"{metafunc.function.__name__} requires an sequence file")
+        fpth = Path(sequence_path)
         if not fpth.exists():
-            raise FileNotFoundError(f"Unable to locate requested alignment file ({fpth})! 😱")
-        alignment_format = metafunc.config.getoption("--alignment-format")
-        sequences = Sequence.parse(alignment_path, alignment_format)
+            raise FileNotFoundError(f"Unable to locate requested sequence file ({fpth})! 😱")
+        alignment_format = metafunc.config.getoption("--sequence-format")
+        sequences = Sequence.parse(sequence_path, alignment_format)
         metafunc.parametrize("sequence", sequences, ids=lambda s: s.id)
 
 
 @pytest.fixture(scope="session", name="alignment")
 def _alignment_fixture(request):
-    alignment_path = request.config.getoption("alignment")
-    alignment_format = request.config.getoption("--alignment-format")
+    alignment_path = request.config.getoption("sequence")
+    alignment_format = request.config.getoption("--sequence-format")
     alignment = Alignment.read(alignment_path, alignment_format)
     return alignment
 

@@ -11,11 +11,11 @@ app = typer.Typer()
 @app.command()
 def cli(
     testfile: Path = typer.Argument(..., help="Path to test file"),
-    alignment: Optional[Path] = typer.Option(
-        None, "--alignment", "-a", dir_okay=False, exists=True, help="Path to alignment file"
+    sequence: Optional[Path] = typer.Option(
+        None, "--sequence", "-s", dir_okay=False, exists=True, help="Path to sequence file"
     ),
-    alignment_format: Optional[str] = typer.Option(
-        'fasta', "--alignment-format", dir_okay=False, exists=True, help="Alignment format"
+    sequence_format: Optional[str] = typer.Option(
+        'fasta', "--sequence-format", dir_okay=False, exists=True, help="Sequence file format"
     ),
     tree: Optional[Path] = typer.Option(None, "--tree", "-t", dir_okay=False, exists=True, help="Path to tree file"),
     tree_format: Optional[str] = typer.Option(
@@ -35,8 +35,8 @@ def cli(
 ):
     exit_code = main(
         testfile=testfile,
-        alignment=alignment,
-        alignment_format=alignment_format,
+        sequence=sequence,
+        sequence_format=sequence_format,
         tree=tree,
         tree_format=tree_format,
         data=data,
