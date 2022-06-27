@@ -18,7 +18,7 @@ class Data(PhytestObject, DataFrame):
         elif data_format == 'tsv':
             df = pd.read_csv(data_path, sep='\t')
         elif data_format == 'excel':
-            df = pd.read_excel(data_path)
+            df = pd.read_excel(data_path, engine='openpyxl')
         return Data(df)
 
     def assert_contains(
