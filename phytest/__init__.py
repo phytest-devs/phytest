@@ -71,4 +71,4 @@ def _data_fixture(request):
 
 
 def pytest_html_report_title(report):
-    report.title = "Quality control checks"
+    report.title = "Phytest Report"
