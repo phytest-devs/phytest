@@ -70,12 +70,5 @@ def _data_fixture(request):
     return data
 
 
-@pytest.fixture()
-def should_fix(request):
-    if request.session.testsfailed and request.config.getoption("--apply-fixes"):
-        return True
-    return False
-
-
 def pytest_html_report_title(report):
     report.title = "Quality control checks"
