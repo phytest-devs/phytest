@@ -143,9 +143,9 @@ class Sequence(PhytestObject, SeqRecord):
 
         Args:
             nucleotide: (str): the nucleotide to count in the the sequence.
-            percent (float, optional): If set, then pattern percentage () must be equal to this value. Defaults to None.
-            min (float, optional): If set, then pattern count must be equal to or greater than this value. Defaults to None.
-            max (float, optional): If set, then pattern count must be equal to or less than this value. Defaults to None.
+            percent (float, optional): If set, then nucleotide percentage must be equal to this value. Defaults to None.
+            min (float, optional): If set, then nucleotide percentage must be equal to or greater than this value. Defaults to None.
+            max (float, optional): If set, then nucleotide percentage must be equal to or less than this value. Defaults to None.
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
@@ -183,6 +183,68 @@ class Sequence(PhytestObject, SeqRecord):
                 summary,
                 f"This is greater than the maximum {max}.",
             )
+
+    def assert_percent_GC(
+        self,
+        percent: Optional[int] = None,
+        *,
+        min: Optional[int] = None,
+        max: Optional[int] = None,
+        warning: bool = False,
+    ) -> None:
+        """
+        Asserts that the percent of GC's (ambiguous nucleotide S) in the sequence meets the specified criteria.
+
+        Args:
+            count (int, optional): If set, then the percentage of GC's must be equal to this value. Defaults to None.
+            min (int, optional): If set, then the percentage of GC's must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then the percentage of GC's must be equal to or less than this value. Defaults to None.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
+        """
+        self.assert_percent(
+            nucleotide=["G", "C", "g", "c", "S", "s"], percent=percent, min=min, max=max, warning=warning
+        )
+
+    def assert_percent_N(
+        self,
+        percent: Optional[int] = None,
+        *,
+        min: Optional[int] = None,
+        max: Optional[int] = None,
+        warning: bool = False,
+    ) -> None:
+        """
+        Asserts that the percent of N's in the sequence meets the specified criteria.
+
+        Args:
+            count (int, optional): If set, then the percentage of N's must be equal to this value. Defaults to None.
+            min (int, optional): If set, then the percentage of N's must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then the percentage of N's must be equal to or less than this value. Defaults to None.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
+        """
+        self.assert_percent(nucleotide=["N", "n"], percent=percent, min=min, max=max, warning=warning)
+
+    def assert_percent_gaps(
+        self,
+        percent: Optional[int] = None,
+        *,
+        min: Optional[int] = None,
+        max: Optional[int] = None,
+        warning: bool = False,
+    ) -> None:
+        """
+        Asserts that the percent of gaps (-) in the sequence meets the specified criteria.
+
+        Args:
+            count (int, optional): If set, then the percentage of gaps must be equal to this value. Defaults to None.
+            min (int, optional): If set, then the percentage of gaps must be equal to or greater than this value. Defaults to None.
+            max (int, optional): If set, then the percentage of gaps must be equal to or less than this value. Defaults to None.
+            warning (bool): If True, raise a warning instead of an exception. Defaults to False.
+                This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
+        """
+        self.assert_percent(nucleotide='-', percent=percent, min=min, max=max, warning=warning)
 
     def assert_count_Ns(
         self,

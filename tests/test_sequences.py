@@ -119,6 +119,91 @@ def test_assert_percent():
         sequence.assert_percent(nucleotide='A', max=24.9)
 
 
+def test_assert_percent_N():
+    sequence = Sequence(
+        Seq("ATNN" * 100),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequence.assert_percent_N(percent=50, min=49.9, max=50.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape(
+            "Sequence 'DNAID' contains 50.0 percent 'N, n'.\nThis is not equal to the required percentage of 49."
+        ),
+    ):
+        sequence.assert_percent_N(percent=49)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape("Sequence 'DNAID' contains 50.0 percent 'N, n'.\nThis is less than the minimum 50.1."),
+    ):
+        sequence.assert_percent_N(min=50.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape("Sequence 'DNAID' contains 50.0 percent 'N, n'.\nThis is greater than the maximum 49.9."),
+    ):
+        sequence.assert_percent_N(max=49.9)
+
+
+def test_assert_percent_gaps():
+    sequence = Sequence(
+        Seq("AT--" * 100),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequence.assert_percent_gaps(percent=50, min=49.9, max=50.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape(
+            "Sequence 'DNAID' contains 50.0 percent '-'.\nThis is not equal to the required percentage of 49."
+        ),
+    ):
+        sequence.assert_percent_gaps(percent=49)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape("Sequence 'DNAID' contains 50.0 percent '-'.\nThis is less than the minimum 50.1."),
+    ):
+        sequence.assert_percent_gaps(min=50.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape("Sequence 'DNAID' contains 50.0 percent '-'.\nThis is greater than the maximum 49.9."),
+    ):
+        sequence.assert_percent_gaps(max=49.9)
+
+
+def test_assert_percent_GC():
+    sequence = Sequence(
+        Seq("ATGC" * 100),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    sequence.assert_percent_GC(percent=50, min=49.9, max=50.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape(
+            "Sequence 'DNAID' contains 50.0 percent 'G, C, g, c, S, s'.\nThis is not equal to the required percentage of 49."
+        ),
+    ):
+        sequence.assert_percent_GC(percent=49)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape(
+            "Sequence 'DNAID' contains 50.0 percent 'G, C, g, c, S, s'.\nThis is less than the minimum 50.1."
+        ),
+    ):
+        sequence.assert_percent_GC(min=50.1)
+    with pytest.raises(
+        PhytestAssertion,
+        match=re.escape(
+            "Sequence 'DNAID' contains 50.0 percent 'G, C, g, c, S, s'.\nThis is greater than the maximum 49.9."
+        ),
+    ):
+        sequence.assert_percent_GC(max=49.9)
+
+
 def test_assert_count_Ns():
     sequence = Sequence(
         Seq("ATGN" * 100),
