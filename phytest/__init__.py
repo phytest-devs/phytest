@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+from py.xml import html
 
 from .bio import Alignment, Data, Sequence, Tree
 from .main import main as main
@@ -71,4 +72,4 @@ def _data_fixture(request):
 
 
 def pytest_html_report_title(report):
-    report.title = "Phytest Report"
+    report.title = "report"

@@ -37,7 +37,7 @@ def main(
     if report:
         if not str(report).endswith('.html'):
             raise ValueError(f"Report must use .html extension.")
-        args.extend([f"--html={report}", "--self-contained-html"])
+        args.extend([f"--html={report}", "--self-contained-html", f"--css={Path(__file__).parent / 'report/logo.css'}"])
     if expression:
         args.extend(["-k", expression])
     exit_code = pytest.main(args, plugins=['phytest'])
