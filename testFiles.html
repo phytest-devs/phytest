@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing Tests &mdash; phytest 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Running Tests" href="usage.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> phytest
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#phytest-fixtures">Phytest fixtures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sequence">Sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alignment">Alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tree">Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data">Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#built-in-asserts">Built-in asserts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-asserts">Custom asserts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/phytest-devs/phytest">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/phytest">PyPI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">phytest</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Writing Tests</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/phytest-devs/phytest/blob/main/docs/testFiles.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="writing-tests">
+<h1>Writing Tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline"></a></h1>
+<p>Phytest is easily extendable and provides a simple interface for writing custom phylogenetic tests.
+The interface follows the Pytest model of testing i.e. tests are defined as Python functions (or class methods)
+containing assert statements that are collected and evaluated at run-time. Tests that fail are captured and r
+eported to the user allowing for repeatable and automated testing.</p>
+<section id="phytest-fixtures">
+<h2>Phytest fixtures<a class="headerlink" href="#phytest-fixtures" title="Permalink to this headline"></a></h2>
+<p>Phytest injects special fixture objects into test functions, allowing for easy evaluation and
+testing of phylogenetic data structures. These fixtures provide the standard Biopython (sequences and trees) and Pandas (metadata)
+class methods as well as special assert methods for testing these data structures.</p>
+<p>Only functions that require the fixtures will have the Pytest objects passed to them. For example consider the following tests.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Test functions must start with the keyword <code class="code docutils literal notranslate"><span class="pre">test_</span></code> this allows Pytest to identify and collect the tests.
+Fixtures are required using one of the special arguments i.e. the lower case of the class name.</p>
+<p>Here the <code class="code docutils literal notranslate"><span class="pre">sequence</span></code> argument is used to require the sequences passed from the command line
+(see below for information on how to pass files to Phytest). Phytest will identify which test functions
+require which fixtures and pass the Phytest objects to them for testing.</p>
+<p>Using Phytest classes for type hints is not required, however, makes for a better development experience.
+For example the following is a valid Phytest test and will be passed a Sequence object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Fixtures can be combined to make more complex tests across multiple data types e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tree</span>
+
+<span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">tree</span><span class="p">:</span> <span class="n">Tree</span><span class="p">):</span>
+    <span class="c1"># test tree and sequence objects together</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<section id="sequence">
+<h3>Sequence<a class="headerlink" href="#sequence" title="Permalink to this headline"></a></h3>
+<p>The Phytest Sequence class is a sub-class of the Biopython SeqRecord class. This class uses the fixture <code class="code docutils literal notranslate"><span class="pre">sequence</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Any tests requiring the class will be run for every sequence in the file passed. For example if the fasta file below is passed to Phytest
+the <code class="code docutils literal notranslate"><span class="pre">test_example</span></code> function above would be run 4 times (Sequence_A-Sequence_D).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&gt;Sequence_A
+ATGAGATCCCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
+&gt;Sequence_B
+ATGAGATCCCCGATAGCGAGCTAGXGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
+&gt;Sequence_C
+ATGAGA--CCCGATAGCGAGCTAGCGATCGCAGCGACTCAGCAGCTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
+&gt;Sequence_D
+ATGAGATCCCCGATAGCGAGCTAGCGATNNNNNNNNNNNNNNNNNTACAGCGCAGAGGAGAGAGAGGCCCCTATTTACTAGAGCTCCAGATATAGNNTAG
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ phytest test.py --sequence sequences.fasta
+
+Test session starts <span class="o">(</span>platform: darwin, Python <span class="m">3</span>.9.12, pytest <span class="m">7</span>.1.1, pytest-sugar <span class="m">0</span>.9.4<span class="o">)</span>
+rootdir: /Users/wytamma/programming/phytest, configfile: pyproject.toml
+plugins: sugar-0.9.4, html-3.1.1, cov-3.0.0
+collecting ...
+test.py ✓✓✓✓                                                            <span class="m">100</span>% ██████████
+
+Results <span class="o">(</span><span class="m">0</span>.03s<span class="o">)</span>:
+    <span class="m">4</span> passed
+</pre></div>
+</div>
+<p>Alternative file formats can be specified using the <code class="code docutils literal notranslate"><span class="pre">--sequence-format</span></code> flag.</p>
+</section>
+<section id="alignment">
+<h3>Alignment<a class="headerlink" href="#alignment" title="Permalink to this headline"></a></h3>
+<p>The Phytest Alignment class is a sub-class of the Biopython MultipleSeqAlignment class. This class uses the fixture <code class="code docutils literal notranslate"><span class="pre">alignment</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Alignment</span>
+
+<span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="n">alignment</span><span class="p">:</span> <span class="n">Alignment</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Tests using the alignment file will be run once i.e. you will have access to the entire alignment during the test.
+Alignments are also passed to Phytest using the <cite>–sequence</cite> flag however they are required to be valid
+alignments e.g. all sequence must be the same length.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>phytest test.py --sequence sequences.fasta
+
+Test session starts <span class="o">(</span>platform: darwin, Python <span class="m">3</span>.9.12, pytest <span class="m">7</span>.1.1, pytest-sugar <span class="m">0</span>.9.4<span class="o">)</span>
+rootdir: /Users/wytamma/programming/phytest, configfile: pyproject.toml
+plugins: sugar-0.9.4, html-3.1.1, cov-3.0.0
+collecting ...
+test.py ✓                                                               <span class="m">100</span>% ██████████
+
+Results <span class="o">(</span><span class="m">0</span>.02s<span class="o">)</span>:
+    <span class="m">1</span> passed
+</pre></div>
+</div>
+<p>Alternative file formats can be specified using the <code class="code docutils literal notranslate"><span class="pre">--sequence-format</span></code> flag.</p>
+</section>
+<section id="tree">
+<h3>Tree<a class="headerlink" href="#tree" title="Permalink to this headline"></a></h3>
+<p>The Phytest Tree class is a sub-class of the Biopython Tree class. This class uses the fixture <code class="code docutils literal notranslate"><span class="pre">tree</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Tree</span>
+
+<span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Tree</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Tests using the tree fixture will be run once per tree in the file. Tree files are passed to Phytest using the <code class="code docutils literal notranslate"><span class="pre">--tree</span></code> flag.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(Sequence_A:1,Sequence_B:0.2,(Sequence_C:0.3,Sequence_D:0.4):0.5);
+(Sequence_A:1,Sequence_B:0.3,(Sequence_C:0.3,Sequence_D:0.4):0.5);
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>phytest test.py --tree tree.newick
+
+Test session starts <span class="o">(</span>platform: darwin, Python <span class="m">3</span>.9.12, pytest <span class="m">7</span>.1.1, pytest-sugar <span class="m">0</span>.9.4<span class="o">)</span>
+rootdir: /Users/wytamma/programming/phytest, configfile: pyproject.toml
+plugins: sugar-0.9.4, html-3.1.1, cov-3.0.0
+collecting ...
+test.py ✓✓                                                              <span class="m">100</span>% ██████████
+
+Results <span class="o">(</span><span class="m">0</span>.02s<span class="o">)</span>:
+    <span class="m">2</span> passed
+</pre></div>
+</div>
+<p>Alternative file formats can be specified using the <code class="code docutils literal notranslate"><span class="pre">--tree-format</span></code> flag.</p>
+</section>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Permalink to this headline"></a></h3>
+<p>The Phytest Data class is a sub-class of the Pandas DataFrame class. This class uses the fixture <code class="code docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Data</span>
+
+<span class="k">def</span> <span class="nf">test_example</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Tests using the data file will be run once. Data files are passed to Phytest using the <code class="code docutils literal notranslate"><span class="pre">--data</span></code> flag.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>phytest test.py --data metadata.csv
+
+Test session starts <span class="o">(</span>platform: darwin, Python <span class="m">3</span>.9.12, pytest <span class="m">7</span>.1.1, pytest-sugar <span class="m">0</span>.9.4<span class="o">)</span>
+rootdir: /Users/wytamma/programming/phytest, configfile: pyproject.toml
+plugins: sugar-0.9.4, html-3.1.1, cov-3.0.0
+collecting ...
+test.py ✓                                                               <span class="m">100</span>% ██████████
+
+Results <span class="o">(</span><span class="m">0</span>.02s<span class="o">)</span>:
+    <span class="m">1</span> passed
+</pre></div>
+</div>
+<p>Alternative file formats can be specified using the <code class="code docutils literal notranslate"><span class="pre">--data-format</span></code> flag.</p>
+</section>
+</section>
+<section id="built-in-asserts">
+<h2>Built-in asserts<a class="headerlink" href="#built-in-asserts" title="Permalink to this headline"></a></h2>
+<p>Phytest provides many convenient helper functions for testing phylogenetic analyses including methods for testing sequences,
+alignments, trees and metadata files.</p>
+<p>For example, the Phytest Sequence class implements the method <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC</span></code>.
+Calling this method with the expected GC-content e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC(38)</span></code> will
+raise an error if the percent of G and C nucleotides in the sequence is not equal to 38%.
+Many methods also provide maximum and minimum arguments so the upper and lower bounds can be tested
+e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC(min=30,</span> <span class="pre">max=40)</span></code>.</p>
+<p>All Phytest assert methods also provide a warning flag e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC(38,</span> <span class="pre">warn=True)</span></code>
+causing the method to raise a warning instead of an error if the test fails. In an automated pipeline,
+this provides a way to inform the user of potential problems without causing the pipeline to fail.
+The warning flag can be set automatically by calling the method with the <code class="code docutils literal notranslate"><span class="pre">warn_</span></code> prefix instead
+of <code class="code docutils literal notranslate"><span class="pre">assert_</span></code> e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.warn_percent_GC(38)</span></code>.</p>
+<p>See the documentation for a full list of built-in assert methods (<a class="reference external" href="https://phytest-devs.github.io/phytest/reference.html">https://phytest-devs.github.io/phytest/reference.html</a>).</p>
+</section>
+<section id="custom-asserts">
+<h2>Custom asserts<a class="headerlink" href="#custom-asserts" title="Permalink to this headline"></a></h2>
+<p>As Phytest is running Pytest under the hood it is trivial to write your own custom asserts using the Phytest fixtures.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_outlier_branches</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Tree</span><span class="p">):</span>
+    <span class="c1"># Here we create a custom function to detect outliers</span>
+    <span class="kn">import</span> <span class="nn">statistics</span>
+
+    <span class="n">tips</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_terminals</span><span class="p">()</span>
+    <span class="n">branch_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">branch_length</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tips</span><span class="p">]</span>
+    <span class="n">cut_off</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">branch_lengths</span><span class="p">)</span> <span class="o">+</span> <span class="n">statistics</span><span class="o">.</span><span class="n">stdev</span><span class="p">(</span><span class="n">branch_lengths</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tip</span> <span class="ow">in</span> <span class="n">tips</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">tip</span><span class="o">.</span><span class="n">branch_length</span> <span class="o">&lt;</span> <span class="n">cut_off</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Outlier tip &#39;</span><span class="si">{</span><span class="n">tip</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (branch length = </span><span class="si">{</span><span class="n">tip</span><span class="o">.</span><span class="n">branch_length</span><span class="si">}</span><span class="s2">)!&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Running Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Sebastian Duchene.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

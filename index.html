@@ -4,10 +4,11 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Indices and tables &mdash; phytest 0.1.0 documentation</title>
+  <title>Phytest &mdash; phytest 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -40,13 +41,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testFiles.html">Writing Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/phytest-devs/phytest">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/phytest">PyPI</a></li>
 </ul>
 
         </div>
@@ -63,9 +71,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Indices and tables</li>
+      <li>Phytest</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/phytest-devs/phytest/blob/main/docs/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -99,9 +107,11 @@
 </style>
 <img alt="Phytest logo" src="_images/logo.png" />
 <p><a class="reference external" href="https://pypi.org/project/phytest/"><img alt="pypi badge" src="https://img.shields.io/pypi/v/phytest.svg" /></a> <a class="reference external" href="https://github.com/phytest-devs/phytest/actions"><img alt="tests badge" src="https://github.com/phytest-devs/phytest/workflows/tests/badge.svg" /></a> <a class="reference external" href="https://phytest-devs.github.io/phytest/coverage/"><img alt="coverage badge" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/smutch/e8160655e03d9015b1e93b97ed611f4f/raw/coverage-badge.json" /></a> <a class="reference external" href="https://phytest-devs.github.io/phytest/"><img alt="docs badge" src="https://github.com/phytest-devs/phytest/workflows/docs/badge.svg" /></a> <a class="reference external" href="https://github.com/psf/black"><img alt="black badge" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a> <a class="reference external" href="https://results.pre-commit.ci/latest/github/phytest-devs/phytest/main"><img alt="pre-commit badge" src="https://results.pre-commit.ci/badge/github/phytest-devs/phytest/main.svg" /></a></p>
-<p>Quality control for phylogenetic pipelines using pytest</p>
+<section id="phytest">
+<h1>Phytest<a class="headerlink" href="#phytest" title="Permalink to this headline"></a></h1>
+<p>Phytest a tool for automating quality control checks on sequence, tree and metadata files during phylogenetic analyses. Phytest ensures that phylogenetic analyses meet user-defined quality control tests.</p>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation">Installation</a></li>
@@ -109,16 +119,38 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testFiles.html">Writing Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testFiles.html#phytest-fixtures">Phytest fixtures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testFiles.html#built-in-asserts">Built-in asserts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testFiles.html#custom-asserts">Custom asserts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Running Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#phytest-cli">Phytest CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#phytest-module">Phytest Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#pytest-plugin">Pytest Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#nextstrain-example">Nextstrain Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#temporal-signal-example">Temporal Signal Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#continuous-testing-example">Continuous Testing Example</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#tree">Tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference.html#sequence">Sequence</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference.html#alignment">Alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference.html#tree">Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference.html#data">Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 </ul>
 </div>
+<p><div class="toctree-wrapper compound">
+</div>
+</p>
+</section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
 <ul class="simple">
@@ -138,7 +170,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Noel Faux.</p>
+    <p>&#169; Copyright 2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Sebastian Duchene.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

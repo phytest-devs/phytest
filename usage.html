@@ -4,10 +4,11 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; phytest 0.1.0 documentation</title>
+  <title>Running Tests &mdash; phytest 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -22,8 +23,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="reference.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Writing Tests" href="testFiles.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,13 +42,25 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testFiles.html">Writing Tests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#phytest-cli">Phytest CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phytest-module">Phytest Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pytest-plugin">Pytest Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/phytest-devs/phytest">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/phytest">PyPI</a></li>
 </ul>
 
         </div>
@@ -64,9 +77,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Usage</li>
+      <li>Running Tests</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/phytest-devs/phytest/blob/main/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -98,22 +111,76 @@
     text-align: unset;
 }
 </style>
-<section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<section id="running-tests">
+<h1>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline"></a></h1>
+<p>Phytest is based on the popular Python testing framework Pytest.
+It provides many convenient helper functions for testing phylogenetic analyses including methods for testing sequences, alignments, trees and metadata files.
+Phytest has been developed as a command-line interface, Python module, and Pytest plugin, providing multiple methods of invocation.</p>
+<section id="phytest-cli">
+<h2>Phytest CLI<a class="headerlink" href="#phytest-cli" title="Permalink to this headline"></a></h2>
+<p>Phytest provides a command line interface (CLI) for running testing on specific data files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="k">def</span> <span class="nf">test_gc_content</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
+    <span class="n">sequence</span><span class="o">.</span><span class="n">assert_percent_GC</span><span class="p">(</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">40</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>The Phytest CLI requires a path to the file containing user defined tests and has optional flags for specifying sequence/alignment, tree and metadata files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>phytest test.py --sequence sequences.fasta --tree tree.newick --data metadata.csv
+</pre></div>
+</div>
+<p>Alternative file formats can be specified with <code class="code docutils literal notranslate"><span class="pre">--sequence-format</span></code>, <code class="code docutils literal notranslate"><span class="pre">--tree-format</span></code>, <code class="code docutils literal notranslate"><span class="pre">--data-format</span></code> flags.
+Supported formats include those supported by Biopython (sequences and trees) and TSV and Excel (metadata).</p>
+</section>
+<section id="phytest-module">
+<h2>Phytest Module<a class="headerlink" href="#phytest-module" title="Permalink to this headline"></a></h2>
+<p>The Phytest module can be imported into script so that tests are self-contained i.e. data files are specified in the tests.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">phytest</span>
+
+<span class="k">def</span> <span class="nf">test_gc_content</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">phytest</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+    <span class="n">sequence</span><span class="o">.</span><span class="n">assert_percent_GC</span><span class="p">(</span>
+        <span class="nb">min</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="nb">max</span><span class="o">=</span><span class="mi">40</span>
+    <span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">phytest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s1">&#39;examples/data/ice_viruses.fasta&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This test style uses <code class="code docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code> python convention to only run the tests when invoked from the command line using the python command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python test.py
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">phytest.main</span></code> function will run the tests and return a exit status (0 ir 1) that is passed to <code class="code docutils literal notranslate"><span class="pre">sys.exit</span></code> to ensure the test exit correctly.</p>
+</section>
+<section id="pytest-plugin">
+<h2>Pytest Plugin<a class="headerlink" href="#pytest-plugin" title="Permalink to this headline"></a></h2>
+<p>Phytest can also be used as a Pytest plugin. Simply install Phytest and then run Pytest on the test file with the appropriate flags.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest test.py --sequence sequences.fasta
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Short hand flags must be capitalised when running Phytest through Pytest e.g. <code class="code docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">test.py</span> <span class="pre">-S</span> <span class="pre">sequences.fasta</span></code></p>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="testFiles.html" class="btn btn-neutral float-left" title="Writing Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Noel Faux.</p>
+    <p>&#169; Copyright 2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Sebastian Duchene.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

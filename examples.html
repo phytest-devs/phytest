@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; phytest 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="reference.html" />
+    <link rel="prev" title="Running Tests" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> phytest
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testFiles.html">Writing Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Running Tests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nextstrain-example">Nextstrain Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#temporal-signal-example">Temporal Signal Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-testing-example">Continuous Testing Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/phytest-devs/phytest">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/phytest">PyPI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">phytest</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Examples</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/phytest-devs/phytest/blob/main/docs/examples.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h1>
+<p>The Phytest organisation of GitHub contains serval example repositories (<a class="reference external" href="https://github.com/phytest-devs">https://github.com/phytest-devs</a>) that show how Phytest can integrate into standard phylogenetic analyses and scenarios.</p>
+<section id="nextstrain-example">
+<h2>Nextstrain Example<a class="headerlink" href="#nextstrain-example" title="Permalink to this headline"></a></h2>
+<p>The Nextstrain pipeline is widely used for pathogen phylogenetic analysis.
+In this example we modify the Nextstrain zika-tutorial (<a class="reference external" href="https://github.com/nextstrain/zika-tutorial">https://github.com/nextstrain/zika-tutorial</a>)
+to include testing with Phytest. This modified pipeline is available as an example repository in the phytest-devs GitHub organisation
+<a class="reference external" href="https://github.com/phytest-devs/phytest-nextstrain-example">https://github.com/phytest-devs/phytest-nextstrain-example</a> and provides an example of using Phytest for quality control in a Snakemake
+pipeline.</p>
+<p>Phytest is included in the pipeline to ensure the alignment and maximum likelihood tree meet explicit quality
+requirements before proceeding though the pipeline. Only if all the tests pass will the pipeline continue, thus savings computational resources.
+The resulting HTML report provides details of any failed tests so that the offending data can be removed.
+While Augur (the Nextstrain toolkit) has some ability to refine/filter tree and alignment files,
+Phytest adds highly a customizable testing framework to the pipeline that ensures the quality of the analysis.</p>
+</section>
+<section id="temporal-signal-example">
+<h2>Temporal Signal Example<a class="headerlink" href="#temporal-signal-example" title="Permalink to this headline"></a></h2>
+<p>A repository containing the code for this example can be found at <a class="reference external" href="https://github.com/phytest-devs/phytest-temporal-signal-example">https://github.com/phytest-devs/phytest-temporal-signal-example</a>.</p>
+<p>Temporal signal in an important prerequisite to many Bayesian phylogenetic analyses. In this example we use Phytest to ensure the
+data-set meets the minimum temporal signal requirements for Bayesian analyses. Temporal signal analysis can help to detect
+problematic sequences and potential issues before heading on to a Bayesian phylogenetic analysis e.g. with BEAST.
+Here, we use data from from the TempEst tutorial <a class="reference external" href="https://beast.community/tempest_tutorial">https://beast.community/tempest_tutorial</a>.</p>
+<p>TempEst is a useful program for performing temporal signal analysis, however, it is not possible to easily automate the TempEst graphical user interface.
+Internally, Phytest uses TimeTree to perform a root-to-tip regression, allowing users to automate temporal signal testing.
+The <code class="code docutils literal notranslate"><span class="pre">Tree.assert_root_to_tip</span></code> method is used for testing temporal signal and provides arguments for testing the
+coefficient of determination, estimated rate and root date. The Phytest Tree class also implements methods for exploring and plotting results.</p>
+</section>
+<section id="continuous-testing-example">
+<h2>Continuous Testing Example<a class="headerlink" href="#continuous-testing-example" title="Permalink to this headline"></a></h2>
+<p>In this example Phytest is used to test data shared on GitHub every time the data is updated (<a class="reference external" href="https://github.com/phytest-devs/phytest-continuous-testing-example">https://github.com/phytest-devs/phytest-continuous-testing-example</a>).</p>
+<p>Tests are run against the phylogenetic data using the Continuous Integration features that are freely available
+through GitHub (other services are also available). Using Phytest through GitHub Actions (<a class="reference external" href="https://github.com/features/actions">https://github.com/features/actions</a>)
+ensures that anytime the data changes (common during development) they still meet the requirements defined in the tests.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Running Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Sebastian Duchene.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
