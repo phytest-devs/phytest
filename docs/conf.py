@@ -43,8 +43,6 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx_copybutton",
     "sphinx.ext.autosummary",
-    "sphinx_toolbox.sidebar_links",
-    "sphinx_toolbox.github",
 ]
 
 github_username = 'phytest-devs'
