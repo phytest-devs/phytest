@@ -10,17 +10,26 @@
    :start-after: start-badges
    :end-before: end-badges
 
-Quality control for phylogenetic pipelines using pytest
+Phytest
+==================
+
+Phytest a tool for automating quality control checks on sequence, tree and metadata files during phylogenetic analyses. Phytest ensures that phylogenetic analyses meet user-defined quality control tests.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
 
    quickstart
    installation
+   testFiles
    usage
+   examples
    reference
    development
+
+.. sidebar-links::
+   :github:
+   :pypi: phytest
 
 Indices and tables
 ==================

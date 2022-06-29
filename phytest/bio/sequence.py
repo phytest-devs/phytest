@@ -1,6 +1,6 @@
 import re
 from builtins import max as builtin_max
-from typing import Optional, Union
+from typing import List, Optional, Union
 
 from Bio import AlignIO
 from Bio import SeqIO as SeqIO
@@ -131,7 +131,7 @@ class Sequence(PhytestObject, SeqRecord):
 
     def assert_percent(
         self,
-        nucleotide: Union[str, list],
+        nucleotide: Union[str, List[str]],
         *,
         percent: Optional[float] = None,
         min: Optional[float] = None,
@@ -142,7 +142,7 @@ class Sequence(PhytestObject, SeqRecord):
         Asserts that the percentage of a nucleotide in the sequence meets the specified criteria.
 
         Args:
-            nucleotide: (str): the nucleotide to count in the the sequence.
+            nucleotide: (Union[str, List[str]]): The nucleotide(s) to count in the the sequence.
             percent (float, optional): If set, then nucleotide percentage must be equal to this value. Defaults to None.
             min (float, optional): If set, then nucleotide percentage must be equal to or greater than this value. Defaults to None.
             max (float, optional): If set, then nucleotide percentage must be equal to or less than this value. Defaults to None.
@@ -196,9 +196,9 @@ class Sequence(PhytestObject, SeqRecord):
         Asserts that the percent of GC's (ambiguous nucleotide S) in the sequence meets the specified criteria.
 
         Args:
-            count (int, optional): If set, then the percentage of GC's must be equal to this value. Defaults to None.
-            min (int, optional): If set, then the percentage of GC's must be equal to or greater than this value. Defaults to None.
-            max (int, optional): If set, then the percentage of GC's must be equal to or less than this value. Defaults to None.
+            percent (float, optional): If set, then the percentage of GC's must be equal to this value. Defaults to None.
+            min (float, optional): If set, then the percentage of GC's must be equal to or greater than this value. Defaults to None.
+            max (float, optional): If set, then the percentage of GC's must be equal to or less than this value. Defaults to None.
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
@@ -218,9 +218,9 @@ class Sequence(PhytestObject, SeqRecord):
         Asserts that the percent of N's in the sequence meets the specified criteria.
 
         Args:
-            count (int, optional): If set, then the percentage of N's must be equal to this value. Defaults to None.
-            min (int, optional): If set, then the percentage of N's must be equal to or greater than this value. Defaults to None.
-            max (int, optional): If set, then the percentage of N's must be equal to or less than this value. Defaults to None.
+            percent (float, optional): If set, then the percentage of N's must be equal to this value. Defaults to None.
+            min (float, optional): If set, then the percentage of N's must be equal to or greater than this value. Defaults to None.
+            max (float, optional): If set, then the percentage of N's must be equal to or less than this value. Defaults to None.
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
@@ -238,9 +238,9 @@ class Sequence(PhytestObject, SeqRecord):
         Asserts that the percent of gaps (-) in the sequence meets the specified criteria.
 
         Args:
-            count (int, optional): If set, then the percentage of gaps must be equal to this value. Defaults to None.
-            min (int, optional): If set, then the percentage of gaps must be equal to or greater than this value. Defaults to None.
-            max (int, optional): If set, then the percentage of gaps must be equal to or less than this value. Defaults to None.
+            percent (float, optional): If set, then the percentage of gaps must be equal to this value. Defaults to None.
+            min (float, optional): If set, then the percentage of gaps must be equal to or greater than this value. Defaults to None.
+            max (float, optional): If set, then the percentage of gaps must be equal to or less than this value. Defaults to None.
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """

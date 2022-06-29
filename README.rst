@@ -123,7 +123,8 @@ We can write these tests in a python files :code:`example.py`
         for tip in tips:
             assert tip.branch_length < cut_off, f"Outlier tip '{tip.name}' (branch length = {tip.branch_length})!"
 
-
+Running Phytest
+################
 
 We can then run these test on our data with :code:`phytest`:
 

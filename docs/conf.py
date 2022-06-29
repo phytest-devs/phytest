@@ -18,8 +18,10 @@
 # -- Project information -----------------------------------------------------
 
 project = 'phytest'
-copyright = '2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Noel Faux'
-author = 'Wytamma Wirth, Simon Mutch, Robert Turnbull, Noel Faux'
+copyright = '2022, Wytamma Wirth, Simon Mutch, Robert Turnbull, Sebastian Duchene'
+author = 'Wytamma Wirth, Simon Mutch, Robert Turnbull, Sebastian Duchene'
+
+html_favicon = 'favicon.ico'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'
@@ -41,7 +43,19 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx_copybutton",
     "sphinx.ext.autosummary",
+    "sphinx_toolbox.sidebar_links",
+    "sphinx_toolbox.github",
 ]
+
+github_username = 'phytest-devs'
+github_repository = 'phytest'
+
+html_context = {
+    'display_github': True,
+    'github_user': 'phytest-devs',
+    'github_repo': 'phytest',
+    'github_version': 'main/docs/',
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

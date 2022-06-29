@@ -3,13 +3,6 @@ API Reference
 =======================
 
 
-Tree
-======================
-
-.. autoclass:: phytest.bio.tree.Tree
-   :members:
-
-
 Sequence
 ======================
 
@@ -21,4 +14,16 @@ Alignment
 ======================
 
 .. autoclass:: phytest.bio.alignment.Alignment
+   :members:
+
+Tree
+======================
+
+.. autoclass:: phytest.bio.tree.Tree
+   :members:
+
+Data
+======================
+
+.. autoclass:: phytest.bio.data.Data
    :members:
