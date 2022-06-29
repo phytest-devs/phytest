@@ -52,7 +52,10 @@ Install phytest using pip:
 Usage
 ============
 
-Phytest will run user defined tests against an alignment and tree file. Here we will create example data files to run our tests on.
+Phytest is a tool for automating quality control checks on sequence, tree and metadata files during phylogenetic analyses.
+Phytest ensures that phylogenetic analyses meet user-defined quality control tests.
+
+Here we will create example data files to run our tests on.
 
 Create an alignment fasta file :code:`example.fasta`
 

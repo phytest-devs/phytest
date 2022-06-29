@@ -15,7 +15,7 @@ Phytest
 
 Phytest: Quality Control for Phylogenetic Analyses.
 
-Phytest a tool for automating quality control checks on sequence, tree and metadata files during phylogenetic analyses. Phytest ensures that phylogenetic analyses meet user-defined quality control tests.
+Phytest is a tool for automating quality control checks on sequence, tree and metadata files during phylogenetic analyses. Phytest ensures that phylogenetic analyses meet user-defined quality control tests.
 
 ----
 
