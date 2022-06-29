@@ -13,7 +13,17 @@
 Phytest
 ==================
 
+Phytest: Quality Control for Phylogenetic Analyses.
+
 Phytest a tool for automating quality control checks on sequence, tree and metadata files during phylogenetic analyses. Phytest ensures that phylogenetic analyses meet user-defined quality control tests.
+
+----
+
+Documentation: https://phytest-devs.github.io/phytest
+
+Code: https://github.com/phytest-devs/phytest
+
+----
 
 .. toctree::
    :maxdepth: 2
