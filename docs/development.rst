@@ -2,14 +2,13 @@
 Development
 ============
 
-Install poetry
+Install poetry (https://python-poetry.org/)
 
 Clone the repository:
 
 .. code-block:: bash
 
-    git clone https://github.com/smutch/phytest.git
-    cd phytest
+    git clone ttps://github.com/phytest-devs/phytest.git && cd phytest
 
 .. code-block:: bash
 
