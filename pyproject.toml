@@ -34,7 +34,6 @@ sphinx-copybutton = "^0.4.0"
 typing-extensions = "^4.1.1"
 pytest-cov = "^3.0.0"
 openpyxl = "^3.0.10"
-sphinx-toolbox = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

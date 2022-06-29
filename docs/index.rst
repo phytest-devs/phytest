@@ -27,10 +27,6 @@ Phytest a tool for automating quality control checks on sequence, tree and metad
    reference
    development
 
-.. sidebar-links::
-   :github:
-   :pypi: phytest
-
 Indices and tables
 ==================
 

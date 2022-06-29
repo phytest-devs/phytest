@@ -28,7 +28,15 @@
 
 
 
-Quality control for phylogenetic pipelines using pytest
+Phytest: Quality Control for Phylogenetic Analyses.
+
+----
+
+Documentation: https://phytest-devs.github.io/phytest
+
+Code: https://github.com/phytest-devs/phytest
+
+----
 
 .. start-quickstart
 
