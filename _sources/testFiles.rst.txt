@@ -4,8 +4,8 @@ Writing Tests
 
 Phytest is easily extendable and provides a simple interface for writing custom phylogenetic tests.
 The interface follows the Pytest model of testing i.e. tests are defined as Python functions (or class methods)
-containing assert statements that are collected and evaluated at run-time. Tests that fail are captured and r
-eported to the user allowing for repeatable and automated testing.
+containing assert statements that are collected and evaluated at run-time. Tests that fail are captured and reported
+to the user allowing for repeatable and automated testing.
 
 Phytest fixtures
 =================
