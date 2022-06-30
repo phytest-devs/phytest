@@ -11,7 +11,7 @@ runner = CliRunner()
 def test_cli_help():
     result = runner.invoke(app, ["--help"])
     assert result.exit_code == 0
-    assert "TESTFILE  Path to test file  [required]" in result.stdout
+    assert "TESTFILE  Path to test file.  [required]" in result.stdout
 
 
 def test_cli_no_input_file(request: pytest.FixtureRequest):
