@@ -12,7 +12,6 @@ from ..utils import PhytestObject, assert_or_warn
 class Sequence(PhytestObject, SeqRecord):
     @classmethod
     def parse(cls, alignment_path, alignment_format) -> 'Sequence':
-        # Use Bio.AlignIO to read in the alignments
         return (
             Sequence(
                 r.seq,
@@ -24,8 +23,7 @@ class Sequence(PhytestObject, SeqRecord):
                 annotations=r.annotations,
                 letter_annotations=r.letter_annotations,
             )
-            for alignment in AlignIO.parse(alignment_path, alignment_format)
-            for r in alignment
+            for r in SeqIO.parse(alignment_path, alignment_format)
         )
 
     def assert_valid_alphabet(self, alphabet: str = "ATCGN-", *, warning: bool = False) -> None:
