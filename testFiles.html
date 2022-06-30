@@ -267,16 +267,34 @@ Results <span class="o">(</span><span class="m">0</span>.02s<span class="o">)</s
 <h2>Built-in asserts<a class="headerlink" href="#built-in-asserts" title="Permalink to this headline"></a></h2>
 <p>Phytest provides many convenient helper functions for testing phylogenetic analyses including methods for testing sequences,
 alignments, trees and metadata files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="k">def</span> <span class="nf">test_GC_content</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
+    <span class="n">sequence</span><span class="o">.</span><span class="n">assert_percent_GC</span><span class="p">(</span><span class="mi">38</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>For example, the Phytest Sequence class implements the method <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC</span></code>.
-Calling this method with the expected GC-content e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC(38)</span></code> will
+Calling this method with the expected GC-content e.g. <code class="code docutils literal notranslate"><span class="pre">sequence.assert_percent_GC(38)</span></code> will
 raise an error if the percent of G and C nucleotides in the sequence is not equal to 38%.
 Many methods also provide maximum and minimum arguments so the upper and lower bounds can be tested
-e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC(min=30,</span> <span class="pre">max=40)</span></code>.</p>
-<p>All Phytest assert methods also provide a warning flag e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.assert_percent_GC(38,</span> <span class="pre">warn=True)</span></code>
+e.g. <code class="code docutils literal notranslate"><span class="pre">sequence.assert_percent_GC(min=30,</span> <span class="pre">max=40)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="k">def</span> <span class="nf">test_GC_content</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
+    <span class="n">sequence</span><span class="o">.</span><span class="n">assert_percent_GC</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All Phytest assert methods also provide a warning flag e.g. <code class="code docutils literal notranslate"><span class="pre">sequence.assert_percent_GC(38,</span> <span class="pre">warn=True)</span></code>
 causing the method to raise a warning instead of an error if the test fails. In an automated pipeline,
 this provides a way to inform the user of potential problems without causing the pipeline to fail.
 The warning flag can be set automatically by calling the method with the <code class="code docutils literal notranslate"><span class="pre">warn_</span></code> prefix instead
-of <code class="code docutils literal notranslate"><span class="pre">assert_</span></code> e.g. <code class="code docutils literal notranslate"><span class="pre">Sequence.warn_percent_GC(38)</span></code>.</p>
+of <code class="code docutils literal notranslate"><span class="pre">assert_</span></code> e.g. <code class="code docutils literal notranslate"><span class="pre">sequence.warn_percent_GC(38)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phytest</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="k">def</span> <span class="nf">test_GC_content</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">):</span>
+    <span class="n">sequence</span><span class="o">.</span><span class="n">warn_percent_GC</span><span class="p">(</span><span class="mi">38</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>See the documentation for a full list of built-in assert methods (<a class="reference external" href="https://phytest-devs.github.io/phytest/reference.html">https://phytest-devs.github.io/phytest/reference.html</a>).</p>
 </section>
 <section id="custom-asserts">

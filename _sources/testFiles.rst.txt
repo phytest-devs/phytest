@@ -194,17 +194,38 @@ Built-in asserts
 Phytest provides many convenient helper functions for testing phylogenetic analyses including methods for testing sequences,
 alignments, trees and metadata files.
 
+.. code-block:: python
+
+    from phytest import Sequence
+
+    def test_GC_content(sequence: Sequence):
+        sequence.assert_percent_GC(38)
+
 For example, the Phytest Sequence class implements the method :code:`Sequence.assert_percent_GC`.
-Calling this method with the expected GC-content e.g. :code:`Sequence.assert_percent_GC(38)` will
+Calling this method with the expected GC-content e.g. :code:`sequence.assert_percent_GC(38)` will
 raise an error if the percent of G and C nucleotides in the sequence is not equal to 38%.
 Many methods also provide maximum and minimum arguments so the upper and lower bounds can be tested
-e.g. :code:`Sequence.assert_percent_GC(min=30, max=40)`.
+e.g. :code:`sequence.assert_percent_GC(min=30, max=40)`.
 
-All Phytest assert methods also provide a warning flag e.g. :code:`Sequence.assert_percent_GC(38, warn=True)`
+.. code-block:: python
+
+    from phytest import Sequence
+
+    def test_GC_content(sequence: Sequence):
+        sequence.assert_percent_GC(min=30, max=40)
+
+All Phytest assert methods also provide a warning flag e.g. :code:`sequence.assert_percent_GC(38, warn=True)`
 causing the method to raise a warning instead of an error if the test fails. In an automated pipeline,
 this provides a way to inform the user of potential problems without causing the pipeline to fail.
 The warning flag can be set automatically by calling the method with the :code:`warn_` prefix instead
-of :code:`assert_` e.g. :code:`Sequence.warn_percent_GC(38)`.
+of :code:`assert_` e.g. :code:`sequence.warn_percent_GC(38)`.
+
+.. code-block:: python
+
+    from phytest import Sequence
+
+    def test_GC_content(sequence: Sequence):
+        sequence.warn_percent_GC(38)
 
 See the documentation for a full list of built-in assert methods (https://phytest-devs.github.io/phytest/reference.html).
 
