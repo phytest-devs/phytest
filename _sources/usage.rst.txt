@@ -2,8 +2,6 @@
 Running Tests
 ==============
 
-Phytest is based on the popular Python testing framework Pytest.
-It provides many convenient helper functions for testing phylogenetic analyses including methods for testing sequences, alignments, trees and metadata files.
 Phytest has been developed as a command-line interface, Python module, and Pytest plugin, providing multiple methods of invocation.
 
 Phytest CLI
