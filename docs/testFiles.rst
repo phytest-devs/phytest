@@ -6,6 +6,8 @@ Phytest is easily extendable and provides a simple interface for writing custom 
 The interface follows the Pytest model of testing i.e. tests are defined as Python functions (or class methods)
 containing assert statements that are collected and evaluated at run-time. Tests that fail are captured and reported
 to the user allowing for repeatable and automated testing.
+Pytest provides many convenient helper functions for testing phylogenetic analyses including methods for testing sequences,
+alignments, trees and metadata files.
 
 Phytest fixtures
 =================
@@ -60,7 +62,7 @@ The Phytest Sequence class is a sub-class of the Biopython SeqRecord class. This
     def test_example(sequence: Sequence):
         ...
 
-Any tests requiring the class will be run for every sequence in the file passed. For example if the fasta file below is passed to Phytest
+Any tests requiring the class will be run for every sequence in the file. For example if the fasta file below is passed to Phytest
 the :code:`test_example` function above would be run 4 times (Sequence_A-Sequence_D).
 
 .. code-block:: text
@@ -103,7 +105,7 @@ The Phytest Alignment class is a sub-class of the Biopython MultipleSeqAlignment
         ...
 
 Tests using the alignment file will be run once i.e. you will have access to the entire alignment during the test.
-Alignments are also passed to Phytest using the `--sequence` flag however they are required to be valid
+Alignments are also passed to Phytest using the :code:`--sequence` flag however they are required to be valid
 alignments e.g. all sequence must be the same length.
 
 .. code-block:: bash
