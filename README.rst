@@ -36,6 +36,8 @@ Documentation: https://phytest-devs.github.io/phytest
 
 Code: https://github.com/phytest-devs/phytest
 
+Tutorials: https://github.com/phytest-devs?q=example
+
 ----
 
 .. start-quickstart
@@ -49,7 +51,7 @@ Install phytest using pip:
     pip install phytest
 
 
-Usage
+Quick Start
 ============
 
 Phytest is a tool for automating quality control checks on sequence, tree and metadata files during phylogenetic analyses.
@@ -167,4 +169,4 @@ From the output we can see several tests failed:
 
 .. end-quickstart
 
-See docs for more information https://phytest-devs.github.io/phytest. 
+See docs for more information https://phytest-devs.github.io/phytest.

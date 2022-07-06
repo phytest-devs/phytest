@@ -225,7 +225,7 @@ testing = ["covdefaults (>=1.2.0)", "coverage (>=4)", "pytest (>=4)", "pytest-co
 
 [[package]]
 name = "fonttools"
-version = "4.33.3"
+version = "4.34.0"
 description = "Tools to manipulate font files"
 category = "main"
 optional = false
@@ -1487,8 +1487,8 @@ filelock = [
     {file = "filelock-3.7.1.tar.gz", hash = "sha256:3a0fd85166ad9dbab54c9aec96737b744106dc5f15c0b09a6744a445299fcf04"},
 ]
 fonttools = [
-    {file = "fonttools-4.33.3-py3-none-any.whl", hash = "sha256:f829c579a8678fa939a1d9e9894d01941db869de44390adb49ce67055a06cc2a"},
-    {file = "fonttools-4.33.3.zip", hash = "sha256:c0fdcfa8ceebd7c1b2021240bd46ef77aa8e7408cf10434be55df52384865f8e"},
+    {file = "fonttools-4.34.0-py3-none-any.whl", hash = "sha256:5fd7828b9b173acc095af41740bd42cb54e38a955df83d8e2d20286fdf5725aa"},
+    {file = "fonttools-4.34.0.zip", hash = "sha256:73d3fab85790f076d56db431bfdf9ce51b566816ff74d51e050e11ab1ffa8f8b"},
 ]
 identify = [
     {file = "identify-2.5.1-py2.py3-none-any.whl", hash = "sha256:0dca2ea3e4381c435ef9c33ba100a78a9b40c0bab11189c7cf121f75815efeaa"},
