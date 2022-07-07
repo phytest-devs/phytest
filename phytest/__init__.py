@@ -73,3 +73,13 @@ def _data_fixture(request):
 
 def pytest_html_report_title(report):
     report.title = "report"
+
+
+def pytest_html_results_summary(prefix, summary, postfix):
+    xfail_count = summary[-4].pop()
+    summary[-4].append(xfail_count.replace("expected failures", "warnings"))
+
+
+def pytest_html_results_table_row(report, cells):
+    if cells[0][0] == "XFailed":
+        cells[0][0] = "Warning"

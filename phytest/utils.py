@@ -2,6 +2,8 @@ from functools import partial
 from typing import List
 from warnings import warn
 
+import pytest
+
 
 class PhytestWarning(Warning):
     pass
@@ -18,6 +20,7 @@ def assert_or_warn(statement, warning, *messages):
     message = "\n".join(messages)
     if warning:
         warn(message, PhytestWarning)
+        pytest.xfail(f"PhytestWarning: {message}")
     else:
         raise PhytestAssertion(message)
 

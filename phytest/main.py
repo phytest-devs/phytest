@@ -22,7 +22,7 @@ def main(
         testfile = Path(os.path.abspath((inspect.stack()[1])[1]))
     args = [testfile]
     if not verbose:
-        args.extend(["-ra", "--tb=no", "--no-header"])
+        args.extend(["-rfesw", "--tb=no", "--no-header"])
     else:
         args.extend(["-v"])
     if sequence is not None:
