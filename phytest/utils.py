@@ -19,7 +19,7 @@ def assert_or_warn(statement, warning, *messages):
 
     message = "\n".join(messages)
     if warning:
-        warn(message, PhytestWarning)
+        warn(message, PhytestWarning, stacklevel=3)
         pytest.xfail(f"PhytestWarning: {message}")
     else:
         raise PhytestAssertion(message)
