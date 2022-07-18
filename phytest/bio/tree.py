@@ -1,8 +1,7 @@
 import copy
 import re
 from datetime import datetime
-from io import StringIO, BytesIO
-from pytest_html import extras
+from io import BytesIO, StringIO
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 from warnings import warn
@@ -12,6 +11,7 @@ from Bio.Align import MultipleSeqAlignment
 from Bio.Phylo.BaseTree import Clade
 from Bio.Phylo.BaseTree import Tree as BioTree
 from dateutil.parser import parse
+from pytest_html import extras
 from treetime import GTR, TreeTime
 from treetime.utils import DateConversion, datetime_from_numeric, numeric_date
 
@@ -213,7 +213,7 @@ class Tree(PhytestObject, BioTree):
             )
 
     def copy(self):
-        """ Makes a deep copy of this tree. """
+        """Makes a deep copy of this tree."""
         new_copy = copy.deepcopy(self)
         return new_copy
 
@@ -296,7 +296,7 @@ class Tree(PhytestObject, BioTree):
         self,
         filename: Union[str, Path],
         *,
-        format:Optional[str] = None,
+        format: Optional[str] = None,
         regression: Optional[TreeTime] = None,
         add_internal: bool = False,
         label: bool = True,
@@ -334,7 +334,7 @@ class Tree(PhytestObject, BioTree):
         min_root_date: Optional[float] = None,
         max_root_date: Optional[float] = None,
         valid_confidence: Optional[bool] = None,
-        extra:Optional[List] = None,
+        extra: Optional[List] = None,
         warning: bool = False,
         **kwargs,
     ):
@@ -359,13 +359,13 @@ class Tree(PhytestObject, BioTree):
         regression = regression or self.root_to_tip_regression(**kwargs)
         clock_model = DateConversion.from_regression(regression.clock_model)
         root_date = clock_model.numdate_from_dist2root(0.0)
-        
+
         if extra is not None:
             f = StringIO()
             self.plot_root_to_tip(filename=f, format="svg", regression=regression)
             svg = f.getvalue()
             extra.append(extras.html(svg))
-                
+
         if min_r_squared is not None:
             assert_or_warn(
                 clock_model.r_val**2 >= min_r_squared,
