@@ -1,7 +1,8 @@
 import copy
 import re
 from datetime import datetime
-from io import StringIO
+from io import StringIO, BytesIO
+from pytest_html import extras
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 from warnings import warn
@@ -211,6 +212,11 @@ class Tree(PhytestObject, BioTree):
                 f"Tip {tip.name} does not match any of the regex patterns in: '{patterns}'.",
             )
 
+    def copy(self):
+        """ Makes a deep copy of this tree. """
+        new_copy = copy.deepcopy(self)
+        return new_copy
+
     def root_to_tip_regression(
         self,
         *,
@@ -259,7 +265,7 @@ class Tree(PhytestObject, BioTree):
 
         regression = TreeTime(
             dates=dates,
-            tree=copy.deepcopy(self),
+            tree=self.copy(),
             aln=alignment,
             gtr=gtr,
             seq_len=sequence_length,
@@ -290,6 +296,7 @@ class Tree(PhytestObject, BioTree):
         self,
         filename: Union[str, Path],
         *,
+        format:Optional[str] = None,
         regression: Optional[TreeTime] = None,
         add_internal: bool = False,
         label: bool = True,
@@ -312,7 +319,10 @@ class Tree(PhytestObject, BioTree):
         from matplotlib import pyplot as plt
 
         regression.plot_root_to_tip(add_internal=add_internal, label=label, ax=ax)
-        plt.savefig(str(filename))
+        if isinstance(filename, Path):
+            filename = str(filename)
+
+        plt.savefig(filename, format=format)
 
     def assert_root_to_tip(
         self,
@@ -324,6 +334,7 @@ class Tree(PhytestObject, BioTree):
         min_root_date: Optional[float] = None,
         max_root_date: Optional[float] = None,
         valid_confidence: Optional[bool] = None,
+        extra:Optional[List] = None,
         warning: bool = False,
         **kwargs,
     ):
@@ -342,12 +353,19 @@ class Tree(PhytestObject, BioTree):
                 Defaults to None which does not perform a check.
             warning (bool): If True, raise a warning instead of an exception. Defaults to False.
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
+            extra (List): The pytest-html extra fixture for adding in root-to-tip regression plot.
             **kwargs: Keyword arguments for the `root_to_tip_regression` method.
         """
         regression = regression or self.root_to_tip_regression(**kwargs)
         clock_model = DateConversion.from_regression(regression.clock_model)
         root_date = clock_model.numdate_from_dist2root(0.0)
-
+        
+        if extra is not None:
+            f = StringIO()
+            self.plot_root_to_tip(filename=f, format="svg", regression=regression)
+            svg = f.getvalue()
+            extra.append(extras.html(svg))
+                
         if min_r_squared is not None:
             assert_or_warn(
                 clock_model.r_val**2 >= min_r_squared,
