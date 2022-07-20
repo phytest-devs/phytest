@@ -8,7 +8,7 @@ Clone the repository:
 
 .. code-block:: bash
 
-    git clone ttps://github.com/phytest-devs/phytest.git && cd phytest
+    git clone https://github.com/phytest-devs/phytest.git && cd phytest
 
 .. code-block:: bash
 
