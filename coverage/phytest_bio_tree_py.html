@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for phytest/bio/tree.py: 99.22%</title>
+    <title>Coverage for phytest/bio/tree.py: 100.00%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,13 +18,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>phytest/bio/tree.py</b> :
-            <span class="pc_cov">99.22%</span>
+            <span class="pc_cov">100.00%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
             129 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">128 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">1 missing</button>
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">129 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">0 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -330,7 +330,7 @@
     <p id="t276" class="run"><span class="n"><a href="#t276">276</a></span><span class="t">            <span class="nam">regression</span><span class="op">.</span><span class="nam">clock_filter</span><span class="op">(</span><span class="nam">n_iqd</span><span class="op">=</span><span class="nam">clock_filter</span><span class="op">,</span> <span class="nam">reroot</span><span class="op">=</span><span class="nam">root_method</span> <span class="key">or</span> <span class="str">'least-squares'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t277" class="run"><span class="n"><a href="#t277">277</a></span><span class="t">            <span class="nam">bad_nodes_after</span> <span class="op">=</span> <span class="op">[</span><span class="nam">node</span><span class="op">.</span><span class="nam">name</span> <span class="key">for</span> <span class="nam">node</span> <span class="key">in</span> <span class="nam">regression</span><span class="op">.</span><span class="nam">tree</span><span class="op">.</span><span class="nam">get_terminals</span><span class="op">(</span><span class="op">)</span> <span class="key">if</span> <span class="nam">node</span><span class="op">.</span><span class="nam">bad_branch</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t278" class="run"><span class="n"><a href="#t278">278</a></span><span class="t">            <span class="key">if</span> <span class="nam">len</span><span class="op">(</span><span class="nam">bad_nodes_after</span><span class="op">)</span> <span class="op">></span> <span class="nam">len</span><span class="op">(</span><span class="nam">bad_nodes</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t279" class="mis show_mis"><span class="n"><a href="#t279">279</a></span><span class="t">                <span class="nam">warn</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t279" class="run"><span class="n"><a href="#t279">279</a></span><span class="t">                <span class="nam">warn</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t280" class="pln"><span class="n"><a href="#t280">280</a></span><span class="t">                    <span class="str">"The following leaves don't follow a loose clock and "</span>&nbsp;</span><span class="r"></span></p>
     <p id="t281" class="pln"><span class="n"><a href="#t281">281</a></span><span class="t">                    <span class="str">"will be ignored in rate estimation:\n\t"</span> <span class="op">+</span> <span class="str">"\n\t"</span><span class="op">.</span><span class="nam">join</span><span class="op">(</span><span class="nam">set</span><span class="op">(</span><span class="nam">bad_nodes_after</span><span class="op">)</span><span class="op">.</span><span class="nam">difference</span><span class="op">(</span><span class="nam">bad_nodes</span><span class="op">)</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t282" class="pln"><span class="n"><a href="#t282">282</a></span><span class="t">                    <span class="nam">PhytestWarning</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -467,7 +467,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2022-07-27 03:33 +0000
+            created at 2022-07-27 03:42 +0000
         </p>
     </div>
 </div>
