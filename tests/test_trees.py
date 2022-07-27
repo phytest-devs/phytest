@@ -1,7 +1,8 @@
+import warnings
 from datetime import datetime
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-import warnings
+
 import pytest
 
 from phytest import Tree
@@ -162,5 +163,3 @@ def test_assert_root_to_tip_clock_filter():
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         tree.assert_root_to_tip(clock_filter=3.0)
-
-
