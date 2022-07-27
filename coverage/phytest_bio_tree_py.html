@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for phytest/bio/tree.py: 95.35%</title>
+    <title>Coverage for phytest/bio/tree.py: 99.22%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,13 +18,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>phytest/bio/tree.py</b> :
-            <span class="pc_cov">95.35%</span>
+            <span class="pc_cov">99.22%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
             129 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">123 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">6 missing</button>
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">128 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">1 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -103,7 +103,7 @@
     <p id="t49" class="pln"><span class="n"><a href="#t49">49</a></span><span class="t">    <span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t50" class="run"><span class="n"><a href="#t50">50</a></span><span class="t">        <span class="nam">patterns</span> <span class="op">=</span> <span class="nam">patterns</span> <span class="key">or</span> <span class="nam">default_date_patterns</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t51" class="run"><span class="n"><a href="#t51">51</a></span><span class="t">        <span class="key">if</span> <span class="nam">isinstance</span><span class="op">(</span><span class="nam">patterns</span><span class="op">,</span> <span class="nam">str</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t52" class="mis show_mis"><span class="n"><a href="#t52">52</a></span><span class="t">            <span class="nam">patterns</span> <span class="op">=</span> <span class="op">[</span><span class="nam">patterns</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t52" class="run"><span class="n"><a href="#t52">52</a></span><span class="t">            <span class="nam">patterns</span> <span class="op">=</span> <span class="op">[</span><span class="nam">patterns</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t53" class="pln"><span class="n"><a href="#t53">53</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t54" class="run"><span class="n"><a href="#t54">54</a></span><span class="t">        <span class="nam">dates</span> <span class="op">=</span> <span class="op">{</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
     <p id="t55" class="pln"><span class="n"><a href="#t55">55</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -415,10 +415,10 @@
     <p id="t361" class="run"><span class="n"><a href="#t361">361</a></span><span class="t">        <span class="nam">root_date</span> <span class="op">=</span> <span class="nam">clock_model</span><span class="op">.</span><span class="nam">numdate_from_dist2root</span><span class="op">(</span><span class="num">0.0</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t362" class="pln"><span class="n"><a href="#t362">362</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t363" class="run"><span class="n"><a href="#t363">363</a></span><span class="t">        <span class="key">if</span> <span class="nam">extra</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t364" class="mis show_mis"><span class="n"><a href="#t364">364</a></span><span class="t">            <span class="nam">f</span> <span class="op">=</span> <span class="nam">StringIO</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t365" class="mis show_mis"><span class="n"><a href="#t365">365</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">plot_root_to_tip</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="nam">f</span><span class="op">,</span> <span class="nam">format</span><span class="op">=</span><span class="str">"svg"</span><span class="op">,</span> <span class="nam">regression</span><span class="op">=</span><span class="nam">regression</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t366" class="mis show_mis"><span class="n"><a href="#t366">366</a></span><span class="t">            <span class="nam">svg</span> <span class="op">=</span> <span class="nam">f</span><span class="op">.</span><span class="nam">getvalue</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t367" class="mis show_mis"><span class="n"><a href="#t367">367</a></span><span class="t">            <span class="nam">extra</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">extras</span><span class="op">.</span><span class="nam">html</span><span class="op">(</span><span class="nam">svg</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t364" class="run"><span class="n"><a href="#t364">364</a></span><span class="t">            <span class="nam">f</span> <span class="op">=</span> <span class="nam">StringIO</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t365" class="run"><span class="n"><a href="#t365">365</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">plot_root_to_tip</span><span class="op">(</span><span class="nam">filename</span><span class="op">=</span><span class="nam">f</span><span class="op">,</span> <span class="nam">format</span><span class="op">=</span><span class="str">"svg"</span><span class="op">,</span> <span class="nam">regression</span><span class="op">=</span><span class="nam">regression</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t366" class="run"><span class="n"><a href="#t366">366</a></span><span class="t">            <span class="nam">svg</span> <span class="op">=</span> <span class="nam">f</span><span class="op">.</span><span class="nam">getvalue</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t367" class="run"><span class="n"><a href="#t367">367</a></span><span class="t">            <span class="nam">extra</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">extras</span><span class="op">.</span><span class="nam">html</span><span class="op">(</span><span class="nam">svg</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t368" class="pln"><span class="n"><a href="#t368">368</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t369" class="run"><span class="n"><a href="#t369">369</a></span><span class="t">        <span class="key">if</span> <span class="nam">min_r_squared</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t370" class="run"><span class="n"><a href="#t370">370</a></span><span class="t">            <span class="nam">assert_or_warn</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
@@ -467,7 +467,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2022-07-20 01:38 +0000
+            created at 2022-07-27 02:54 +0000
         </p>
     </div>
 </div>
