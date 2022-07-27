@@ -70,6 +70,78 @@ def test_cli_missing_sequence_file(request: pytest.FixtureRequest):
     assert "ValueError: test_length requires a sequence file" in result.stdout
 
 
+def test_cli_invalid_tree_format(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-t",
+            "examples/data/example.tree",
+            "-s",
+            "examples/data/example.fasta",
+            "-d",
+            "examples/data/example.csv",
+            "--tree-format",
+            "excel",
+            "-v",
+        ],
+    )
+    assert "Error: Invalid value for '--tree-format': 'excel' is not a valid tree format. Must be one of newick, nexus, phyloxml, nexml." in result.stdout
+
+
+def test_cli_invalid_data_format(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-t",
+            "examples/data/example.tree",
+            "-s",
+            "examples/data/example.fasta",
+            "-d",
+            "examples/data/example.csv",
+            "--data-format",
+            "pdf",
+            "-v",
+        ],
+    )
+    assert "Error: Invalid value for '--data-format': 'pdf' is not a valid data format. Must be one of csv, tsv, excel" in result.stdout
+
+
+def test_cli_invalid_sequence_format(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-t",
+            "examples/data/example.tree",
+            "-s",
+            "examples/data/example.fasta",
+            "-d",
+            "examples/data/example.csv",
+            "--sequence-format",
+            "pdf",
+            "-v",
+        ],
+    )
+    assert "Error: Invalid value for '--sequence-format': 'pdf' is not" in result.stdout
+
+
+def test_cli_invalid_data(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-t",
+            "phytest/bio/tree.py", # should not be read
+            "-d",
+            "phytest/bio/data.py",
+            "-v",
+        ],
+    )
+    assert "ValueError: test_length requires a sequence file" in result.stdout
+
+
 def test_cli_missing_tree_file(request: pytest.FixtureRequest):
     result = runner.invoke(
         app,
