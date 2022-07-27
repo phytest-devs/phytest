@@ -80,6 +80,11 @@ def test_parse_tip_dates():
         'B_1998-07-02': 1998.5,
         'C_1992-10-01': 1992.75,
     }
+    # Setting pattern explicitly
+    dates = tree.parse_tip_dates(patterns=r"\d{4}\.?\d*$", decimal_year=True)
+    assert dates == {
+        'A_1993.3': 1993.3,
+    }
 
 
 def test_plot_root_to_tip():
