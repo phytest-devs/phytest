@@ -1,5 +1,4 @@
 import re
-
 import pytest
 
 from phytest import Data
@@ -13,6 +12,12 @@ def test_data_read():
     data = Data.read(data_path, 'tsv')
     data_path = 'examples/data/example.xlsx'
     data = Data.read(data_path, 'excel')
+
+
+def test_data_read_invalid():
+    data_path = 'examples/data/example.csv'
+    with pytest.raises(ValueError, match="Data format must be one of csv, tsv, excel"):
+        Data.read(data_path, 'txt')
 
 
 def test_assert_data_contains():

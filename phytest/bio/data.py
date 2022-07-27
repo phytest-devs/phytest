@@ -1,6 +1,4 @@
 import re
-from typing import Optional
-
 import pandas as pd
 from pandas import DataFrame
 
@@ -12,7 +10,7 @@ class Data(PhytestObject, DataFrame):
     def read(cls, data_path, data_format) -> 'Data':
         allowed_formats = ['csv', 'tsv', 'excel']
         if data_format not in allowed_formats:
-            raise ValueError('Data format must be one of {allowed_formats}.')
+            raise ValueError(f'Data format must be one of {", ".join(allowed_formats)}.')
         if data_format == 'csv':
             df = pd.read_csv(data_path)
         elif data_format == 'tsv':
