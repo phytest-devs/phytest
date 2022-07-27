@@ -138,3 +138,12 @@ def test_assert_root_to_tip_covariation():
         match=r"Cannot perform root-to-tip regression with `covariation` as True if no alignment of sequence length is provided.",
     ):
         tree.assert_root_to_tip(covariation=True, valid_confidence=True)
+
+
+def test_assert_root_to_tip_root_extra():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
+
+    extra = []
+    tree.assert_root_to_tip(min_root_date=1772.0, max_root_date=1773.0, extra=extra)
+    assert extra[0]['format_type'] == 'html'
+    assert extra[0]['content'].startswith('<?xml version="1.0" encoding="utf-8" standalone="no"?>')
