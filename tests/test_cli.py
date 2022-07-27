@@ -37,6 +37,25 @@ def test_cli_basic(request: pytest.FixtureRequest):
     assert "7 passed" in result.stdout
 
 
+def test_cli_basic_expression(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-s",
+            "examples/data/example.fasta",
+            "-t",
+            "examples/data/example.tree",
+            "-d",
+            "examples/data/example.csv",
+            "-k",
+            "test_tree_number_of_tips"
+        ],
+    )
+    assert "1 passed" in result.stdout
+    assert "6 deselected" in result.stdout
+
+
 def test_cli_report(request: pytest.FixtureRequest):
     result = runner.invoke(
         app,
@@ -53,6 +72,25 @@ def test_cli_report(request: pytest.FixtureRequest):
         ],
     )
     assert Path("pytest-report.html").exists()
+
+
+def test_cli_report_invalid(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/basic.py"),
+            "-s",
+            "examples/data/example.fasta",
+            "-t",
+            "examples/data/example.tree",
+            "-d",
+            "examples/data/example.csv",
+            "-r",
+            "pytest-report.txt",
+        ],
+    )
+    assert isinstance(result.exception, ValueError)
+    assert str(result.exception) == "Report must use .html extension."
 
 
 def test_cli_missing_sequence_file(request: pytest.FixtureRequest):
