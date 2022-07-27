@@ -118,6 +118,38 @@ def test_assert_percent():
     ):
         sequence.assert_percent(nucleotide='A', max=24.9)
 
+    sequence.assert_percent(nucleotide='N', percent=0.0)
+
+
+def test_assert_percent_zero_length():
+    sequence = Sequence(
+        Seq(""),
+        id="empty",
+        name="empty",
+        description="empty dna sequence",
+    )
+    sequence.assert_percent(nucleotide='A', percent=0.0)
+
+
+def test_assert_percent_errors():
+    sequence = Sequence(
+        Seq("ATGC" * 100),
+        id="DNAID",
+        name="TEST",
+        description="Test dna sequence",
+    )
+    with pytest.raises(
+        ValueError,
+        match=re.escape("The length of the requested nucleotide"),
+    ):
+        sequence.assert_percent(nucleotide='AA', percent=25, min=24.9, max=25.1)
+
+    with pytest.raises(
+        ValueError,
+        match=re.escape("Nucleotide must be str or list and cannot be of type"),
+    ):
+        sequence.assert_percent(nucleotide=10, percent=25, min=24.9, max=25.1)
+
 
 def test_assert_percent_N():
     sequence = Sequence(

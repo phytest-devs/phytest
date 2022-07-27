@@ -148,15 +148,18 @@ class Sequence(PhytestObject, SeqRecord):
                 This flag can be set by running this method with the prefix `warn_` instead of `assert_`.
         """
         try:
-            if type(nucleotide) == str:
+            if isinstance(nucleotide, str):
                 if len(nucleotide) > 1:
-                    raise ValueError('Nucleotide length > 1.')
+                    raise ValueError(
+                        f"The length of the requested nucleotide '{nucleotide}' is more than a single character. "
+                        "This value should either be a single character (i.e. A, G, C, T) or a list of single characters."
+                    )
                 base_percent = (self.seq.count(nucleotide) * 100.0) / len(self.seq)
-            elif type(nucleotide) == list:
+            elif isinstance(nucleotide, list):
                 base_percent = (sum(self.seq.count(x) for x in nucleotide) * 100) / len(self.seq)
                 nucleotide = ', '.join(nucleotide)
             else:
-                raise ValueError('Nucleotide must be str or list.')
+                raise ValueError(f"Nucleotide must be str or list and cannot be of type '{type(nucleotide)}'.")
         except ZeroDivisionError:
             base_percent = 0.0
         summary = f"Sequence '{self.id}' contains {base_percent} percent '{nucleotide}'."
