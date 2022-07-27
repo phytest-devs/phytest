@@ -1,7 +1,7 @@
 from datetime import datetime
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-
+import warnings
 import pytest
 
 from phytest import Tree
@@ -152,3 +152,15 @@ def test_assert_root_to_tip_root_extra():
     tree.assert_root_to_tip(min_root_date=1772.0, max_root_date=1773.0, extra=extra)
     assert extra[0]['format_type'] == 'html'
     assert extra[0]['content'].startswith('<?xml version="1.0" encoding="utf-8" standalone="no"?>')
+
+
+def test_assert_root_to_tip_clock_filter():
+    tree = Tree.read("examples/data/ice_viruses.fasta.treefile", tree_format="newick")
+    with pytest.warns(PhytestWarning):
+        tree.assert_root_to_tip(clock_filter=1.0)
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        tree.assert_root_to_tip(clock_filter=3.0)
+
+
