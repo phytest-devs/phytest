@@ -223,3 +223,17 @@ def test_cli_missing_alignment_file(request: pytest.FixtureRequest):
         ],
     )
     assert "ValueError: test_alignment_length requires an alignment file" in result.stdout
+
+
+def test_cli_alignment(request: pytest.FixtureRequest):
+    result = runner.invoke(
+        app,
+        [
+            str(request.path.parent / "input/alignment.py"),
+            "-s",
+            "examples/data/example.fasta",
+            "-v",
+        ],
+    )
+    assert "1 passed" in result.stdout
+
