@@ -139,7 +139,7 @@ We can write these tests in a python files :code:`example.py`
 Running Phytest
 ################
 
-We can then run these test on our data with :code:`phytest`:
+We can then run these tests on our data with :code:`phytest`:
 
 .. code-block:: bash
 
