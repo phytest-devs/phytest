@@ -3,7 +3,7 @@
 
 .. start-badges
 
-|pypi badge| |tests badge| |coverage badge| |docs badge| |black badge| |pre-commit badge|
+|pypi badge| |tests badge| |coverage badge| |docs badge| |black badge| |pre-commit badge| |doi badge|
 
 
 .. |pypi badge| image:: https://img.shields.io/pypi/v/phytest.svg
@@ -24,6 +24,9 @@
 .. |pre-commit badge| image:: https://results.pre-commit.ci/badge/github/phytest-devs/phytest/main.svg
     :target: https://results.pre-commit.ci/latest/github/phytest-devs/phytest/main
 
+.. |doi badge| image:: https://img.shields.io/badge/DOI-10.21203%2Frs.3.rs1903486%2Fv1-success.svg
+    :target: https://www.researchsquare.com/article/rs-1903486/v1
+    
 .. end-badges
 
 
