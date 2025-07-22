@@ -1,10 +1,12 @@
 from pathlib import Path
 
 import pytest
-# from py.xml import html
 
 from .bio import Alignment, Data, Sequence, Tree
 from .main import main as main
+
+# from py.xml import html
+
 
 
 def pytest_addoption(parser):
@@ -69,6 +71,19 @@ def _data_fixture(request):
     data_format = request.config.getoption("--data-format")
     data = Data.read(data_path, data_format)
     return data
+
+
+@pytest.fixture(scope="session", name="trees")
+def _trees_fixture(request):
+    tree_path = request.config.getoption("tree")
+    if tree_path is None:
+        raise ValueError("trees fixture requires a tree file to be specified with --tree")
+    fpth = Path(tree_path)
+    if not fpth.exists():
+        raise FileNotFoundError(f"Unable to locate requested tree file ({fpth})! 😱")
+    tree_format = request.config.getoption("--tree-format")
+    trees = Tree.parse(tree_path, tree_format)
+    return trees
 
 
 def pytest_html_report_title(report):
