@@ -34,7 +34,7 @@ def test_cli_basic(request: pytest.FixtureRequest):
             "examples/data/example.csv",
         ],
     )
-    assert "7 passed" in result.stdout
+    assert "8 passed" in result.stdout
 
 
 def test_cli_basic_expression(request: pytest.FixtureRequest):
@@ -53,7 +53,7 @@ def test_cli_basic_expression(request: pytest.FixtureRequest):
         ],
     )
     assert "1 passed" in result.stdout
-    assert "6 deselected" in result.stdout
+    assert "7 deselected" in result.stdout
 
 
 def test_cli_parallel(request: pytest.FixtureRequest):
